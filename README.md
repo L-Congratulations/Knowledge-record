@@ -35,3 +35,29 @@ helloworld.js 所在的文件夹放在哪里都行，只要命令行中路径指
 只有helloworld.js 中console出来的才能在命令行中显示，其他代码命令行中是不可见的
 关掉命令行窗口之后服务器即停止
 
+2.编写http服务器
+/**
+ * Created by ls-pc on 2017/2/6.
+ */
+var http=require("http");//此处的require是node自带的http模块，我们把它赋值给http变量
+http.createServer(function(request,response){//此处我们调用http模块提供的方法createServer
+                                            // ，这个函数会返回一个对象，这个对象有一个叫
+                                            // listen的方法，这个方法有一个数值参数，指定
+                                            // 这个http服务器监听的端口号
+    response.writeHead(200,{"Content-Type":"text/plain"});
+    response.write("hello world");
+    response.end();
+}).listen(8888);
+
+//进行函数传递http.createServer(function(request,response){}）
+//实际上，function(request,response){}这个函数定义是createServer（）
+//的第一个也是唯一一个参数，因为在JavaScript中，函数和其他变量一样都
+//是可以被传递的
+//用下面的代码和上面效果一样：
+var http=require("http");
+function onRequest(request,response){
+    response.writeHead(200,{"Content-Type":"text/plain"});
+    response.write("hello world");
+    response.end();
+}
+http.createServer(onRequest).listen(8888);
