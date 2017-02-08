@@ -2,7 +2,7 @@
 record  important knowledge
 Start to learn english and managed code// 正式开启学习英语和代码托管之旅
 placeholder-->h5新特性代码提示效果，在IE9及以下不支持，可以利用如下函数进行兼容：
-<script>
+script>
   var JPlaceHolder = {
       //检测
         _check : function(){
@@ -40,4 +40,4 @@ placeholder-->h5新特性代码提示效果，在IE9及以下不支持，可以�
     jQuery(function(){
         JPlaceHolder.init();    
     });
-</script>
+script>
