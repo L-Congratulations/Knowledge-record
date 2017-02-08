@@ -1,0 +1,55 @@
+node.js安装
+http://jingyan.baidu.com/article/b0b63dbfca599a4a483070a5.html
+
+知乎
+https://www.zhihu.com/question/19793473
+Node 在什么情况下是一个好的解决方案
+http://www.ibm.com/developerworks/cn/opensource/os-nodejs/index.html?ca=drs#ibm-pcon
+
+
+了解nodejs
+node公开宣称的目标是：构建可伸缩网络程序     （的方法）（提供一种）（一种简单的方法）
+1.现在您有了一个能处理数万个并发连接的程序，那么您能通过 Node 实际构建什么呢？
+ 
+2. Node 的工作原理以及它的设计运行方式。
+    2.1 node肯定不是什么
+            Node 是一个服务器程序。但是，基础 Node 产品肯定不 像 Apache 或 Tomcat。本质上，那些服务器 “安装就绪型” 服             务器产品，支持立即部署应用程序。
+
+7.更常见的是通过node.exe来执行xxx.js文件。下面我们就要进入windows真正的命令行了。
+8.启动nodejs服务 需要在cmd中地址精确到helllo.js所在的文件夹下
+http://jingyan.baidu.com/article/91f5db1b3e1f991c7f05e395.html
+http://jingyan.baidu.com/article/b0b63dbfca599a4a483070a5.html
+
+
+
+
+命令行里输入某个硬盘内的文件路径时要加cd如：cd D:\environment\Node\nodejs-6.9.1\node.js\scripts\controller否则报错
+cd，定位到目录
+ls，列出文件列表
+
+helloworld.js 所在的文件夹放在哪里都行，只要命令行中路径指对了就可以
+只有helloworld.js 中console出来的才能在命令行中显示，其他代码命令行中是不可见的
+关掉命令行窗口之后服务器即停止
+
+
+
+Gulp安装
+       http://www.tuicool.com/articles/FJVNZf
+http://jingyan.baidu.com/article/14bd256e7f7d7fbb6d2612c4.html
+http://www.cnblogs.com/rion1234567/p/5556891.html
+安装全局gulp--------建立 packge.json文件------项目内安装局部gulp和所需模块------建立gulpfile.js----命令行运行对应模块
+
+sudo npm install -g gulp
+sudo是以管理员身份执行命令，一般会要求输入电脑密码
+npm是安装node模块的工具，执行install命令
+
+-g表示在全局环境安装，以便任何项目都能使用它
+
+最后，gulp是将要安装的node模块的名字
+
+
+mysql 安装教程
+工具：mysql5.7.16winx64.msi
+安装教程：http://jingyan.baidu.com/article/597035521d5de28fc00740e6.html
+报错解决方法：https://zhidao.baidu.com/question/1240993463316101459.html
+辅助工具：Navicat_for_MySQL_10.1.7_绿色版.exe
