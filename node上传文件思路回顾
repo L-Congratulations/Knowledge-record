@@ -1,0 +1,109 @@
+1、index.js
+ 首先引入所依赖的模块这里主要是用于启动服务和传递参数所需要的模块
+ server.js(服务器模块，用于启动函数和启动服务)，route.js（路由模块，此处主要是为了server.js中的route函数用来传递参数用），
+ requestHandlers.js（也是为了server.js中的route函数用来传递参数用），
+ 此外还需要定义一个handle{}对象，用来指引不同的URL具体去操作哪个requestHandlers中的处理请求函数
+ 最后启动server.js中的函数，来启动服务，并在启动服务过程中调用函数来进行服务器端的程序处理
+ var server=require("./server");
+var router=require("./router");
+var requestHadnler=require("./requestHandler");
+
+
+var handle={};
+handle["/"]=requestHadnler.start;
+handle["/start"]=requestHadnler.start;
+handle["/upload"]=requestHadnler.upload;
+handle["/show"]=requestHadnler.show;
+
+server.start(router.route,handle);
+
+2、server.js
+ 首先引入依赖的模块 http模块和URL模块
+ 然后建一个函数，并在最后把函数暴露出去，便于其他模块调用
+ 函数内包含启动服务和启动服务所要执行的函数
+ 在此需求下我们启动服务时执行的函数需要完成以下事情：：：
+ 解析URL并保存在变量中便于调用--》启动路由模块的route函数进行下一步处理
+ var http=require("http");
+var url=require("url");
+function start(route,handle){
+    function onRequest(request,response){
+        var pathname=url.parse(request.url).pathname;
+        console.log("request for " +pathname+" received");
+        route(handle,pathname,response,request);
+    }
+    http.createServer(onRequest).listen(8888);
+    console.log("server has started");
+}
+exports.start=start;
+
+3、router.js
+  路由模块没有所依赖的，模块，他是对处理前边模块所传递的参数进行具体处理的，主要的工作包括：
+  判断服务器内是否有该URL所对应的函数处理程序，如果有则执行，如果没有返回404
+  
+  function route(handle,pathname,response,request){
+    console.log("about to route a request for "+ pathname);
+    if (typeof handle[pathname]==='function'){
+        handle[pathname](response,request);
+    }else {
+        console.log("no request handler found for " + pathname);
+        response.writeHead(404,{"Content-Type":"text/plain"});
+        response.write("404 Not found");
+        response.end();
+    }
+}
+exports.route=route;
+
+4、requestHandlers.js
+ 此处是对请求具体处理的地方，前边都是为了让不同的URL找到正确的处理程序做的铺垫。
+ var querystring=require("querystring");
+var fs=require("fs");
+var formidable=require("formidable");
+
+function start(response){
+    console.log("request handler 'start' was called");
+    var body=
+        '<html>' +
+        '<head><meta http-equiv="content-type" content="text/html" charset="utf-8"/></head>' +
+        '<body>' +
+        '<form action="/upload" enctype="multipart/form-data" method="post">' +
+        '<input type="file" name="upload" multiple="multiple"/>' +
+        '<input type="submit" value="Upload file"/>' +
+        '</form>' +
+        '</body>' +
+        '</html>';
+    response.writeHead(200,{"Content-Type":"text/html"});
+    response.write(body);
+    response.end();
+}
+function upload(response,request){
+    console.log("request handler 'upload' was called");
+    var form=new formidable.IncomingForm();
+    form.uploadDir='tmp';
+    console.log("about to parse");
+    form.parse(request,function(error,fields,files){
+        console.log("parsing done");
+        fs.renameSync(files.upload.path,"./tmp/test.png");
+        response.writeHead(200,{"Content-Type":"text/html"});
+        response.write("received img :<br/>");
+        response.write("<img src='/show'/>");
+        response.end();
+    })
+}
+function show(response){
+    console.log("request handler 'show' was called" );
+    fs.readFile("./tmp/test.png","binary",function(error,file){
+        if(error){
+            response.writeHead(500,{"Content-Type":"text/plain"});
+            response.write(error+"\n");
+            response.end();
+        }else {
+            response.writeHead(200,{"Content-Type":"image/png"});
+            response.write(file,"binary");
+            response.end();
+        }
+    })
+}
+exports.start=start;
+exports.upload=upload;
+exports.show=show;
+ 
