@@ -13,3 +13,7 @@ function upload(response,request){
         response.end();
     })
 }
+
+
+// 2、命令提示符内复制代码：：：
+// 右键--》标记--》选择自己要复制的代码段--》右键--》此时代码已经复制好
