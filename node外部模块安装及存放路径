@@ -1,0 +1,4 @@
+// 1、node外部模块安装的具体方法和存放路径：
+// 安装命令：：npm install formidable
+//在哪个目录下打开命令提示符则外部模块就安装在那个目录下node_moduls文件夹内
+// 为了调用不出错，我们一般将项目+node.exe+node_moduls放在同一目录下
