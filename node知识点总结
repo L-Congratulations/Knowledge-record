@@ -1,0 +1,53 @@
+1、require（请求）
+  require 用来加载一个文件的代码，关于 require 的机制这里不展开讲解，请仔细阅读 官方文档。
+  简单概括以下几点:
+
+  require 可加载 .js、.json 和 .node 后缀的文件
+  require 的过程是同步的，所以这样是错误的:
+  setTimeout(() => {
+    module.exports = { a: 'hello' };
+  }, 0);
+  require 这个文件得到的是空对象 {}
+
+  require 目录的机制是:
+  如果目录下有 package.json 并指定了 main 字段，则用之
+  如果不存在 package.json，则依次尝试加载目录下的 index.js 和 index.node
+  require 过的文件会加载到缓存，所以多次 require 同一个文件（模块）不会重复加载
+  判断是否是程序的入口文件有两种方式:
+  require.main === module（推荐）
+  module.parent === null
+  
+  2、exports （导出）
+  
+  require 用来加载代码，而 exports 和 module.exports 则用来导出代码。
+  var a = {name: 1};
+var b = a;
+
+console.log(a);
+console.log(b);
+
+b.name = 2;
+console.log(a);
+console.log(b);
+
+var b = {name: 3};
+console.log(a);
+console.log(b);
+运行 test.js 结果为：
+
+{ name: 1 }
+{ name: 1 }
+{ name: 2 }
+{ name: 2 }
+{ name: 2 }
+{ name: 3 }
+解释：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，
+所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地
+址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当
+b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。
+明白了上述例子后，我们只需知道三点就知道 exports 和 module.exports 的区别了：
+
+  module.exports 初始值为一个空对象 {}//相当于a
+  exports 是指向的 module.exports 的引用//相当于b
+  require() 返回的是 module.exports 而不是 exports
+  
