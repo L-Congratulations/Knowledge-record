@@ -1,0 +1,17 @@
+1、安装 package.json
+package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件重点内容，它是存放在项目根目录的普通json文件：
+-安装步骤：进入项目根目录打开此目录下的命令行--》npm init -->填写的内容参照下面链接内容
+（http://jingyan.baidu.com/article/14bd256e7f7d7fbb6d2612c4.html）
+
+2、安装express：
+接下来安装 Express 并将其保存到依赖列表中：
+$ npm install express --save
+如果只是临时安装 Express，不想将它添加到依赖列表中，只需略去 --save 参数即可：
+$ npm install express
+安装 Node 模块时，如果指定了 --save 参数，那么此模块将被添加到 package.json 文件中 dependencies 依赖列表中。 
+然后通过 npm install 命令即可自动安装依赖列表中所列出的所有模块。
+
+3、express应用生成器
+通过应用生成器工具 express 可以快速创建一个应用的骨架（快速搭建一个项目结构 你可以选择用生成器也可以自己手动搭建）。
+ 应用生成器群：--》npm install express - g -->express myapp(搭建myapp的结构) --->cd myapp-->npm install(进入myapp文件目录 安装依赖)
+ ---》set DEBUG=myapp & npm start(在此目录下启动应用)
