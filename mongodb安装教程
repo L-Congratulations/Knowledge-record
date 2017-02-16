@@ -11,6 +11,7 @@
  到次数mongodb配置完毕  下面是启动：
  
  
- 9、然后输入：mongod --config D:\mongoDB\mongo.config--》注意：这条命令是mongodb数据库的启动文件，要想运行数据库这条命令不能关
+ 9、打开D：\ mongoDB \ bin下命令行输入：mongod --config D:\mongoDB\mongo.config--》注意：这条命令是mongodb数据库的启动文件，
+ 要想运行数据库这条命令不能关
  10、再打开一个新的D：\ mongoDB \ bin下命令行输入mongo就可以编辑数据库了
  
