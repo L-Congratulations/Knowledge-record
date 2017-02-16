@@ -15,3 +15,7 @@
  要想运行数据库这条命令不能关
  10、再打开一个新的D：\ mongoDB \ bin下命令行输入mongo就可以编辑数据库了
  
+ 
+ 参照：
+http://jingyan.baidu.com/article/d5c4b52bef7268da560dc5f8.html
+http://www.runoob.com/mongodb/mongodb-window-install.html
