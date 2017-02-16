@@ -1,8 +1,16 @@
-首先从官网上下载压缩包http://www.mongodb.org/downloads--》
- 在D盘新建mongodb文件夹，安装下载好的压缩包：你可以通过点击 "Custom(自定义)" 按钮来设置你的安装目录---安装在D盘mongodb文件夹下。--》
- 在mongodb文件夹内新建一个文件夹data和一个mongo.config文件--》
- 打开mongo.config文件在里面写入：dbpath=D:\mongodb\data\db
+1、首先从官网上下载压缩包http://www.mongodb.org/downloads--》
+ 2、在D盘新建mongodb文件夹，安装下载好的压缩包：你可以通过点击 "Custom(自定义)" 按钮来设置你的安装目录---安装在D盘mongodb文件夹下。--》
+ 3、在mongodb文件夹内新建一个文件夹data和一个mongo.config文件--》
+ 4、打开mongo.config文件在里面写入：dbpath=D:\mongodb\data\db
                                logpath=D:\mongodb\data\log\mongo.log 并保存--》
- 打开data文件夹在里面新建两个文件：db文件和log文件--》
- 打开log文件并在里面新建一个mongo.log文件并保存--》
-将MongoDB服务器作为Windows服务运行打开D：\ mongoDB \ bin下的命令行以管理员的身份运行 - 》
+ 5、打开data文件夹在里面新建两个文件：db文件和log文件--》
+ 6、打开log文件并在里面新建一个mongo.log文件并保存--》
+7、将MongoDB服务器作为Windows服务运行打开D：\ mongoDB \ bin下的命令行以管理员的身份运行 - 》
+ 8、输入：mongod.exe  --logpath "D:\mongoDB\data\log\mongo.log" --logappend --dbpath "D:\mongoDB\data\db" 
+ --serviceName "imooc" --install--》
+ 到次数mongodb配置完毕  下面是启动：
+ 
+ 
+ 9、然后输入：mongod --config D:\mongoDB\mongo.config--》注意：这条命令是mongodb数据库的启动文件，要想运行数据库这条命令不能关
+ 10、再打开一个新的D：\ mongoDB \ bin下命令行输入mongo就可以编辑数据库了
+ 
