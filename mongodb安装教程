@@ -1,0 +1,8 @@
+首先从官网上下载压缩包http://www.mongodb.org/downloads--》
+ 在D盘新建mongodb文件夹，安装下载好的压缩包：你可以通过点击 "Custom(自定义)" 按钮来设置你的安装目录---安装在D盘mongodb文件夹下。--》
+ 在mongodb文件夹内新建一个文件夹data和一个mongo.config文件--》
+ 打开mongo.config文件在里面写入：dbpath=D:\mongodb\data\db
+                               logpath=D:\mongodb\data\log\mongo.log 并保存--》
+ 打开data文件夹在里面新建两个文件：db文件和log文件--》
+ 打开log文件并在里面新建一个mongo.log文件并保存--》
+将MongoDB服务器作为Windows服务运行打开D：\ mongoDB \ bin下的命令行以管理员的身份运行 - 》
