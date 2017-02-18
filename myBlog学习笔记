@@ -1,6 +1,7 @@
 1、新建文件夹myBlog
 2、打开文件夹内的命令行，运行npm init 安装 package.json
-  package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件重点内容，它是存放在项目根目录的普通json文件：
+  package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件重点内容，
+  它是存放在项目根目录的普通json文件：
   -安装步骤：进入项目根目录打开此目录下的命令行--》npm init -->填写的内容参照下面链接内容
   （http://jingyan.baidu.com/article/14bd256e7f7d7fbb6d2612c4.html）
   ---name项不能包含大写字母 前四项是必填项 后边可填可不填
@@ -22,6 +23,14 @@
     // npm install在哪个目录下执行就安装在这个目录的node_modules文件夹下。
     // package.json定义了需要安装哪些依赖，在package.json所在的目录下执行npm install。
     此项目需要依赖的模块有：：：
+      ----安装 Node 模块时，如果指定了 --save 参数，那么此模块将被添加到 package.json 文件中
+      dependencies 依赖列表中。 
+          然后通过 npm install 命令即可自动安装依赖列表中所列出的所有模块。
+      --npm install config-lite connect-flash connect-mongo ejs express 
+      express-formidable express-session marked moment mongolass objectid-to-timestamp
+      sha1 winston express-winston --save
+          
+          
       config-lite: 读取配置文件
       connect-flash: 页面通知提示的中间件，基于 session 实现
       connect-mongo: 将 session 存储于 mongodb，结合 express-session 使用
@@ -36,3 +45,38 @@
       sha1: sha1 加密，用于密码加密
       winston: 日志
       express-winston: 基于 winston 的用于 express 的日志中间件
+      
+5、配置文件：：：
+      不管是小项目还是大项目，将配置与代码分离是一个非常好的做法。我们通常将配置写到一个配置文件里，
+      如 config（配置的意思）.js 或 config.json ，并放到项目的根目录下。但通常我们都会有许多环境，如本地开发环
+      境、测试环境和线上环境等，不同的环境的配置不同，我们不可能每次部署时都要去修改引用 config.test.js 
+      或者 config.production.js。config-lite 模块正是你需要的。
+      config-lite 是一个轻量的读取配置文件的模块。config-lite 会根据环境变量（NODE_ENV）的不同从当前
+      执行进程目录下的 config 目录加载不同的配置文件。如果不设置 NODE_ENV，则读取默认的 default 配置文件，
+      如果设置了 NODE_ENV，则会合并指定的配置文件和 default 配置文件作为配置，config-lite 
+      支持 .js、.json、.node、.yml、.yaml 后缀的文件。
+
+      如果程序以 NODE_ENV=test node app 启动，则通过 require('config-lite') 会依次降级查找
+      config/test.js、config/test.json、config/test.node、config/test.yml、config/test.yaml 
+      并合并 default 配置; 如果程序以 NODE_ENV=production node app 启动，则通过 require('config-lite') 
+      会依次降级查找 config/production.js、config/production.json、config/production.node、
+      config/production.yml、config/production.yaml 并合并 default 配置。
+
+      在 myblog 下新建 config 目录，在该目录下新建 default（默认的意思）.js，添加如下代码：
+
+      config/default.js
+
+      module.exports = {
+        port: 3000,
+        session: {
+          secret: 'myblog',
+          key: 'myblog',
+          maxAge: 2592000000
+        },
+        mongodb: 'mongodb://localhost:27017/myblog'
+      };
+      配置释义：
+
+      port: 程序启动要监听的端口号
+      session: express-session 的配置信息，后面介绍
+      mongodb: mongodb 的地址，myblog 为 db 名
