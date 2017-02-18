@@ -1,2 +1,14 @@
 1、新建文件夹myBlog
-2、打开文件夹内的命令行，运行npm init 安装
+2、打开文件夹内的命令行，运行npm init 安装 package.json
+  package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件重点内容，它是存放在项目根目录的普通json文件：
+  -安装步骤：进入项目根目录打开此目录下的命令行--》npm init -->填写的内容参照下面链接内容
+  （http://jingyan.baidu.com/article/14bd256e7f7d7fbb6d2612c4.html）
+  ---name项不能包含大写字母 前四项是必填项 后边可填可不填
+3、在myBlog文件夹下建立项目结构：
+        ---public文件夹存放外部文件，images，js ，css ，，，存放静态文件，如样式、图片等
+        ---views文件夹存放视图界面，，，存放模板文件
+        ---routes文件夹存放路由，，，存放路由文件
+        ---models文件夹存放，，，，存放操作数据库的文件
+        ---app.js文件项目启动文件，，，程序主文件
+        ---package.json: 存储项目名、描述、作者、依赖等等信息
+4、安装依赖模块：        
