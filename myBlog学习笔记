@@ -11,4 +11,9 @@
         ---models文件夹存放，，，，存放操作数据库的文件
         ---app.js文件项目启动文件，，，程序主文件
         ---package.json: 存储项目名、描述、作者、依赖等等信息
+        
+        
+---------我们遵循了 MVC（模型(model)－视图(view)－控制器(controller/route)） 的开发模式。        
+        
 4、安装依赖模块：        
+    运行npm install 
