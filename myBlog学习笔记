@@ -195,6 +195,16 @@
         next();
       }
     };
+    ----------------------
+    Express是一个基于Node.js实现的Web框架，其响应HTTP请求的response对象中有两个
+    用于URL跳转方法res.location()和res.redirect()，使用它们可以实现URL的301或302重定向。
+    res.redirect([status,] path)
+    其中参数：
+    status：{Number}，表示要设置的HTTP状态码
+    path：{String}，要设置到Location头中的URL
+    使用指定的http状态码，重定向到指定的URL，如果不指定http状态码，使用默认的状态码”302“：”Found“，
+    详见：：：http://www.cnblogs.com/duhuo/p/5609127.html
+    -----------------------
     可以看出：
 
     checkLogin: 当用户信息（req.session.user）不存在，即认为用户没有登录，则跳转到登录页，同时显示 未登录 的通知，
