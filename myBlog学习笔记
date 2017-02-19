@@ -223,6 +223,29 @@
       app.use('/signout', require('./signout'));
       app.use('/posts', require('./posts'));
     };
+    -------------
+          app.use 不是来处理请求的, 而是来加载处理请求的路由模块的参数.
+      比如这个例子:
+          app.use(express.bodyParser());
+          app.use(express.methodOverride());
+          app.use(app.router);
+          app.use(function(err, req, res, next){
+            // logic
+          });
+          一个请求过来, 被 .use 写好的各个函数依次处理,
+          更准确说, 是从第一个开始处理, 到一个做一点操作, 也可能截断流程直接返回…
+          而 app.get 等等 HTTP 请求的操作, 统一在 app.routes 着一个模块里边
+          http://expressjs.com/api.html#app.routes
+          所以, 先调用应该是 app.use, 而 app.get 应该是属于被前者调用才对…
+
+          app.use和app.get,app.post等等在express框架里面处理都是类似的,都是抽象成一个Layer(层),
+          只是app.get这些的层比app.use的层稍微复杂一点.顺序方面的话,先注册的层在访问的时候先调用,
+          调用next()到下一个匹配url的Layer
+          
+          
+          个人理解：app.use（）是用来注册服务的，app.get（）是他的一个特殊形式或是子集，只能用来处理http请求，
+          执行顺序是先调用先执行属于平级？？？？
+    -------------      
     routes/posts.js
 
     var express = require('express');
