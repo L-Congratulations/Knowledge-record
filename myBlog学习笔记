@@ -242,10 +242,35 @@
           只是app.get这些的层比app.use的层稍微复杂一点.顺序方面的话,先注册的层在访问的时候先调用,
           调用next()到下一个匹配url的Layer
           
+          express 中的中间件（middleware）就是用来处理请求的，当一个中间件处理完，可以通过调用 next() 
+          传递给下一个中间件，如果没有调用 next()，则请求不会往下传递
           
-          个人理解：app.use（）是用来注册服务的，app.get（）是他的一个特殊形式或是子集，只能用来处理http请求，
-          执行顺序是先调用先执行属于平级？？？？
-    -------------      
+          通过 app.use 加载中间件，在中间件中通过 next 将请求传递到下一个中间件
+          ，next 可接受一个参数接收错误信息，如果使用了 next(error)，则会返回错误而不会传递到下一个中间件，
+          app.get（）是他的一个特殊形式或是子集，只能用来处理http请求，
+          执行顺序是先调用先执行属于平级，express 中的中间件（middleware）就是用来处理请求的，当一个中间件处理完，
+          可以通过调用 next()传递给下一个中间件，如果没有调用 next()，则请求不会往下传递
+    -------------  
+    -------------
+    
+    require 用来加载一个文件的代码，关于 require 的机制这里不展开讲解，请仔细阅读 官方文档。
+    简单概括以下几点:
+    require 可加载 .js、.json 和 .node 后缀的文件
+    require 的过程是同步的，所以这样是错误的:
+    setTimeout(() => {
+      module.exports = { a: 'hello' };
+    }, 0);
+    require 这个文件得到的是空对象 {}
+
+    require 目录的机制是:
+    如果目录下有 package.json 并指定了 main 字段，则用之
+    如果不存在 package.json，则依次尝试加载目录下的 index.js 和 index.node
+    require 过的文件会加载到缓存，所以多次 require 同一个文件（模块）不会重复加载
+    判断是否是程序的入口文件有两种方式:
+    require.main === module（推荐）
+    module.parent === null
+    
+    -------------------------
     routes/posts.js
 
     var express = require('express');
