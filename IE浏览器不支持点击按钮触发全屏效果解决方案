@@ -1,0 +1,83 @@
+前台：获取浏览器版本然后调用ajax调用后台方法
+        function fullScreen(){
+            document.getElementById("unwind").onclick=function(){                
+                if(window.screen.height!==$(window).outerHeight(true) || window.screen.width!==$(window).outerWidth(true)){
+                    //全屏
+                    requestFullScreen(document.documentElement);
+                }                
+                else{
+                    //退出全屏                
+                    exitFull(document.documentElement);
+                }                             
+            };
+            function requestFullScreen(element) {
+                // 判断各种浏览器，找到正确的方法
+                var requestMethod = element.requestFullScreen || //W3C
+                element.webkitRequestFullScreen ||    //Chrome等
+                element.mozRequestFullScreen || //FireFox
+                element.msRequestFullScreen; //IE9                
+                if (requestMethod) {
+                    requestMethod.call(element);                   
+                }              
+                else{                    
+                    $.ajax({
+                        type: "post",
+                        url : "${ctx}/company/dokeyPress.do",                        
+                        success: function(data){                            
+                       }                    
+                    });                    
+                  }
+            }
+            //退出全屏 判断浏览器种类
+            function exitFull() {
+                // 判断各种浏览器，找到正确的方法
+                var exitMethod = document.exitFullscreen || //W3C
+                document.mozCancelFullScreen ||    //Chrome等
+                document.webkitExitFullscreen || //FireFox
+                document.webkitExitFullscreen; //IE9
+                if (exitMethod) {
+                    exitMethod.call(document);
+                }
+            }
+        }
+        fullScreen(); 
+后台：：获取键盘并模拟键盘事件
+    @RequestMapping(value="/dokeyPress.do")
+    public void dokeyPress() throws AWTException{
+        Robot robot = new Robot(); //创建一个robot对象
+        keyPress(robot, KeyEvent.VK_F11);
+    }    
+    // ctrl+ 按键
+    public static void keyPress(Robot r, int key) {
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.delay(100);
+    } 
+如果后台代码（java）没有返回值前台会报404，所以后台代码优化如下：
+ @ResponseBody
+    @RequestMapping(value="/dokeyPress.do")
+    public boolean dokeyPress() throws AWTException{
+        Robot robot = new Robot(); //创建一个robot对象
+        System.out.println("--------------------------------");
+        keyPress(robot, KeyEvent.VK_F11);
+        return true;
+    }
+    
+    // ctrl+ 按键
+    public static void keyPress(Robot r, int key) {
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.delay(100);
+    }  
+    
+    因为是用脚本语言模仿的F11点击事件，而主流浏览器都支持F11全屏的切换，所以前台代码直接简化为：
+         function fullScreen(){
+            document.getElementById("unwind").onclick=function(){
+                    $.ajax({
+                        type: "post",
+                        url : "${ctx}/company/dokeyPress.do",                        
+                        success: function(data){                            
+                       }                    
+                    });
+                }
+            }fullScreen(); 
