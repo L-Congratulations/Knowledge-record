@@ -264,8 +264,9 @@
   <script>
       $(function() {
           $('#myModal').modal({
-              keyboard: false,
-              backdrop:'static',
+              keyboard: false,//false表示按esc模态框不消失
+              backdrop:'static',//当值为false时样式上去掉了遮罩，按空白处模态框不消失，，，
+                                //当值为‘static’时，样式上遮罩存在，按空白处模态框不消失
           })
       });
   </script>
