@@ -1,0 +1,4 @@
+<tr class="pageTr">
+							<td colspan="10" class="td_jump"><jsp:include page="../commons/page.jsp"></jsp:include></td>
+</tr>
+ 插入了分页jsp页面。当做了单独的模块使用，提高了代码的简洁和复用性
