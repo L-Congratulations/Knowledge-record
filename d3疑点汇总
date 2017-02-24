@@ -1,0 +1,9 @@
+d3.enter():
+此方法只在由data运算符返回的更新选择中定义。此外，输入选择只定义了append（append），insert（insert），select（select）和call（call）操作符；您必须使用这些操作符在修改任何内容之前实例化输入元素。
+返回输入（enter）选择：当前选择中存在但是当前DOM元素中还不存在的每个数据元素的占位符节点。
+正解：enter()方法会将数据传递到dom中，如果数据比相应的dom元素（selectAll（‘p’））多，就用enter（）创建一个新的元素占位符，利用enter（）创建的占位符在dom中append（‘p’）插入一个p元素
+这个方法将数据传递到DOM中。如果数据值比相应的DOM元素多，就用enter()创建一个新元素的占位符。
+enter()
+追加元素
+通过enter()创建的占位符 在DOM中插入一个p元素。
+append("p")
