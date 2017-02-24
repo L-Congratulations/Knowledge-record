@@ -1,0 +1,17 @@
+1
+2
+3请求：https://github.com/d3/d3/wiki/%E8%AF%B7%E6%B1%82#tsv
+如果你不访问数据那么你就不能把它可视化。幸运的是有很多的方法可以把数据放到浏览器中。对于小数据集，你可以硬编码到你的脚本里，或者使用数据属性(data attributes)嵌入到DOM中。对于大数据集，你可以引用外部脚本并定义你的数据为一个全局变量。(JSONP就是一个常见的例子)
+通常，d3.xhr不会直接使用。取而代之的是使用类型特定的方法，例如： d3.text 加载简单文本, d3.json 加载JSON，d3.xml 加载XML, d3.xml 加载HTML, d3.csv加载逗号分隔值文件, d3.tsv加载制表符分隔文件。
+d3.tsv(url[, accessor][, callback])
+
+指定的url创建一个文本文件请求, 其mime type为"text/tab-separated-values"。如果指定了回调函数，请求将通过GET方法立即分发，当文件被加载或者请求失败之后回调函数将被异步调用。回调函数的调用使用两个参数：error(有的话)和每个RFC 4180的解析行(parsed rows)的数组。错误发生时行数组是未定义的(undefined)。如果没有指定回调函数，返回的请求可能使用xhr.get或近似的方法分发，并使用xhr.on处理。
+
+var data; // a globald3.json("path/to/file.json", function(error, json) {  if (error) return console.warn(error);  data = json;  visualizeit();});
+
+
+quantile.domain([numbers])
+
+如果指定了参数numbers，设置分位数比例尺的输入域为指定的离散数值集。数组必须是非空的，并且必须包含至少一个数值；NaN，null和undefined是被忽略的，不被视为样本群体的一部分。如果给定数组中的元素不是数字，将被强制转换为数字；当比例尺被调用的时候强制转换。这样，分位数比例尺可以用来强制转换所有可以转换为数字的类型。如果numbers参数没有指定，就返回比例尺当前的输入。
+
+
