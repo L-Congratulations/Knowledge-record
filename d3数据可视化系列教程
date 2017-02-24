@@ -1,0 +1,102 @@
+http://blog.csdn.net/tianxuzhang/article/details/11317667
+
+D3 (或D3.js) 是一个用来使用Web标准做数据可视化的JavaScript库。 D3帮助我们使用SVG, Canvas 和 HTML技术让数据生动有趣。 D3将强大的可视化，动态交互和数据驱动的DOM操作方法完美结合，让我们可以充分发挥现代浏览器的功能，自由的设计正确的可视化界面。
+1.添加元素：
+选择body标签，为之添加一个p标签，并设置它的内容为New paragraph！
+d3.select("body").append("p").text("New paragraph!");
+你可以将链接选择换行，这样代码结构更清晰
+d3.select("body")
+    .append("p")
+    .text("New paragraph!");
+当然，也可以避免使用链接语法：
+var body = d3.select("body");var p = body.append("p");
+p.text("New paragraph!");
+2.数据绑定：
+<body>
+    This is my HTML page. <br></body><script type="text/javascript">
+    var dataset = [ 5, 10, 15, 20, 25 ];
+
+    d3.select("body").selectAll("p")
+    .data(dataset)
+    .enter()
+    .append("p")
+    .text("New paragraph!");</script>
+查找DOM中的body。
+d3.select("body")
+选择DOM中的所有段落。
+由于没有存在，这将返回一个空的选择。这个选择为空，代表段落很快就会存在。
+selectAll("p")
+计数和分析我们的数据值。
+有五个值，之后我们的数据集执行了5次，每个值一次。
+
+注意这里data函数会绑定数据，并能够使用D3经典的E-N-E编程套路（这个以后会讲到，暂时不用关心），而另外一个数据绑定函数datum则只是替换一组新的数据。
+data(dataset)
+绑定数据和DOM元素。
+这个方法将数据传递到DOM中。如果数据值比相应的DOM元素多，就用enter()创建一个新元素的占位符。
+enter()
+追加元素
+通过enter()创建的占位符 在DOM中插入一个p元素。
+append("p")
+设置元素的文本
+为新创建的p标签插入一个文本值。
+text("New paragraph!")
+3.使用数据
+<script type="text/javascript">
+
+    var dataset = [ 5, 10, 15, 20, 25 ];
+
+    d3.select("body").selectAll("p")
+        .data(dataset)
+        .enter()
+        .append("p")
+        .text(function(d) {            
+        return "I can count up to " + d;
+        })
+        .style("color", function(d) {            
+        if (d > 15) { //大于15的数字显示为红色
+                return "red";
+            } else {                
+            return "black";
+            }
+        });</script>
+function中的参数会自动读取data数组中的每个数据并运算
+4.画条形图
+规定条形图样式后用
+.style('height',function(data){
+    return data*5+'px'
+})
+来定义每个条形图的高
+5.生成测试数据：
+
+var dataset=[];
+for (var i=0;i<25;i++){
+    var newnum=Math.round(Math.random()*30);
+    dataset.push(newnum)
+}
+6.创建svg：
+SVG标签包含一些基本的构图元素，包括矩形，圆形，椭圆形，线条，文字和路径等。 
+
+SVG使用的是基于像素的坐标系统，其中浏览器的左上角是原点(0,0)。x,y的正方向分别是右和下。
+7.更自由的条形图：
+8.：为了SVG边缘不被截断可以设置边距： .range([h - padding, padding]);
+var padding=20;
+var dataSet=[[5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
+[410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
+//定义比例尺
+var scale=d3.scale.linear()
+        .domain([100,500])
+        .range([10,350]);
+//坐标轴的缩放
+//最大的x
+d3.max(dataSet,function(d){
+    return d[0]
+});
+//x轴缩放
+var xscale=d3.scale.linear()
+        .domain([0,d3.max(dataSet,function(d){return d[0]})])
+        .range([padding,w-padding]);
+var yscale=d3.scale.linear()
+        .domain([0,d3.max(dataSet,function(d){return d[1]})])
+        .range([h-padding,padding]);
+9.有路径的文字：
+
