@@ -1,0 +1,12 @@
+table里td设置width，firefox等浏览器里显示正常，ie里则无效。style="width:...px;"也是一样的效果。要让ie也有效，必须需要在table里再设置一下table-layout: fixed，如
+
+<table ....style="table-layout: fixed">
+这样ie里td的width才生效。
+
+使用 <table style="table-layout: fixed">，如果表格的第一行有跨多列的单元格，那么这个单元格对应的其下的列，如果不是合并的话，宽度会自动平均设置。
+解决方法就是，添加一个第一行来专门设置宽度
+...
+<tr style="height:1px;font-size:1px;line-height:1px;">
+ <td style="width:77px;"></td><td width="140"></td><td width="90"></td><td></td>
+</tr>
+...
