@@ -1,8 +1,0 @@
-上面有说过用360文档提供的meta代码不好使的情况 
-还需要在<meta name="renderer" content="webkit"> 后再加一句
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-作者：放马过来吧
-链接：https://www.zhihu.com/question/20446741/answer/110899770
-来源：知乎
-著作权归作者所有，转载请联系作者获得授权。
