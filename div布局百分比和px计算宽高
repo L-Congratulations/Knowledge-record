@@ -1,3 +1,0 @@
-width:-moz-calc(100% - 40px)!important;
-	    width:-webkit-calc(100% - 40px)!important;
-	    width: calc(100% - 40px)!important;
