@@ -22,11 +22,11 @@ http://www.runoob.com/mongodb/mongodb-window-install.html
 
 
 
-mongodb可视化工具安装使用：：：
+mongodb可视化工具安装使用：：：（只有mongodb启动之后数据库才可以连接上）
 1、 Robomongo 是一个基于 Shell 的跨平台开源 MongoDB 可视化管理工具，支持 Windows、Linux 和 Mac，
  嵌入了 JavaScript 引擎和 MongoDB mongo，只要你会使用 mongo shell，你就会使用 Robomongo，
  它还提了供语法高亮、自动补全、差别视图等。
 2、下载地址：https://robomongo.org/download
 3、下载并安装成功后点击左上角的 Create 创建一个连接，给该连接起个名字如: localhost，使用默认地址（localhost）和端口（27017）即可，
 点击 Save 保存。
-4、双击 localhost 连接到 MongoDB 并进入交互界面，尝试插入一条数据并查询出来，如下所示:
+4、双击 localhost 连接到 MongoDB 并进入交互界面，尝试插入一条数据并查询出来，
