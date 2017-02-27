@@ -3,5 +3,19 @@
  创建一个文件夹：vue
  打开命令行进入到vue文件夹目录输入：cnpm install vue
  
- 2、
+ 2、vue是一个前端框架，特点是数据绑定和组件化（页面上小到一个按钮都可以是一个单独的文件.vue，
+   这些小组件直接可以像乐高积木一样通过互相引用而组装起来）
+ 3、vue2.0推荐开发环境：
+  node.js   npm  webpack（vue的组件都是通过.vue或者像微信小程序.wxml和.wxss等自定义的组件，都无法被用户端的各种浏览器解析，
+  需要被翻译和打包成.js文件）  vue.cli用来生成模板的vue工程
+  
+ 4、大家都知道国内直接使用 npm 的官方镜像是非常慢的，这里推荐使用淘宝 NPM 镜像。
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+这样就可以使用 cnpm 命令来安装模块了：
+cnpm install [name]
+安装webpack
+cnpm install webpack -g
+安装vue脚手架
+npm install vue-cli -g 
+  
  
