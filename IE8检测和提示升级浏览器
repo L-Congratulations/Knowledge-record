@@ -1,0 +1,11 @@
+IE8及以下版本提示浏览器升级：
+<meta http-equiv="X-UA-Compatible"content="IE=Edge" >
+<!--[if lte IE8]><script>window.location.href='http://cdn.dmeng.net/upgrade-your-browser.html?referrer='+location.href;</script><![endif]-->
+
+
+
+把这段代码添加在网站头部代码</head>之前，当IE8及以下版本浏览器（包括使用IE8及以下版本内核的浏览器）访问网站的时候将自动跳转到浏览器升级提示页面。
+
+<!--[if lt IE 9]><script>window.location.href='http://cdn.dmeng.net/upgrade-your-browser.html?referrer='+location.href;</script><![endif]-->  
+
+来源： http://blog.csdn.net/u013372487/article/details/48521929
