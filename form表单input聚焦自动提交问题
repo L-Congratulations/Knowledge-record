@@ -1,0 +1,13 @@
+form表单当焦点在表单组件上时，回车会默认提交表单的 去掉form手动添加函数可以解决
+利用函数，提交表单事件触发
+
+1、解决方法：提交表单的submit按钮type类型改为button，然后获取提交按钮的触发函数，用函数去触发提交事件 如：：
+  <button type="button" class="btn btns tostep3"  onclick="subdate()">完成</button>
+  此处type必须要设置，因为浏览器不同他type默认的类型不同，不设的话可能会被浏览器默认为submit类型
+  
+  function subdate(){	
+	  $("#wizardForm").submit();
+  }
+  
+  2、解决方法：若form表单里只有一个input type=text 框，那么点击确定键会默认提交表单，可以再加一个隐藏的input框来阻止浏览器的默认行为
+  <input type="text" style="display:none">
