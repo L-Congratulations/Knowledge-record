@@ -1,0 +1,89 @@
+思路：获取Input框中的内容把他放到一个动态生成的div元素中，然后把该div添加到input框前边
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="scripts/vendor/jquery/jquery.js"></script>
+    <script src="scripts/vendor/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+    <script src="scripts/vendor/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="scripts/vendor/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="scripts/vendor/bootstrap-3.3.5-dist/css/bootstrap.css">
+</head>
+<body>
+<form action="#">
+    <div  style="background-color: #23a7ff;width: 3000px;overflow: hidden" >
+将input框和动态生成的div放到一个大的div中便于布局
+        <div class="ui-widget" id="inp">
+            <div><button class="btn" style="width: 20px;background-color: #fffe15;float: right;height: 20px"></button></div>
+            <input id="tags" placeholder="模糊搜索" class="form-control" style="margin-top: 0;width: 300px;height:35px;background-color: #23a7ff;display: inline-block">
+            <button type="button" id="sub" style="display: inline-block;">提交</button>
+        </div>
+    </div>
+</form>
+<div>
+    <table class="table table-hover table-bordered">
+        <tr class="">
+            <td class="">选择</td>
+            <td class="">资源名称</td>
+            <td class="">IP地址</td>
+            <td class="">所属组</td>
+            <td class="">资源类型</td>
+            <td class="">授权账号</td>
+            <td class="">状态</td>
+            <td>操作</td>
+        </tr>
+ <!--<tr ng-repeat="x in list|filter:{name:search1}: false| filter:{type:search2}: false ">-->
+ <tr class="tab"  >
+        </tr>
+    </table>
+</div>
+<script>
+ $(function() {
+调用方法生成带有选项的下拉框http://www.runoob.com/jqueryui/example-autocomplete.html
+ var availableTags = [
+            "资源名称",
+ "IP地址",
+ "所属组",
+ "资源类型",
+ "授权账号",
+ "状态",
+ "AppleScript",
+ "Asp",
+ "BASIC",
+ "C",
+ "C++"
+        ];
+ $("#tags").autocomplete({
+ source: availableTags
+ });
+
+ $(document).keydown(function(){
+ var tag = $('<div id="tag"><button style="width: 20px;background-color: #fffe15;float: right;height: 20px"></button></div>');
+            if (event.keyCode=='13' && $('#tags').val().length>0) {
+ $(tag).prependTo('#inp');
+ $('#tag').next().append($('#tags').val() + ' ')
+                        .css({
+ 'background': '#ff11e8',
+ 'margin': '0 20px',
+ 'display': 'inline-block'
+                        })
+                        .attr('class', 'cont');
+ $('#tags').val('');
+ }
+ if($('#tags').val().length>0){
+ $('.btn').click(function(){
+ $(this).closest('div').remove();
+                    return false
+ });
+ }
+        });
+ $('#sub').click(function(){
+ var cont1= $('.cont').text();
+            var cont2= cont1.split(" ");
+ console.log(cont2.slice(0,cont2.length-1)) ;
+ })
+    })
+</script>
+</body>
+</html>
