@@ -1,0 +1,24 @@
+<script type="text/javascript">
+//JS Array.join 将数组元素连接成字符串
+//在JavaScript中，数组对象 Array的方法arr.join([separator])将所有元素连接成一个字符串。参数separator是一个可选的字符串，用作分隔符。
+//例1：
+var cnb = ["零","一","二","三","四","五","六","七","八","九","十"];
+document.writeln(cnb.join()); // 输出：零,一,二,三,四,五,六,七,八,九,十
+document.writeln(cnb.join("|")); // 输出：零|一|二|三|四|五|六|七|八|九|十
+//例2：
+var cnb = [1,2,3];
+cnb[10] = "10";
+document.writeln(cnb.join()); // 输出：1,2,3,,,,,,,,10
+document.writeln(cnb.join("|")); // 输出：1|2|3||||||||10
+//例3：
+var num = [],sum = 0;
+for(var i=1; i<=10; i++){
+ num.push(i);
+ sum += i;
+}
+document.writeln(num.join("+") + "=" + sum); // 输出：1+2+3+4+5+6+7+8+9+10=55
+//==================================================================================================
+//String.split(delimiter,max_array_length)方法 与 Array.join([separator])方法执行相反的操作：
+var num = "1,2,3,4,5,6,7,8,9,10".split(",");
+document.writeln(num.join("-")); // 输出：1-2-3-4-5-6-7-8-9-10
+</script>
