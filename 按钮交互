@@ -1,0 +1,11 @@
+//备份数据模块显示与隐藏
+    function backUp(){
+        if($(".backUp").is(":hidden")){
+            $(".backUp").slideDown(500);
+        }else{
+            $(".backUp").slideUp(500);
+        }
+    };
+function Delete(){
+    $(".backUp").slideUp(500);
+}
