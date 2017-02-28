@@ -29,12 +29,46 @@ OK！node环境已经安装完成，npm包管理器也有了。由于有些npm�
 在桌面目录下，在命令行中运行命令 vue init webpack firstVue 。解释一下这个命令，这个命令的意思是初始化一个项目，其中webpack是构建工具，
 也就是整个项目是基于webpack的。其中firstVue是整个项目文件夹的名称，这个文件夹会自动生成在你指定的目录中
 （我的实例中，会在桌面生成该文件夹），如下图。
+$ vue init webpack my-project
+# 这里需要进行一些配置，默认回车即可
+This will install Vue 2.x version of the template.
 
+For Vue 1.x use: vue init webpack#1.0 my-project
+
+? Project name my-project
+? Project description A Vue.js project
+? Author runoob <test@runoob.com>
+? Vue build standalone
+? Use ESLint to lint your code? Yes
+? Pick an ESLint preset Standard
+? Setup unit tests with Karma + Mocha? Yes
+? Setup e2e tests with Nightwatch? Yes
+
+   vue-cli · Generated "my-project".
+
+   To get started:
+   
+     cd my-project
+     npm install
+     npm run dev
+   
+   Documentation can be found at https://vuejs-templates.github.io/webpack
 打开firstVue文件夹，项目文件如下所示。
 
 安装项目所需的依赖
 
 要安装依赖包，首先cd到项目文件夹（firstVue文件夹），然后运行命令 cnpm install ，等待安装。
+
+deprecate nightwatch@0.9.12 › minimatch@~0.2.14 Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
+（反对nightwatch@0.9.12;minimatch@ ~ 0.2.14请更新minimatch 3.0.2或更高版本,避免一个RegExp DoS的问题）报错解决方法：
+  cnpm install minimatch@"3.0.2"
+  
+  
+  package.json文件 说明教程：：http://javascript.ruanyifeng.com/nodejs/packagejson.html
+    安装兼容的最新版本：：：https://www.v2ex.com/t/232718
+    
+    默认架构依赖的安装模块太多暂时不建议去用默认的架构
+  -----------------------------------------------------------------------------------------------------------------------
 安装完成之后，会在我们的项目目录firstVue文件夹中多出一个node_modules文件夹，这里边就是我们项目需要的依赖包资源。
 安装完依赖包之后，就可以运行整个项目了。
 
