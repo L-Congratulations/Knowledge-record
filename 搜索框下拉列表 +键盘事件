@@ -1,0 +1,127 @@
+<script>
+    (function($){
+        $.fn.extend({
+            select4:function(id){ 
+                return this.each(function(){
+                    $(".h2").remove();
+                    var mythis = $(this);
+                    $(document).on("click",".select4_box li",function(){
+                        mythis.val($(this).text());
+                        $(".select4_box").remove();
+                    });
+                    $(document).click(function(event) {
+                        $(".select4_box").remove();
+                    });
+                    $(".select4_box").click(function(event) {
+                        event.stopPropagation();
+                    });
+                    mythis.keyup(function(event) {
+                        
+                        if(event.keyCode==40||event.keyCode==38||event.keyCode==13){
+                            return false;
+                        }else{
+                            if($(id).val().length>0 ){
+                                var val = $(this).val();
+                                
+                                var mythis = $(this);
+                                var width = $(this).width()+26+"px";
+                                var top = $(this).position().top+36;
+                                var left = $(this).position().left;
+                                var height=55+"px";
+                                
+                                $.ajax({
+                                    url:'${ctx}/login/ajaxQueryDomainName.do',
+                                    type : 'POST',
+                                    dataType:"json",
+                                    data:'keyword=' + $(id).val(),
+                                    success:function(data){
+                                        if (data.success) {                              
+                                            
+                                            var html = '<div class="select4_box"><ul>';
+                                            $.each(data.result,function(k,v){
+                                                html += '<li>'+v+'</li>';
+                                            });
+                                            html+='</ul></div>'
+                                            $(".select4_box").remove();
+                                            mythis.after(html);
+                                            $(".select4_box").css({top:top,left:left,width:width,height:height});
+                                        
+                                            $('.select4_box').niceScroll({ 
+                                                cursorcolor: "#ccc",//#CC0071 光标颜色 
+                                                cursoropacitymax: 1, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+                                                touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+                                                cursorwidth: "3px", //像素光标的宽度 
+                                                cursorborder: "0", //     游标边框css定义 
+                                                cursorborderradius: "3px",//以像素为光标边界半径 
+                                                autohidemode: false //是否隐藏滚动条 
+                                            });
+                                        }else{
+                                            $(".select4_box").remove();
+                                        }
+                                    }
+                                });
+                                }else{
+                                    $(".select4_box").remove();
+                                } 
+                        }
+                        
+                    });
+                    
+                    mythis.keydown(function(event) {
+                        if(event.keyCode==40){
+                            var index = $(".select4_box li.active").index()+1;                           
+                            $(".select4_box li").eq(index).addClass('active').siblings().removeClass('active');
+                            mythis.val($(".select4_box li.active").text());
+                        }else if(event.keyCode==38){
+                            var index = $(".select4_box li.active").index()-1;
+                            if(index<0){
+                                index = $(".select4_box li").length-1;
+                            }
+                            $(".select4_box li").eq(index).addClass('active').siblings().removeClass('active');
+                            mythis.val($(".select4_box li.active").text());
+                        }else if(event.keyCode==13){
+                            event.stopPropagation();
+                            mythis.val($(".select4_box li.active").text());
+                            $(".select4_box").remove();                           
+                            $('#password').focus();
+                            if($('.code').css('display')=='block'){
+                                $('#password').keydown(function(event){
+                                    if(event.keyCode==13){
+                                        $('.imgCode').focus();
+                                        $('.imgCode').keydown(function(event){
+                                            if(event.keyCode==13){                                                
+                                                sub();
+                                            }
+                                        })    
+                                    }
+                                })                                
+                            }else{
+                                $('#password').keydown(function(event){
+                                    if(event.keyCode==13){                                        
+                                        sub();
+                                    }
+                                })  
+                            }
+                            
+                            $('.imgCode1').focus();
+                            return false;
+                            
+                        }else{
+                            //mythis.trigger("click");
+                        }
+                    });
+                });
+            }
+        });
+    })(jQuery);
+
+调用
+$(function(){
+        //ajax_url是这个input绑定的ajax数据地址
+        
+            $("#loginName").select4("#loginName");
+            $("#resetLoginName").select4("#resetLoginName");
+       
+        
+    });  
+</script>
