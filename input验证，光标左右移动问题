@@ -1,0 +1,16 @@
+<body>
+    <input type="text" name="CAL_COM_ID" id="CAL_COM_ID" onkeyup="cky(this)"/>
+     
+        <input type="text" name="CAL_COM_ID1" id="CAL_COM_ID1" onkeyup="value=value.replace(/[^(\(\)\d\&\|)]/g,'')"/>
+     
+<script type="text/javascript">
+    function cky(obj)
+    {
+        var t = obj.value.replace(/[^(\(\)\d\&\|)]/g,"");
+        if(obj.value!=t)
+            obj.value=t;
+    }
+ 
+</script>
+</body>
+ 　　　　第一种写法写完后键盘左右键移动，光标可以移动；第二种写法光标不能移动。项目中用了第一种写法，特此记录一下。
