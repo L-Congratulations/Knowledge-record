@@ -51,3 +51,5 @@ jQuery.validator.addMethod("sEmail", function(value, element) {
             ///^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
             return this.optional(element) || (Email.test(value));
         }, "<div class='errorMasage'><img src='${ctx}/images/error.png' class='error_icon'><p class='error_text'>请输入正确格式的email地址</p></div>");  
+5、单位名称：不能包含特殊字符，可以以数字开头（如360），可以包含括号（如***（分公司））中英文括号分别加转义字符\（\） \(\)
+ var User =/^[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5\(*\)*\（*\）*]{0,50}$/;
