@@ -49,3 +49,48 @@ window.navigate("http://xx.html/") 这个方法是只针对IE的，不适用于�
 window.location 属性是兼容所有浏览器的。因此在实现页面跳转的时候这个比较常用。
 window.history.go(-1)是返回上一页
 window.location.go(-1) 是刷新上一页 
+ 
+ 
+ 页面刷新：
+ window.location.reload()刷新当前页面.
+
+parent.location.reload()刷新父亲对象（用于框架）
+
+opener.location.reload()刷新父窗口对象（用于单开窗口）
+
+top.location.reload()刷新最顶端对象（用于多开窗口）
+
+
+例2，JS实现刷新iframe的方法 
+用iframe的name属性定位 
+ 
+复制代码 代码示例:
+<input type="button" name="Button" value="Button" onclick="document.frames('ifrmname').location.reload()"> 
+或 
+<input type="button" name="Button" value="Button" onclick="document.all.ifrmname.document.location.reload()">
+例3，首先，定义一个iframe 
+ 
+复制代码 代码示例:
+<iframe method="post" id ="IFrameName" src="aa.htm" ></iframe>
+aa.htm页面的内容: 
+ 
+复制代码 代码示例:
+<input type ="button" value ="刷新" onclick ="aa()"/> 
+function aa() { （jquery中文网 www.jquerycn.cn 编辑整理）
+//parent.location.replace(parent.location.href);//服务器端重新创建页面 
+parent.document.location.reload();//相当于F5 
+//window.location.href(parent.location.href);//iframe内容重定向 
+}
+注意：
+window.location.reload;
+刷新时如果提交数据的动作，则会出现对话框！
+解决办法：
+ 
+复制代码 代码示例:
+window.location.href=window.location.href; 
+window.location.reload;
+刷新父窗口：
+ 
+复制代码 代码示例:
+window.opener.location.href=window.opener.location.href; 
+window.opener.location.reload(); 
