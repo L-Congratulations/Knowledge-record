@@ -79,7 +79,9 @@
                 <button v-bind:disabled="someDynamicCondition">Button</button>
                 
                     <div id="app">
-                      <label for="r1">修改颜色</label><input type="checkbox" v-model="class1" id="r1">
+                      <label for="r1">修改颜色</label><input type="checkbox" v-model="class1" id="r1">//双向数据绑定可以控制
+                                                                                                     //class1: false
+                                                                                                     //是true还是falsew
                       <br><br>
                       <div v-bind:class="{'class1': class1}">
                         directiva v-bind:class
