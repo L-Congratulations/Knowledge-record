@@ -18,7 +18,8 @@
          解析为字符串<h1>demo:“{{ msg }}”按时大大哇"啊啊啊”</h1>
          
          
-         小结：{{msg}}是一个整体    
+         小结：{{msg}}是一个整体
+              
               无论何时，绑定的数据对象上 msg 属性发生了改变，插值处的内容都会更新。
               双大括号会将数据解释为纯文本，而非 HTML 。为了输出真正的 HTML ，你需要使用 v-html 指令：
               双大括号不能用在属性中 <div id="{{app}}">会报错
@@ -105,4 +106,36 @@
                     <button v-bind:disabled="someDynamicCondition">Button</button>
                     v-bind:class="{'class1': class1}"等 
                     对属性进行布尔值判断时用对象的形式：{'class1': class1}前一个为属性名，后一个注意此处不用加引号
-                   
+            ---------------------------------------
+           （4）、javascript表达式
+               迄今为止，在我们的模板中，我们一直都只绑定简单的属性键值。但实际上，对于所有的数据绑定， Vue.js 都提供了完全的 
+               JavaScript 表达式支持。
+               {{ number + 1 }}
+               {{ ok ? 'YES' : 'NO' }}
+               {{ message.split('').reverse().join('') }}
+               <div v-bind:id="'list-' + id"></div>
+               这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含单个表达式，
+               所以下面的例子都不会生效。
+               <!-- 这是语句，不是表达式 -->
+               {{ var a = 1 }}
+               <!-- 流控制也不会生效，请使用三元表达式 -->
+               {{ if (ok) { return message } }}
+               模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户
+               定义的全局变量。
+               <div id="app">
+                {{5+5}}<br>
+                {{ ok ? 'YES' : 'NO' }}<br>
+                {{ message.split('').reverse().join('') }}
+                <div v-bind:id="'list-' + id">菜鸟教程</div>
+               </div>
+
+               <script>
+               new Vue({
+                 el: '#app',
+                 data: {
+                ok: true,
+                   message: 'RUNOOB',
+                id : 1
+                 }
+               })
+               </script>
