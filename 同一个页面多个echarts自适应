@@ -1,0 +1,14 @@
+如上图所示一个页面有两个echarts图形：散点图和折线图，如果还写为
+                  myChart.setOption(option); 
+                window.onresize = myChart.resize; 
+则只有一个图形可自适应窗口大小，另外一个则不能随窗口大小而改变图形大小，
+
+解决办法为在每一个echarts图形页面将上面代码改为如下代码：
+
+                  myChart.setOption(option);
+
+                window.addEventListener("resize",function(){
+
+                                      myChart.resize();
+
+                });
