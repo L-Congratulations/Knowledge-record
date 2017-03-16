@@ -94,3 +94,13 @@
                       }
                     });
                     </script>
+            -------------------------------------
+            总结：v-bind:class="{'class1': class1}"
+            v-bind：后面加属性名如class、id、display、等
+            v-bind：class后面用等于号进行给属性赋值，赋的值要放在""中如v-bind:id="dynamicId" 
+                    v-bind:disabled="someDynamicCondition"等
+                    属性赋值完毕之后还可以对该属性进行布尔值判断：这对布尔值的属性也有效 —— 如果条件被求值为 false 的话该属性会被移除：
+                    <button v-bind:disabled="someDynamicCondition">Button</button>
+                    v-bind:class="{'class1': class1}"等 
+                    对属性进行布尔值判断时用对象的形式：{'class1': class1}前一个为属性名，后一个注意此处不用加引号
+                   
