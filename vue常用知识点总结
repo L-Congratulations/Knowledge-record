@@ -19,6 +19,9 @@
         v-show 和v-if区别：v-show 是否显示，不管满不满足条件均会在dom中，若不满足条件，则会设置成隐藏 display:none
                           v-show 不支持 <template> 语法。
                           v-if 条件判断，不满足条件的话则不会出现在dom中
+                          
+                          一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，
+                          如果在运行时条件不大可能改变 v-if 较好。
         ----------------------------------------------------------
         
         
@@ -196,3 +199,147 @@ v-for 指令需要以 item in items 形式的特殊语法， items 是源数据�
                 
                 从实例运行结果看在运行 vm.site = '菜鸟教程 http://www.runoob.com'; 时，setter 会被调用，
                 vm.name 和 vm.url 也会被对应更新。
+                
+                
+                
+                
+                
+                
+                
+                
+4、vue样式绑定
+class 与 style 是 HTML 元素的属性，用于设置元素的样式，我们可以用 v-bind 来设置样式属性。
+Vue.js v-bind 在处理 class 和 style 时， 专门增强了它。表达式的结果类型除了字符串之外，还可以是对象或数组。
+
+        （1）、我们也可以在对象中传入更多属性用来动态切换多个 class 。
+        <div class="static"
+             v-bind:class="{ active: isActive, 'text-danger': hasError }">
+        </div>
+        以上实例 div class 为：
+        <div class="static active text-danger"></div>
+        （2）、我们也可以直接绑定数据里的一个对象：
+        
+        .active {
+	width: 100px;
+	height: 100px;
+	background: green;
+        }
+        .text-danger {
+                background: red;
+        }
+        <body>
+        <div id="app">
+          <div v-bind:class="classObject"></div>
+        </div>
+
+        <script>
+        new Vue({
+          el: '#app',
+          data: {
+            classObject: {
+              'active': true,
+              'text-danger': true
+            }
+          }
+        })
+        </script>
+        </body>
+        
+        text-danger 类背景颜色覆盖了 active 类的背景色：
+        
+        （3）、此外，我们也可以在这里绑定返回对象的计算属性。这是一个常用且强大的模式：
+        <style>
+        .active {
+                width: 100px;
+                height: 100px;
+                background: green;
+        }
+        .text-danger {
+                background: red;
+        }
+        </style>
+        </head>
+        <body>
+        <div id="app">
+          <div v-bind:class="classObject"></div>
+        </div>
+
+        <script>
+        new Vue({
+          el: '#app',
+          data: {
+          isActive: true,
+          error: null
+          },
+          computed: {
+            classObject: function () {
+              return {
+                active: this.isActive && !this.error,
+                'text-danger': this.error && this.error.type === 'fatal',
+              }
+            }
+          }
+        })
+        </script>
+        </body>
+        
+        （4）、我们可以把一个数组传给 v-bind:class ，实例如下：
+        <style>
+        .active {
+                width: 100px;
+                height: 100px;
+                background: green;
+        }
+        .text-danger {
+                background: red;
+        }
+        </style>
+        </head>
+        <body>
+        <div id="app">
+                <div v-bind:class="[activeClass, errorClass]"></div>
+        </div>
+
+        <script>
+        new Vue({
+          el: '#app',
+          data: {
+            activeClass: 'active',
+            errorClass: 'text-danger'
+          }
+        })
+        </script>
+        </body>
+        以上实例 div class 为：<div class="active text-danger"></div>
+        
+        （5）、我们还可以使用三元表达式来切换列表中的 class ：
+                <style>
+                .text-danger {
+                        width: 100px;
+                        height: 100px;
+                        background: red;
+                }
+                .active {
+                        width: 100px;
+                        height: 100px;
+                        background: green;
+                }
+                </style>
+                </head>
+                <body>
+                <div id="app">
+                        <div v-bind:class="[errorClass ,isActive ? activeClass : '']"></div>
+                </div>
+
+                <script>
+                new Vue({
+                  el: '#app',
+                  data: {
+                    isActive: true,
+                        activeClass: 'active',
+                    errorClass: 'text-danger'
+                  }
+                })
+                </script>
+                </body>
+                errorClass 是始终存在的，isActive 为 true 时添加 activeClass 类：
