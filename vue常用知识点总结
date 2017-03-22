@@ -159,7 +159,7 @@ v-for 指令需要以 item in items 形式的特殊语法， items 是源数据�
                     // 计算属性的 getter
                     reversedMessage: function () {
                       // `this` 指向 vm 实例
-                      return this.message.split('').reverse().join('')
+                      return this.message.split('').reverse().join('')//因为预期返回一个值，所以要用return
                     }
                   }
                 })
@@ -461,7 +461,7 @@ Vue.js 事件处理器
  v-bind只能绑定属性不能绑定事件？
  （1）、事件监听可以使用 v-on 指令：
 	 <div id="app">
-	  <button v-on:click="counter += 1">增加 1</button>
+	  <button v-on:click="counter += 1">增加 1</button>//在vue中所有""中的变量都是从vue实例中取得值，然后进行逻辑计算	
 	  <p>这个按钮被点击了 {{ counter }} 次。</p>
 	</div>
 
