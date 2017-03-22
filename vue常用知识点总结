@@ -345,8 +345,40 @@ Vue.js v-bind 在处理 class 和 style 时， 专门增强了它。表达式的
                 </script>
                 </body>
                 errorClass 是始终存在的，isActive 为 true 时添加 activeClass 类：
-		
-		 （6）、我们可以在 v-bind:style 直接设置样式：（可以这样写 但为了结构清晰应该采用下面那种方式）
+	 ---------------------------------------------------------------------------------
+	 总结：v-bind:class=""为了结构清晰，方便管理，采用传入对象的方式；
+	 v-bind：class=""的作用是根据条件不同来决定添加哪个类，可以直接对象进行添加：	
+	 classObject: {
+		      'active': true,
+		      'text-danger': true
+		    }
+	 也可以绑定返回对象的计算属性：
+	 computed: {
+            classObject: function () {
+              return {
+                active: this.isActive && !this.error,
+                'text-danger': this.error && this.error.type === 'fatal',
+              }
+            }
+          }
+	 
+	 
+	 
+          <div v-bind:class="classObject"></div>        
+		<script>
+		new Vue({
+		  el: '#app',
+		  data: {
+		    classObject: {
+		      'active': true,
+		      'text-danger': true
+		    }
+		  }
+		})
+		</script>
+       
+	 ---------------------------------------------------------------------------------
+ （6）、我们可以在 v-bind:style 直接设置样式：（可以这样写 但为了结构清晰应该采用下面那种方式）
 		 <body>
 		<div id="app">
 			<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">菜鸟教程</div>
