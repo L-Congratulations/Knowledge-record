@@ -435,3 +435,45 @@ Vue.js v-bind 在处理 class 和 style 时， 专门增强了它。表达式的
 	</script>
 	</body>
 	注意：当 v-bind:style 使用需要特定前缀的 CSS 属性时，如 transform ，Vue.js 会自动侦测并添加相应的前缀。
+	 -------------------------------------------
+	 总结：
+	 接受数组对象： <div v-bind:style="[baseStyles, overridingStyles]">菜鸟教程</div>
+	  data: {
+	    baseStyles: {
+	      color: 'green',
+	      fontSize: '30px'
+	    },
+		overridingStyles: {
+	      'font-weight': 'bold'
+	    }
+	  }
+	  -	
+	------------------------------------------------------------------------------------  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+Vue.js 事件处理器
+ v-bind只能绑定属性不能绑定事件？
+ （1）、事件监听可以使用 v-on 指令：
+	 <div id="app">
+	  <button v-on:click="counter += 1">增加 1</button>
+	  <p>这个按钮被点击了 {{ counter }} 次。</p>
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#app',
+	  data: {
+	    counter: 0
+	  }
+	})
+	</script
+
+通常情况下，我们需要使用一个方法来调用 JavaScript 方法。
+v-on 可以接收一个定义的方法来调用。
+	 ---------------------------------------------------------------
