@@ -463,6 +463,9 @@ Vue.js 事件处理器
 	 <div id="app">
 	  <button v-on:click="counter += 1">增加 1</button>//在vue中所有""中的变量都是从vue实例中取得值，然后进行逻辑计算	
 	  <p>这个按钮被点击了 {{ counter }} 次。</p>
+	  
+	   在v-on:click="counter += 1"中counter双向绑定所以值进行了+1	
+  
 	</div>
 
 	<script>
@@ -579,4 +582,10 @@ Vue.js 事件处理器
 		<p><!-- Alt + C -->//                                  alt+c		
 		<input @keyup.alt.67="clear">
 		<!-- Ctrl + Click -->
-		<div @click.ctrl="doSomething">Do something</div>		
+		<div @click.ctrl="doSomething">Do something</div>	
+		
+		--------------------------------------------
+		 总结：事件绑定只能用v-on ：后面加触发事件 =""里面加具体函数
+		 触发事件可以用修饰符进行更详细的控制用.来调用修饰符
+		 触发事件可以用按键组合来丰富
+		 -----------------------------------------------
