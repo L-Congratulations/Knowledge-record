@@ -588,6 +588,120 @@ Vue.js 事件处理器
 		 总结：事件绑定只能用v-on ：后面加触发事件 =""里面加具体函数
 		 触发事件可以用修饰符进行更详细的控制用.来调用修饰符
 		 触发事件可以用按键组合来丰富
-		 注意双向数据绑定的条件，不是所有声明的变量都是双向绑定		
+		 注意双向数据绑定的条件，不是所有声明的变量都是双向绑定	
 		 
+		 函数内要使用vue实例中的对象可以用this来调用，以变量形式传入的并不是双向数据绑定，		
+ 
 		 -----------------------------------------------
+		 
+Vue.js 表单
+	你可以用 v-model 指令在表单控件元素上创建双向数据绑定。
+	
+	v-model 会根据控件类型自动选取正确的方法来更新元素。
+	实例中演示了 input 和 textarea 元素中使用 v-model 实现双向数据绑定：
+	<div id="app">
+	  <p>input 元素：</p>
+	  <input v-model="message" placeholder="编辑我……">
+	  <p>消息是: {{ message }}</p>
+
+	  <p>textarea 元素：</p>
+	  <p style="white-space: pre">{{ message2 }}</p>
+	  <textarea v-model="message2" placeholder="多行文本输入……"></textarea>
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#app',
+	  data: {
+	    message: '',
+		message2: '菜鸟教程\r\nhttp://www.runoob.com'//                   可以在message中定义初始数据显示的样式	
+ 	 }
+	})
+	</script>
+	</body>
+	
+	!!!!复选框如果是一个为逻辑值，如果是多个则绑定到同一个数组：
+	<body>
+	<div id="app">
+	  <p>单个复选框：</p>
+	  <input type="checkbox" id="checkbox" v-model="checked">
+	  <label for="checkbox">{{ checked }}</label>
+
+	  <p>多个复选框：</p>
+	  <input type="checkbox" id="runoob" value="Runoob" v-model="checkedNames">
+	  <label for="runoob">Runoob</label>
+	  <input type="checkbox" id="google" value="Google" v-model="checkedNames">
+	  <label for="google">Google</label>
+	  <input type="checkbox" id="taobao" value="Taobao" v-model="checkedNames">
+	  <label for="taobao">taobao</label>
+	  <br>
+	  <span>选择的值为: {{ checkedNames }}</span>
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#app',
+	  data: {
+		checked : false,
+	    checkedNames: []
+	  }
+	})
+	</script>
+	</body>
+	
+	
+	单选按钮
+	以下实例中演示了单选按钮的双向数据绑定：
+	<body>
+	<div id="app">
+	  <input type="radio" id="runoob" value="Runoob" v-model="picked">
+	  <label for="runoob">Runoob</label>
+	  <br>
+	  <input type="radio" id="google" value="Google" v-model="picked">
+	  <label for="google">Google</label>
+	  <br>
+	  <span>选中值为: {{ picked }}</span>
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#app',
+	  data: {
+		picked : 'Runoob'
+	  }
+	})
+	</script>
+	</body>
+	
+	
+	select 列表
+	以下实例中演示了下拉列表的双向数据绑定：
+	<body>
+	<div id="app">
+	  <select v-model="selected" name="fruit">
+	    <option value="">选择一个网站</option>//                          此处value值为空或有值时select显示的会有差别	
+	    <option value="www.runoob.com">Runoob</option>
+	    <option value="www.google.com">Google</option>
+	  </select>
+
+	  <div id="output">
+	      选择的网站是: {{selected}}
+	  </div>
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#app',
+	  data: {
+		selected: '' 
+	  }
+	})
+	</script>
+	</body>
+	----------------------------------------------
+	 总结：v-model绑定数据所在的位置是表单的input标签、select标签、textare标签内，
+	 input是通过label建立联系的，
+	 如果是单选按钮实例绑定的message：''可以为空，或有一个初始值message：'runobb'等
+	 如果是只有一个的复选框绑定最好为布尔值，message:false、message:true,也可以为空，如果为空message:''则默认为false	
+	 如果是多选(复选框)绑定的会是一个数组message：[]
+	 如果是select，则绑定的是message：''
