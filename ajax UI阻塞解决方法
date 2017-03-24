@@ -1,0 +1,128 @@
+http://www.alixixi.com/web/a/2014060493440.shtml原文
+  核心：
+  function getData3(){
+          var defer = $.Deferred();
+          $.ajax({
+              url : "p.php",
+              //async : false,
+              success: function(data){
+                  defer.resolve(data)
+              }
+          });
+          return defer.promise();
+  }    
+
+  $(".btn3").click(function(){
+          $(".loadingicon").show();
+          $.when(getData3()).done(function(data){//                          ajax请求回来的数据在这里进行处理
+              $(".loadingicon").hide();
+              alert(data);
+          });
+  });
+
+  自己实际例子
+  function getData3(){
+      var defer = $.Deferred();
+      $.ajax({
+      url : '${ctx}/vm/createVM.do',
+      data : $('#vmForm').serialize() ,		
+      type : 'POST',
+      dataType : 'json',
+      success : function(data) {
+        defer.resolve(data);				
+        }			
+      });
+
+      return defer.promise();
+  }    
+
+
+      function createVM(){
+
+        $("#CPUSize").val($("#cpuSizeSelect").val());
+        // 验证ip地址、掩码、网关、DNS
+        var reg = /^(2[0-4]\d|25[0-5]|[1-9]|[1-9]\d|[1]\d\d)\.(2[0-4]\d|25[0-5]|[0-9]|[1-9]\d|[1]\d\d)\
+        .(2[0-4]\d|25[0-5]|[0-9]|[1-9]\d|[1]\d\d)\.(2[0-4]\d|25[0-4]|[1-9]|[1-9]\d|[1]\d\d)$/;
+          // var netmask_reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|
+          25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+          var netmask_reg = /^(254|252|248|240|224|192|128|0)\.0\.0\.0$|^(255\.
+          (254|252|248|240|224|192|128|0)\.0\.0)$|^(255\.255\.(254|252|248|240|224|192|128|0)
+          \.0)$|^(255\.255\.255\.(254|252|248|240|224|192|128|0))$/;
+          var name_reg = /^[a-zA-Z0-9_\u4E00-\u9FA5\(*\)*\（*\）*]{0,50}$/;
+
+
+          if($("#vmIp").val() == ""){
+              alertMsg("请填写虚拟机ip地址");
+              hideMask();//取消遮照
+              return;
+          }else if ($("#vmIp").val() != '' && !reg.test($("#vmIp").val())) {
+              alertMsg("虚拟机ip地址格式不正确");
+              hideMask();//取消遮照
+              return;
+          } 
+          if($("#vmNetMask").val() == ""){
+              alertMsg("请填写虚拟机掩码");
+              hideMask();//取消遮照
+              return;
+          }else if ($("#vmNetMask").val() != '' && !netmask_reg.test($("#vmNetMask").val())) {
+              alertMsg("虚拟机掩码格式不正确");
+              hideMask();//取消遮照
+              return;
+          } 
+           if($("#vmGateway").val() == ""){
+               alertMsg("请填写虚拟机网关");
+               hideMask();//取消遮照
+               return;
+          }else if ($("#vmGateway").val() != '' && !reg.test($("#vmGateway").val())) {
+              alertMsg("网关格式不正确");
+              hideMask();//取消遮照
+              return;
+          } 
+          if($("#vmDns").val() == ""){
+              alertMsg("请填写虚拟机DNS");
+              hideMask();//取消遮照
+              return;
+          }else if ($("#vmDns").val() != '' && !reg.test($("#vmDns").val())) {
+              alertMsg("DNS格式不正确");
+              hideMask();//取消遮照
+              return;
+          }
+          //    
+          if($("#vmName").val() == ""){
+              alertMsg("请填写虚拟机全名");
+              hideMask();//取消遮照
+              return;
+          }
+          /*else if(!name_reg.test($("#vmName").val())){
+             alertMsg("虚拟机名称只支持汉字、字母、数字");
+               hideMask();//取消遮照
+               return;
+          }/*/
+
+          if($("#vmOrgName").val() != "" && !name_reg.test($("#vmOrgName").val())){
+            alertMsg("虚拟机组织名称只支持汉字、字母、数字、下划线、括号");
+              hideMask();//取消遮照
+              return;
+          }     
+
+          showMask();//添加遮照        
+          $.when(getData3()).done(function(data){
+            if (data.success) {
+          hideMask();					
+          top.alertMsgDoAction("创建虚拟机成功",function(){
+            showMask();//添加遮照
+            location.href="${ctx}/vm/display.do";
+            hideMask();//取消遮照
+          });
+        } else {
+           hideMask();//取消遮照
+          alertMsg(data.message);
+          $('#toStep2').attr('href', '#');
+        }
+
+
+          });   
+
+      //hideMask();//取消遮照
+
+      }
