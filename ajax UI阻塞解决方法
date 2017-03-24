@@ -4,7 +4,7 @@ http://www.alixixi.com/web/a/2014060493440.shtml原文
           var defer = $.Deferred();
           $.ajax({
               url : "p.php",
-              //async : false,
+              //async : false,//                                                  设为异步
               success: function(data){
                   defer.resolve(data)
               }
