@@ -1,0 +1,178 @@
+1、Firefox ifream页面互调兼容性解决方案
+  注意先后顺序 只有子页面元素属性设置好了之后才能用ifream获取，否则获取的值一直为零，即使获取的页面元素属性有值，
+  因为没有声明所以也获取不到，只能获取到0；；；；；当然即使获取的值为零也可以在lef()中进行设置，不过初始值为零。
+
+  不调用函数也可以直接获取子页面元素的值并进行设置：：
+   var aH=window.$('#frame1').contents().find('#a').height();
+  var righ=aH+44;
+   $("#frame1").css("height",righ);
+
+
+
+  首先：：：子页面将需要获取的元素参数进行设置，因为ifream在火狐里面获取不到不存在的属性
+  $(function(){
+      var he=$("#sysform").height();
+      //console.log(he)
+      $("#mmm").css("height",he)
+      window.parent.lef();
+
+  }) 
+  然后：：：元素属性设置好后执行 window.parent.lef();命令调用父页面的函数
+  function lef(){
+      var aH=window.$('#frame1').contents().find('#a').height();
+      var foH=window.$('#frame2').contents().find('#mmm').height();
+      var righ=aH+44;
+      var lef=foH+48;
+      $("#frame1").css("height",righ);
+      $("#frame2").css("height",lef);
+  } 
+
+
+2、ifream父页面调用子页面事件 但是调用完子页面之后需要触发父页面的其他事件
+主要是子页面执行的函数需要在父页面触发事件（btn在父页面）
+
+
+
+    首先：：：.父页面调用子页面函数：
+    function selectDate() {
+        frame1.selectDate(0,'show');
+    }
+    然后：：：子页面会执行  selectDate()函数
+    function selectDate(num, type){
+        if (type == "show") {
+            $("#shResultTr").hide();
+            if ($("#selectDateTr").is(":hidden")) {
+                $("#selectDateTr").show();
+                $("#selectDateButton").attr("title", "关闭");
+            } else {
+                $("#selectDateTr").hide();
+                //$("#selectDateTr").css("height","0");
+                $("#selectDateButton").attr("title", "打开");
+            }
+
+        }
+
+         $.ajax({
+            url :"${ctx}/upgrade/showUpgradeLogList.do?startIndex="+num,        
+            type : "POST",        
+            dataType : "json",        
+            success : function(result) {
+                var html = "";
+                $("#data_tb tr:not(:first)").remove();
+                $(result.list).each(
+                    function(index, obj) {
+                        html += "<tr >"
+                                + "<td id=\"dateId\"  style=\"width: 37% !important;padding-left: 20px;\">"
+                                + obj.createTime
+                                + "</td>"
+                                + "<td id=\"editionId\"  style=\"width: 55% !important;\">"
+                                + obj.uploadFileName
+                                + "</td>"
+                                + "<td  class=\"detail\" style=\"width: 8% !important;border-top: none;cursor: pointer;\">"
+                                + "<img id=\"outLogButton\"  src=\"${ctx}/images/log_icon.png\"  onclick=\"selectOutLog('"
+                                + obj.id
+                                + "');\"  title=\"查看日志\" style=\"width: 24px;\"/>"
+                                + "</td>" + "</tr>";
+                                });
+
+                var page = result.page;
+
+                html += "<tr class=\"pageTr\">";
+                html +=     "<td valign=\"middle\" colspan=\"3\" align=\"right\"> ";
+                html +=         "<input type=\"hidden\" name=\"startIndex\" id=\"startIndex\" value=\"0\">";
+
+                html +=         "<div class=\"footer-right\">"
+             if(page.startIndex != '0'){
+                 html +=         "<a href=\"javascript:selectDate(0,'hide');\" ><div class=\"div_text_jump pageup\" >首页</div></a>";
+             }else{
+                 html +=         "<div class=\"div_text_jump pageup\">首页</div>";
+             }
+             if(page.startIndex != '0'){
+                 html +=         "<a href=\"javascript:selectDate("+ page.previousIndex + ",'hide') \" ><div class=\"div_text_jump\">上一页</div></a>";
+             }else{
+                 html +=         "<div class=\"div_text_jump\">上一页</div>";
+             }
+             if(page.nextIndex > page.startIndex){
+                 html +=         "<a href=\"javascript:selectDate(" + page.nextIndex + ",'hide') \" ><div class=\"div_text_jump\">下一页</div></a>";
+             }else{
+                 html +=         "<div class=\"div_text_jump\">下一页</div>";
+             }
+             if(page.lastIndex != page.startIndex){
+                 html +=         "<a href=\"javascript:selectDate(" + page.lastIndex + ",'hide')\" ><div class=\"div_text_jump pagedown\">末页</div></a>";
+             }else{
+                 html +=         "<div class=\"div_text_jump pagedown\">末页</div>";
+             }
+                html +=         "<input type=\"text\" class=\"pageInput\" name=\"page\" id=\"page\" size=\"3\" onkeyup=\"this.value=this.value.replace(/[^\d]/g,'')\" >";
+                html +=         "<button type=\"button\" id=\"go1\" class=\"charts_edit_button_all pageButton\" onclick=\"gopage('"+ + page.lastIndex +"')\" >GO</button>";
+                html +=     "</div>"
+                    html +=         "<p class=\"page_no\" style=\"margin-left: 10px;margin-top: 4px;\">当前第";
+                html +=             "<span id=\"totalCount\">"+ page.currentPage + "/" + page.pageCount + "</span>页  ";
+                html +=             "共计<span  id=\"totalCount\">"+ page.totalCount +"</span>条";
+                html +=         "</p>";
+                html +=     "</td>";
+                 html += "</tr>";
+                 $("#data_tb").append(html);
+                 window.parent.sel();
+            }
+        }); 
+    }
+    当  selectDate()函数执行到window.parent.sel();这一步之后调用父页面的函数sel()
+    最后：：：执行父页面的函数
+    function sel(){
+        var aH=window.$('#frame1').contents().find('#a').height();
+        var foH=window.$('#frame2').contents().find('#mmm').height();
+        var selectDateTrH = window.frames["frame1"].document.getElementById('selectDateTr').offsetHeight;
+
+        var hidde=window.$('#frame1').contents().find('#selectDateTr')
+        if(hidde.is(":hidden")){
+            var righ=aH+44;
+            $("#frame1").css("height",righ);
+
+        }else{
+            var s=selectDateTrH+aH+68;
+            //console.log(selectDateTrH)
+            $("#frame1").css("height",s);
+        }
+    }  
+    
+    3、ifream子页面与父页面函数互相调用 父页面获取子页面参数
+    jq写法（兼容好些）
+    注意：被跨页面调用的函数不能放在$(function(){})里面这样会调用不到
+
+
+
+    jq——父页面获取子页面元素的属性：然后利用获取到的参数设置父页面元素的属性：
+    var aH=window.$('#frame2').contents().find('#a').height();
+        var foH=window.$('#frame2').contents().find('#f').height();
+        var righ=aH+40;
+        var lef=foH;
+        console.log(righ)
+        console.log(lef)
+        $("#frame1").css("min-height",righ);
+        $("#frame2").css("min-height",lef);  
+
+
+    原生js——父页面获取子页面属性并设置父页面的属性
+    function selectOutLog(){
+        var aH = window.frames["frame1"].document.getElementById('a').offsetHeight;
+        var shResultTrH = window.frames["frame1"].document.getElementById('shResultTr').offsetHeight;
+        var selectDateTrH = window.frames["frame1"].document.getElementById('selectDateTr').offsetHeight;
+        var s=selectDateTrH+shResultTrH+aH+120;
+        console.log(s)
+        $("#frame1").css("min-height",s);
+    }
+
+    jq——父页面调用子页面函数
+
+    function toUploadFile(){
+        frame2.toUploadFile();
+    }
+
+    jq——子页面调用父页面函数
+    window.parent.shResultTrH(170); 
+
+    原生js——子页面获取父页面属性
+    window.parent.document.getElementById('frame1').offsetHeight 
+    jq——子页面获取父页面元素的属性并设置
+    var zi=window.parent.$("#zi").css("background","yellow");
+        console.log(zi);  
