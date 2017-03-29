@@ -39,7 +39,7 @@ For Vue 1.x use: vue init webpack#1.0 my-project
 ? Project description A Vue.js project
 ? Author runoob <test@runoob.com>
 ? Vue build standalone
-? Use ESLint to lint your code? Yes
+? Use ESLint to lint your code? Yes//自己写demo的时候这个可以选择no 这样可以避免结构上的问题带来的困扰
 ? Pick an ESLint preset Standard
 ? Setup unit tests with Karma + Mocha? Yes
 ? Setup e2e tests with Nightwatch? Yes
