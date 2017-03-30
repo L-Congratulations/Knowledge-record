@@ -7,5 +7,5 @@
 7、在xshell中输入chmod 755 dms.setup.3.6.2.101/setup.sh（将/root/dms.setup.3.6.2.101/setup.sh授权755）
 8、进入虚拟机命令行，进入到/root/dms.setup.3.6.2.101路径（cd /root（查Linux命令行命令pwd 是查询当前路径位置 tab自动补全））
 9、执行./setup.sh -all 进行安装
- 
+ 虚拟机上更换项目是更换编译好的项目（myeclipse的servers下运行的文件夹）
  更换虚拟机上的安装包后要重启Tomact  在xshell中输入/etc/init.d/tomcat6 restart
