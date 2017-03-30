@@ -1,9 +1,11 @@
 1、打开oracle启动
 2、进入root权限：输入命令 su root 然后输入自己密码admin
-3、查虚拟机ip：ip addr
+3、查虚拟机ip：ip addr （ifconfig -a）
 4、用xshell链接该ip  （新建链接 192.168.3.123  用户名root 密码 admin）
 5、进入xftp将灌机包拷贝进入到root目录下
 6、在xsehll中输入tar-xvf dms.setupup..3.6.2.101.tar.gz(灌机包解压)
 7、在xshell中输入chmod 755 dms.setup.3.6.2.101/setup.sh（将/root/dms.setup.3.6.2.101/setup.sh授权755）
 8、进入虚拟机命令行，进入到/root/dms.setup.3.6.2.101路径（cd /root（查Linux命令行命令pwd 是查询当前路径位置 tab自动补全））
 9、执行./setup.sh -all 进行安装
+ 
+ 更换虚拟机上的安装包后要重启Tomact  在xshell中输入/etc/init.d/tomcat6 restart
