@@ -1,0 +1,13 @@
+业务需求：在页面首次加载时让首个input处于聚焦状态
+在bootstrap中若选用分模块展示的那种布局在标签中
+ <div role="tabpanel" class="tab-pane" id="step3" style=''>的tab-pane会影响focus（）事件
+ 具体情况：
+ 1、只采用分模块展示的页面：将tab-pane类名去掉，用
+  $('#step1').css('display','block')
+  $('#step2').css('display','none')来实现切换功能
+  使用$('#empName').focus();实现聚焦即可
+ 2、模态框中，使用分模块展示页面：将去除模态框的 tabindex="-1" 属性去掉，并将tab-pane去掉，切换方式使用1中的方式
+ 在模态框初次加载中使用
+ $.fn.modal.Constructor.prototype.enforceFocus = function() {  
+    $("#compName").focus();  
+ };方法进行聚焦，页面内的切换使用$('#empName').focus()实现聚焦
