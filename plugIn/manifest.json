@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,//指定清单文件格式的版本，在Chrome18之后，应该都是2，所以这个值直接设定为2就OK了；
+  "version": "1.0.1",//插件的版本号
+  "name": "密码代填",
+  "description": "密码代填登录插件",
+  "browser_action": {
+
+  },
+  "permissions": [
+    "tabs",
+    "webRequest",
+    "webNavigation",
+    "https://login.taobao.com/*"
+  ],
+  "background":{
+
+  },
+  "content_scripts":[
+    {
+      "matches":["https://login.taobao.com/*"],//需要注入的脚本页面url，支持正则表达式
+      "js":["jquery.js","taobao_login.js"],//注入的脚本文件，相对路径
+      "run_at":"document_end",//注入的位置，document_start文档的开始，在这是文档的结尾
+      "all_frames":true//是否全frame注入，比如页面使用了ifream或者frame
+    }
+  ]
+
+}
