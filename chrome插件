@@ -1,0 +1,130 @@
+Chrome插件开发最核心的就是manifest.json，熟悉了它，其它的都很容易了
+
+
+必须属性：name、version、manifest_version
+1、name 顾名思义就是你的插件的名称；
+
+2、version 指你的插件的版本号；
+
+3、manifest_version 指定清单文件格式的版本，在Chrome18之后，应该都是2，所以这个值直接设定为2就OK了；
+推荐属性：description、icons、default_locale 
+1、description 插件描述，简单介绍插件用途；
+
+2、icons 插件图标，需准备16*16（扩展信息栏）、48*48（扩展管理页面）、128*128（用在安装过程中）的三个图标文件，建议为PNG格式
+，因为PNG对透明的支持最好；
+
+3、default_locale 国际化支持，支持何种语言的浏览器，虽然官方推荐，不过我没用；
+browser_action    浏览器插件的工具栏图标。browser_action可以设置扩展信息栏的图标、图标悬浮提示、点击图标是弹出窗口
+
+permissions
+
+浏览器插件需要的权限，支持正则匹配。google对于安全性是相当重视，该配置也是重要的环节！
+
+ 
+
+background
+
+浏览器插件后端程序，大部分浏览器插件api，以及https网站都需要后端程序来完成。如：获取浏览器插件的版本号。
+这是一个比较重要的属性，如果你需要运行一些后台脚本，比如监听用户在扩展信息栏按下你的插件图标，或者你要监听用户新建tab页，
+这个时候你就需要有一个background的页面。background你可以指定一个HTML页面（如我的插件），也可以指定一个JS文件，如：
+
+
+复制代码
+{
+  "name": "My extension",
+  ...
+  "background": {
+    "scripts": ["background.js"]
+  },
+  ...
+}
+复制代码
+需要注意两点：
+
+1、是HTML不能写JS代码，JS代码需要写到JS文件中后引入；
+
+2、不能使用jquery（没有详细测试，可能是我没用正确）；
+
+监听用户在扩展信息栏按下你的插件图标时，显示当前活动页的URL：
+
+
+chrome.browserAction.onClicked.addListener(function (tab) {
+alert(tab.url);
+});
+ 
+
+content_scripts
+
+页面注入配置。例如：向域名为xx的注入一串输出hello world的脚本，就需要该配置，同时也需要配置拥有该域名xx的权限。
+
+
+
+页面如何注入scripts文件
+
+了解如何注入scripts文件，我们先通过一个实例来了解。
+1.manifest.json  permissions配置
+
+"permissions":[
+
+"https://login.taobao.com/*"
+
+]
+＊正则匹配符
+
+ 
+
+2.manifest.json content_scripts配置
+
+复制代码
+"content_scripts":[
+　　{
+
+　　　　"matches":["https://login.taobao.com/*"],
+
+　　　　"js":["taobao_login.js"],
+
+　　　　"run_at":"document_end",
+
+　　　　"all_frames":true
+
+　　}
+]
+复制代码
+　　　　matches: 需要注入的脚本页面的URL，支持正则表达式。
+
+　　　　js: 注入的脚本文件，相对路径。
+
+　　　　run_at: 注入的位置，document_start文档的开始，document_idel文档的中间 , document_end文档的末尾。
+
+　　　　all_frames: 是否全frame注入，比如页面使用了iframe或者frame。
+    
+    
+    3.编写taobao_login.js
+
+　　　语法为javascript，当然你也可以引入jquery。引入的配置为：
+   
+   本次案例为纯javascript，先查看淘宝的登录页面。
+     通过页面DOM树的查看，我们得知用户名和密码输入的Dom标识。
+     找到input节点
+     相应的taobao_login.js代码为：
+参考：
+http://www.cnblogs.com/bdstjk/p/3180925.html
+http://www.cnblogs.com/oshine/p/5379349.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
