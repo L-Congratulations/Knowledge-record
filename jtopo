@@ -1,0 +1,262 @@
+http://www.jtopo.com/demo/topo-desktop.html
+$(document).ready(function(){
+        	$.ajax({
+        		url : "${ctx}/home/getOverview.do",
+        	    type: 'get',
+        	    dataType: 'json',
+        		success : function(result) {
+        			//$("#hostOnline").val(result.onLineHost + "/" + result.allHost);
+        			//console.log(result)
+        			getOverview(result);
+        		}
+        	});
+            var result1={"companyId":2,
+                "companyName":"总部",
+                "childCompany":[
+                    {
+                        "host":[
+                            {
+                                "fortIp":"192.168.30.51",
+                                "fortId":10,
+                                "fortName":"192.168.30.51",
+                                "systemInfo":{
+                                    "userCount":7,
+                                    "warnCount":0,
+                                    "memoryUsage":56,
+                                    "fortId":10,
+                                    "updateTime":1491896223000,
+                                    "cpuUsage":1,
+                                    "wsCount":0,
+                                    "userOlCount":1,
+                                    "ssoOlCount":0,
+                                    "diskUsage":83
+                                },
+                                "onlineStatus":1
+                            },
+                            {
+                                "fortIp":"192.168.30.51",
+                                "fortId":10,
+                                "fortName":"192.168.30.51",
+                                "systemInfo":{
+                                    "userCount":7,
+                                    "warnCount":0,
+                                    "memoryUsage":56,
+                                    "fortId":10,
+                                    "updateTime":1491896223000,
+                                    "cpuUsage":1,
+                                    "wsCount":0,
+                                    "userOlCount":1,
+                                    "ssoOlCount":0,
+                                    "diskUsage":83
+                                },
+                                "onlineStatus":0
+                            },
+                            {
+                                "fortIp":"192.168.30.51",
+                                "fortId":10,
+                                "fortName":"192.168.30.51",
+                                "systemInfo":{
+                                    "userCount":7,
+                                    "warnCount":0,
+                                    "memoryUsage":56,
+                                    "fortId":10,
+                                    "updateTime":1491896223000,
+                                    "cpuUsage":1,
+                                    "wsCount":0,
+                                    "userOlCount":1,
+                                    "ssoOlCount":0,
+                                    "diskUsage":8
+                                },
+                                "onlineStatus":0
+                            },
+                            {
+                                "fortIp":"192.168.30.51",
+                                "fortId":10,
+                                "fortName":"192.168.30.51",
+                                "systemInfo":{
+                                    "userCount":7,
+                                    "warnCount":0,
+                                    "memoryUsage":56,
+                                    "fortId":10,
+                                    "updateTime":1491896223000,
+                                    "cpuUsage":1,
+                                    "wsCount":0,
+                                    "userOlCount":1,
+                                    "ssoOlCount":0,
+                                    "diskUsage":8
+                                },
+                                "onlineStatus":1
+                            }
+                            ],
+                        "companyId":2,
+                        "companyName":"总部"
+                    },
+                    {
+                        "host":[],
+                        "companyId":3,
+                        "companyName":"北京分局"
+                    },
+                    {
+                        "host":[],
+                        "companyId":4,
+                        "companyName":"北京分局1"
+                    }
+                    ]
+            };
+		function getOverview(result){
+            var canvas = document.getElementById('canvas');
+            var stage = new JTopo.Stage(canvas);
+            //显示工具栏
+            //showJTopoToobar(stage);
+            stage.wheelZoom = 0.85;
+            var scene = new JTopo.Scene();
+            scene.background = '${ctx}/images/statistics/bg.jpg';
+            //scene.backgroundColor='#f5f7fa';
+            function node(x, y, img,text,txt,t,fortName,fortId,fortIp,diskUsage,memoryUsage,cpuUsage){
+                var node = new JTopo.Node(txt);
+                node.setImage('${ctx}/images/statistics/' + img, true);
+                node.setLocation(x, y);
+                scene.add(node);
+                if(t){
+                    node.mouseover(function(){
+                        //this.text = text;
+                        $("#tips").css('display','block');
+                        $("#fortName").text(fortName);
+                        $("#fortId").text(fortId);
+                        $("#fortIp").text(fortIp);
+                        $("#diskUsage").text(diskUsage);
+                        $("#memoryUsage").text(memoryUsage);
+                        $("#cpuUsage").text(cpuUsage);
+
+
+                    });
+                    node.mouseout(function(){
+                        //this.text = txt;
+                        $("#tips").css('display','none')
+                    });
+                }else {
+                    node.mouseover(function(){
+                        this.text = text;
+
+                    });
+                    node.mouseout(function(){
+                        this.text = txt;
+
+                    });
+                }
+                return node;
+            }
+            function linkNode(nodeA, nodeZ,f){
+                var link;
+                if(f){
+                    link = new JTopo.FoldLink(nodeA, nodeZ);
+                }else{
+                    link = new JTopo.Link(nodeA, nodeZ);
+                }
+                link.direction = 'vertical';
+                //link.strokeColor = color;
+                scene.add(link);
+                return link;
+            }
+            var width=$('#canvas').width();
+            var height=$('#canvas').height();
+            //console.log(width)
+           // console.log(height)
+            var companynumber=result.childCompany.length;
+
+            var a=(parseInt(width)/companynumber)/2;
+            var b=parseInt(width)/companynumber;
+            //console.log(a)
+            var g1 = node(parseInt(width)/2, height*0.2, 'gather.png','','');
+            //var w1 = node(parseInt(width)/2-42, height*0.22, 'wanjet.png');
+            //linkNode(g1, w1);
+            //var c1 = node(parseInt(width)/2-2, height*0.16, 'center.png');
+            //linkNode(w1, c1);
+            var cloud = node(parseInt(width)/2-21, height*0.01, 'cloud.png',result.companyName,result.companyName);
+            linkNode(cloud, g1);
+            for (var i=0;i<companynumber;i++){
+                var baoleinum=result.childCompany[i].host.length;
+                if (baoleinum<20){
+                    var baoleiLength=b/baoleinum;
+                }else {
+                    var baoleiLength=b/20;
+                }
+                
+                var baoleiFirstPosition=baoleiLength/2;
+                var s = node(a+b*i, height*0.28, 'server.png',result.childCompany[i].companyName,result.childCompany[i].companyName);
+
+                linkNode(s, g1, true);
+                //var c = node((a-2)+b*i, height*0.46, 'center.png','','');
+                //linkNode(s, c);
+                //var w = node((a-42)+b*i, height*0.52, 'wanjet.png');
+                //linkNode(c, w);
+                var g = node(a+b*i, height*0.43, 'gather.png');
+                linkNode(s, g);
+                function hostLink(nodeA, nodeZ,color){
+                    var link = new JTopo.FlexionalLink(nodeA, nodeZ);
+                    link.shadow = false;
+                    link.offsetGap = 44;
+                    link.strokeColor = color;
+                    scene.add(link);
+                    return link;
+                }
+
+                for (var j=0;j<baoleinum;j++){
+                	 if (baoleinum<20){
+                		 //var rows=Math.floor(j/20);
+                		 
+                         var h = node(baoleiFirstPosition+baoleiLength*(j), height*0.66, 'host.png','',"",true,result.childCompany[i].host[j].fortName
+                         ,result.childCompany[i].host[j].fortId,result.childCompany[i].host[j].fortIp,
+                             result.childCompany[i].host[j].systemInfo.diskUsage,result.childCompany[i].host[j].systemInfo.memoryUsage,
+                             result.childCompany[i].host[j].systemInfo.cpuUsage);
+                     }else {
+                    	 var rows=Math.floor(j/20);
+                         var h = node(baoleiFirstPosition+baoleiLength*(j%20)+b*i-4.5, height*0.52+40*rows, 'host.png','',"",true,result.childCompany[i].host[j].fortName
+                         ,result.childCompany[i].host[j].fortId,result.childCompany[i].host[j].fortIp,
+                             result.childCompany[i].host[j].systemInfo.diskUsage,result.childCompany[i].host[j].systemInfo.memoryUsage,
+                             result.childCompany[i].host[j].systemInfo.cpuUsage);
+                     }
+                    //var rows=Math.floor(j/20);
+                    //var h = node(baoleiFirstPosition+baoleiLength*(j%20)+b*i-4.5, height*0.52+40*rows, 'host.png','',"",true,result.childCompany[i].host[j].fortName
+                    //,result.childCompany[i].host[j].fortId,result.childCompany[i].host[j].fortIp,
+                      //  result.childCompany[i].host[j].systemInfo.diskUsage,result.childCompany[i].host[j].systemInfo.memoryUsage,
+                        //result.childCompany[i].host[j].systemInfo.cpuUsage);
+
+                    if (result.childCompany[i].host[j].systemInfo.diskUsage>80 ||result.childCompany[i].host[j].systemInfo.memoryUsage>80||result.childCompany[i].host[j].systemInfo.cpuUsage>80){
+                        h.alarm = '';
+                    }
+
+                    if (result.childCompany[i].host[j].onlineStatus==0){
+                        hostLink(g, h,'76,243,76');
+                    }else {
+                        hostLink(g, h,'167,8,8');
+                    }
+
+                }
+            }
+
+//
+//            setInterval(function(){
+//                if(h3.alarm == '二级告警'){
+//                    h3.alarm = null;
+//                }else{
+//                    h3.alarm = '二级告警'
+//                }
+//            }, 600);
+
+            stage.add(scene);
+        		
+		}
+        	setInterval(function() {
+				$.ajax({
+					url : "${ctx}/home/getOverview.do",
+	        	    type: 'get',
+	        	    dataType: 'json',
+	        		success : function(result) {						
+	        			getOverview(result)
+					}
+				});
+			
+		}, 300000);
+        });
+        	
