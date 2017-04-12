@@ -1,0 +1,13 @@
+转换为12小时：
+function getDate(tm){ 
+			    var tt=new Date(tm).toLocaleString();
+			    return tt; 
+			} 
+      
+转换为24小时制：
+function getDate(tm){ 
+			  var timeTrans = new Date(parseInt(tm));				
+				var tt=timeTrans.toLocaleString('chinese',{hour12:false})
+        //console.log(tt);
+			    return tt; 
+			} 
