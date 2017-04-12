@@ -1,0 +1,52 @@
+https://github.com/HanSon/newline-echarts
+
+newline(option, 6, 'yAxis')
+newline::::
+function newline(option, number, axis){
+    option[axis]['axisLabel']={
+        interval: 0,
+        formatter: function(params){
+            var newParamsName = "";
+            var paramsNameNumber = params.length;
+            var provideNumber = number;
+            var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
+            if (paramsNameNumber > provideNumber) {
+                for (var p = 0; p < rowNumber; p++) {
+                    var tempStr = "";
+                    var start = p * provideNumber;
+                    var end = start + provideNumber;
+                    if (p == rowNumber - 1) {
+                        tempStr = params.substring(start, paramsNameNumber);
+                    } else {
+                        tempStr = params.substring(start, end) + "\n";
+                    }
+                    newParamsName += tempStr;
+                }
+            } else {
+                newParamsName = params;
+            }
+            return newParamsName
+        }
+    }
+    return option;
+}
+
+
+
+
+参数一：是你的option
+参数二：是多少个字就换行
+参数三：是x轴还是y轴 可选项 'yAxis' OR 'xAxis'
+##Example
+
+var chart = echarts.init(document.getElementById("main"));
+<script src="js/echarts.js"></script>
+var option = 
+{
+    # your options
+}
+
+option = newline(option, 6, 'yAxis')
+chart.setOption(option)
+
+
