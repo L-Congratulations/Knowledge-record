@@ -1,3 +1,21 @@
+一、编码环境webstrom2017+es6
+二、熟悉vue语法：
+  vue的精髓：响应的数据绑定+组合的视图组件
+  （1）、构造器
+  每个 Vue.js 应用都是通过构造函数 Vue 创建一个 Vue 的根实例 启动的：
+  在实例化 Vue 时，需要传入一个选项对象，它可以包含数据、模板、挂载元素、方法、生命周期钩子等选项。全部的选项可以在 API 文档中查看。
+
+
+
+
+
+
+
+
+
+
+
+
 1、引入element库
   在项目目录下D:\environment\vue\vueEle输入npm i element-ui -S 看到D:\environment\vue\vueEle\node_modules文件夹下有element-ui表示引入成功
 2、引入整个element
