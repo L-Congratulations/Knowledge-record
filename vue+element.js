@@ -268,7 +268,107 @@ Vue.component()构造器的el和data只能是函数。
 -------------------------------------------------------------------------------------------------------------
 
 五、路由
+    Vue.js 路由允许我们通过不同的 URL 访问不同的内容。
+    通过 Vue.js 可以实现多视图的单页Web应用（single page web application，SPA）。
+    Vue.js 路由需要载入 vue-router 库
+    中文文档地址：vue-router文档 http://router.vuejs.org/zh-cn/。
+   （1）、修改 main.js，引入并注册 vue-router
+
+      import Router from "vue-router";
+      Vue.use(Router);    //使用前需注册vue-router
+   （2）、创建路由实例并配置路由映射
+      //path:'*',redirect:'/home'重定向到path是/home的映射
+      //这里的路径还可以使用另外一种表达方式：先将组件引入文件import first2 from '../components/first2.vue'
+      // 然后在路径中直接引用：routes:[{path:'/first2',component:first2}]
+      //页面内直接定义的组件同理const First = { template: '<div><h2>我是第 1 个子页面</h2></div>' }
+      //routes:[{path:'/First',component:First}]
+      const router=new Router({
+        routes:[
+          {
+            path:'/main',component:require('../components/main.vue')
+          },
+          {
+            path:'/Hello',component:require('../components/Hello.vue')
+          },         
+          {
+            path:'*', redirect:'/Hello'
+          }
+        ]
+      });
+      export default router;    //将路由暴露出去
+     （3）、 现在我们可以启动应用了！
+    // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+    const app = new Vue({
+      router: router,
+      render: h => h(App)
+    }).$mount('#app')
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+    以下实例中我们将 vue-router 加进来，然后配置组件和路由映射，再告诉 vue-router 在哪里渲染它们。代码如下所示：
+    HTML 代码
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <div id="app">
+      <h1>Hello App!</h1>
+      <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+      </p>
+      <!-- 路由出口 -->
+      <!-- 路由匹配到的组件将渲染在这里 -->
+      <router-view></router-view>
+    </div>
+
+    JavaScript 代码
+    // 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+    // 1. 定义（路由）组件。
+    // 可以从其他文件 import 进来
+    const Foo = { template: '<div>foo</div>' }
+    const Bar = { template: '<div>bar</div>' }
+
+    // 2. 定义路由
+    // 每个路由应该映射一个组件。 其中"component" 可以是
+    // 通过 Vue.extend() 创建的组件构造器，
+    // 或者，只是一个组件配置对象。
+    // 我们晚点再讨论嵌套路由。
+    const routes = [
+      { path: '/foo', component: Foo },
+      { path: '/bar', component: Bar }
+    ]
+
+    // 3. 创建 router 实例，然后传 `routes` 配置
+    // 你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+      routes // （缩写）相当于 routes: routes
+    })
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+      router
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！        
 
 
 
