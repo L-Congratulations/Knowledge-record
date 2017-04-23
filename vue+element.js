@@ -188,6 +188,84 @@
 Vue()构造器的el和data可以是对象。
 Vue.component()构造器的el和data只能是函数。
 
+4.2、组件探索
+    万能组件写法（单独写一个组件demo.vue可以在任意地方引用）:
+    第一步：写组件view和model并把它暴露出去，使得其他位置能够引用的到
+    如自定义组件firstcomponent.vue:
+    
+    <template>
+      <div id="firstcomponent">
+        <h1>这是一个组件嘛</h1>
+        <a href="">作者是谁{{author}}</a>
+      </div>
+    </template> //组件的view层
+    <script>
+      export default{//将组件暴露出去
+        data(){// Vue()构造器的el和data可以是对象。Vue.component()构造器的el和data只能是函数。
+          return{
+            author:'测试的'//组件的数据绑定
+          }
+        }
+      }
+    </script>
+  第二步：局部注册
+  不必在全局注册每个组件。通过使用组件实例选项注册，可以使组件仅在另一个实例/组件的作用域中可用：
+  在mint.vue中引入firstcomponent.vue组件：
+    <template>
+      <div id="first">
+          <h1>这是一个组件</h1>
+          <a href="">作者是{{author}}</a>
+          <firstcomponent></firstcomponent>//在view中的合适位置引入组件
+        </div>
+    </template>
+    <script>
+        import firstcomponent from './firstcomponent.vue'//将firstcomponent.vue引入到mint.vue中便于引用
+        export default{                                 //此处的路径./代表当前文件夹，（../上一级文件夹）要注意
+          data(){
+                return{
+                    author:'测试'
+                }
+            },
+          
+          components:{
+            // <firstcomponent> 将只在父模板可用
+            //局部注册firstcomponent组件，使其在mint的作用域中使用
+            //原理：在父组件实例内部注册组件，使其仅在该实例作用域中可用
+            firstcomponent
+            //要是打算引入多个组件前边一样只需要在这里再添加一项就可以
+             //firstcomponent，
+             //first2注意要先用import引入然后再在这里注册就行了
+          }
+        }
+    </script>
+    其实和下面的等同，不过此处的firstcomponent是从外部引入的而下边的child则是直接在页面内定义的
+    var Child = {
+      template: '<div>A custom component!</div>'
+    }
+    new Vue({
+      // ...
+      components: {
+        
+        'my-component': Child
+      }
+    })
+-------------------------------------------------------------------------------------------------------------
+（1）、一个组件里只能有一个并列的div
+    （2）、data应该是个函数,数据要写在 return 里面：
+      export default {
+        data(){
+          return{
+            msg:'hello vue'
+        }
+      }
+       
+
+-------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
