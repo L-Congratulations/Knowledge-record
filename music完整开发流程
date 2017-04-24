@@ -1,0 +1,3 @@
+1、搭建vue-cli脚手架：vue webpack
+2、安装依赖 进入项目目录 在命令行中输入npm install
+3、引入所需要用的框架：element-ui
