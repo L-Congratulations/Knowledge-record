@@ -298,13 +298,35 @@ Vue.component()构造器的el和data只能是函数。
       export default router;    //将路由暴露出去
      （3）、 现在我们可以启动应用了！
     // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+   // 接着创建路由实例
+    const router = new VueRouter({
+      // ES6缩写语法，相当于routes:routes
+      routes  
+    });
+    // 最后创建vue实例并挂载
     const app = new Vue({
-      router: router,
-      render: h => h(App)
+      el: '#app',
+      router
+    });
+    // 或者
+    const app = new Vue({
+      router
     }).$mount('#app')
         
-        
-        
+  -------------------------------------------------------------------------------------------------------------------
+   router-view
+    这个组件十分关键，它就是用来渲染匹配到的路由的。 
+    可以给router-view组件设置transition过渡，具体用法见Vue2.0 Transition常见用法全解惑。 
+    还可以配合<keep-alive>使用，keep-alive可以缓存数据，这样不至于重新渲染路由组件的时候，之前那个路由组件的数据被清除了。
+    比如对当前的路由组件a进行了一些DOM操作之后，点击进入另一个路由组件b，再回到路由组件a的时候之前的DOM操作还保存在，
+    如果不加keep-alive再回到路由组件a时，之前的DOM操作就没有了，得重新进行。如果你的应用里有一个购物车组件，就需要用到keep-alive。
+
+    <transition>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
+  ---------------------------------------------------------------------------------------------------------------------
         
         
         
