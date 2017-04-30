@@ -1,3 +1,4 @@
+![Image text](https://github.com/L-Congratulations/Knowledge-record/tree/vue.js/tupian/demo.jpg)
 单页面应用（single page web application，SPA）
   目的：将前后端彻底分离，服务器只有数据验证、授权和持久存储必须要放在服务端。前端负责所有页面渲染，跳转逻辑，数据展示等，后台只负责
   数据处理，这样前后端通信的内容只有数据
