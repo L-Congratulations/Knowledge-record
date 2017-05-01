@@ -38,3 +38,44 @@ Vue 实现了一个 观察者-消费者(订阅者) 模式来实现数据驱动�
   }
   仿照node.js调用接口读取数据（假接口，假数据）
   在dev-servers.js中进行配置:配置路由 
+      //数据请求
+      var appData = require('../data.json');
+      var seller = appData.seller;
+      var goods = appData.goods;
+      var ratings = appData.ratings;
+
+      //定义路由
+      var apiRoutes = express.Router();
+      apiRoutes.get('/seller',function (req,res) {
+        res.json({
+          errno:0,
+          data:seller
+        })
+      });
+      apiRoutes.get('/goods',function (req,res) {
+        res.json({
+          errno:0,
+          data:goods
+        })
+      });
+      apiRoutes.get('/ratings',function (req,res) {
+        res.json({
+          errno:0,
+          data:ratings
+        })
+      });
+      //定义路由之后，我们要通过express使用它，定义下边之后可以通过/api/goods就可以请求到goods里面的数据
+      //app.ues()一般有两个参数，第一个是path；我们所有和api相关的接口都会通过/api这个路由去匹配到具体的路由
+      //因为此处修改的是node配置文件所以修改完了之后要重新npm run dev
+      app.use('/api',apiRoutes);
+      
+五、组件拆分：
+header一个组件，商品、评价、商家各为一个组件
+1、初始化css默认样式：
+在static文件夹下新建css文件夹，然后新建reset.css在里面对样式进行初始化（从网站直接引入+自定义）
+2、css文件引入
+在这初始化的这个css文件直接在index.html（入口文件）中用link标签引入即可
+3、移动端meta标签设置：
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
+minimum-scale=1.0,user-scalable=no">
+4、
