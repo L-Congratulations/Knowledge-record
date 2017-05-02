@@ -78,4 +78,12 @@ header一个组件，商品、评价、商家各为一个组件
 3、移动端meta标签设置：
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
 minimum-scale=1.0,user-scalable=no">
-4、
+4、自定义的标签名字不能是关键字，如header等，可以使用v_header
+5、样式编写：flex布局
+  移动端设计中：高度和行高：比如高度标注是80像素（让他垂直居中行高也设成80（Line-height行高属性，运用到对文字排版，实现上下排文字间隔距离，
+      以及单排文字在一定高度情况上下垂直居中布局。http://www.jb51.net/css/199172.html）），因为所有的移动端设计都是按两倍的大小去设计的
+      也就是这个宽度是按iphone6的设计稿设计，设备像素是375但物理像素是750，所以说dpr是2，设计师设计也是按两倍大小标记的尺寸。所以我们在代
+      码里面设置高度属性为40px；
+   flex布局审查元素会发现会有一个兼容性写法，这是因为vue-loader依赖了一个postcss插件，这个插件会自动帮我们解决浏览器兼容性的写法
+   
+六、路由vue-router   
