@@ -103,3 +103,22 @@ resolve: {
 七、样式调整
 1.将a标签设置为display-block，这样在点击一块区域的时候就会触发链接，而不是只有点击到a标签才触发
 2.点击高亮写法。因为vue做了处理，会在点击某个链接的时候动态添加一个类如：router-link-active，所以只要在这个类上添加样式就会将高亮的效果展示出来
+3.修改active 元素类名：vue-router提供了钩子，在vue-router2.0里面的router构造器配置linkActiveClass默认值是router-link-active，我们可以在router
+创建实例的时候传入参数，改为我们想要的，如：linkActiveClass：active代码如下：
+export default new Router({
+      linkActiveClass:'active',
+      routes: [   
+        {
+          path:'*', redirect:'/goods'
+        },
+        {
+          path:'/goods',
+          name:'goods',
+          component:goods
+        },
+        ]
+    })
+具体例子看https://router.vuejs.org/zh-cn/api/options.html中routes的用法
+4、一像素边框：写一个div高度为1px，然后通过缩放来实现手机下一像素边框效果transform: scaleY(0.5);。（伪类？？？？）
+5、如何在pc开发移动端的时候用手机去实时预览：将localhost换成本机的ip地址，然后用http://cli.im/网站将链接（http://192.168.0.101:8080/#/ratings）
+生成一个二维码（前提是手机和电脑链接的同一个局域网）
