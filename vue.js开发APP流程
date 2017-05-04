@@ -122,3 +122,26 @@ export default new Router({
 4、一像素边框：写一个div高度为1px，然后通过缩放来实现手机下一像素边框效果transform: scaleY(0.5);。（伪类？？？？）
 5、如何在pc开发移动端的时候用手机去实时预览：将localhost换成本机的ip地址，然后用http://cli.im/网站将链接（http://192.168.0.101:8080/#/ratings）
 生成一个二维码（前提是手机和电脑链接的同一个局域网）
+
+八、header组件的开发
+数据请求：axios
+        安装：npm install axios -S
+        引入：安装其他插件的时候，可以直接在 main.js 中引入并 Vue.use()，但是 axios 并不能 use，只能每个需要发送请求的组件中即时引入vue.use()相
+        当于全局注册
+        为了解决这个问题，有两种开发思路，一是在引入 axios 之后，修改原型链，二是结合 Vuex，封装一个 aciton。具体的实施请往下看~
+        方案一：改写原型链
+        首先在 main.js 中引入 axios  ：import axios from 'axios'
+        这时候如果在其它的组件中，是无法使用 axios 命令的。但如果将 axios 改写为 Vue 的原型属性，就能解决这个问题
+        Vue.prototype.$ajax = axios
+        在 main.js 中添加了这两行代码之后，就能直接在组件的 methods 中使用 $ajax 命令
+        methods: {
+          submitForm () {
+            this.$ajax({
+              method: 'post',
+              url: '/user',
+              data: {
+                name: 'wise',
+                info: 'wrong'
+              }
+           })
+        }
