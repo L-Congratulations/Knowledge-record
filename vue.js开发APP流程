@@ -200,4 +200,17 @@ proxyTable: {
 在这的意思是将seller对象传入到自定义属性seller中，便于数据传递
 5、在组件中获取seller数据：
 组件实例的作用域是孤立的。这意味着不能并且不应该在子组件的模板内直接引用父组件的数据。简单的来说，组件和组件之间，即使有同名属性，
-值也不共享。可以使用 props 把数据传给子组件。
+值也不共享。可以使用 props 把数据传给子组件。如承接上边seller传递的对象我们
+在header组件中接受seller对象：
+ export default{
+     props:{
+         seller:{
+             type:Object,
+         }
+     }
+  }
+  注意要在dom中绑定vue实例中的属性要用vue语法如：<img width="64" height="64" :src="seller.avatar">
+  如果不是vue实例的属性则可以直接用html语法，如：<img width="64" height="64" src="../../common/img/demo.jpg">两者的src属性的方法是不同的。
+  因为webpack编译后的文件路径发生变化，所以<img width="64" height="64" :src="seller.avatar">中sellrt.avater的路径实际应该为webpack编译好
+  之后的图片地址：data.json中avatar的值为:"avatar":"../../static/img/demo.a041a22.jpg"，但是需要有图片作为预设路径才行，如：
+  <img width="64" height="64" src="../../common/img/demo.jpg" style="display: none">要不路径是找不到的，因为webpack没有编译那个图片
