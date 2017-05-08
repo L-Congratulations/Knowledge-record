@@ -214,3 +214,6 @@ proxyTable: {
   因为webpack编译后的文件路径发生变化，所以<img width="64" height="64" :src="seller.avatar">中sellrt.avater的路径实际应该为webpack编译好
   之后的图片地址：data.json中avatar的值为:"avatar":"../../static/img/demo.a041a22.jpg"，但是需要有图片作为预设路径才行，如：
   <img width="64" height="64" src="../../common/img/demo.jpg" style="display: none">要不路径是找不到的，因为webpack没有编译那个图片
+  
+  
+  
