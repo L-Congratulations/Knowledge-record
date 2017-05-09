@@ -220,4 +220,20 @@ proxyTable: {
   的路径才能由webpack进行转化，打包之后添加的路径只能引用打包后的文件路径才行。
   ----------------------------------------------------------------------------------------------------------------------------------
   
+  5、vue从ajax获取数据到数据填充过程的运行逻辑：
+  首先我们在app.vue vue实例的data参数里面定义了一个空对象seller：{}，用来存放ajax请求回来的数据。然后在 mounted中调用了axios，在成功回调里把
+  结果赋值给了seller ：this.seller=response.data.data;当项目运行时首先传递给seller的是个空对象，然后ajax去请求数据，当成功请求之后将结果赋值
+  给seller，seller再重新渲染dom。如果请求失败则不会传递数据给seller。所以：
+  <div class="support" v-if="seller.supports">
+        <!--注意这里添加v-if的运行逻辑，因为在app.vue中当vue实例初始化后此时的seller是个空对象
+        data(){
+        return {
+            seller:{}
+        }
+      },然后把seller传入到html里面，此时也是空对象。里面的数据是异步请求，此时数据还没返回到页面-->
+        <span class="icon"></span>
+        <span class="text">{{seller.supports[0].description}}</span>
+
+      </div>
+      在利用ajax获取的数据进行渲染时要先用v-if判断值是否已经存在，若存在则执行，不存在调用其他方法，避免因为逻辑的原因导致运行结果错误。
   
