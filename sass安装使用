@@ -53,7 +53,7 @@ npm install --save-dev node-sass
     vue: {
         loaders: {
             js: 'babel', 
-            css: ExtractTextPlugin.extract("css"),
+            css: ExtractTextPlugin.extract("css"),//如果不想样式分离参考：如果不想分离出来可以直接这样写 loader:'style!css!sass'
             sass: ExtractTextPlugin.extract("css!sass")            
         },
     },
