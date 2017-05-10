@@ -1,5 +1,6 @@
 1、把模态框的按钮设成input：
 <input type="button" class="buttonNo_alertBox" id="layOut_noB" value="取消">
+（ 修改内容：window.parent.$("#layOut_noB").attr("value","取消");）
 因为input有focus状态，这样更好获取焦点
 2、直接给按钮添加click事件就行：
 $("#layOut_noB").click(function(){
