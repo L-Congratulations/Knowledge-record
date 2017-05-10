@@ -67,3 +67,4 @@ require('../../css/test2.scss');
 <style lang="sass">
      //sass语法样式
 </style>
+参考：http://www.cnblogs.com/ww03/p/6037710.html
