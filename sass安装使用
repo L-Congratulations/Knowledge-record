@@ -1,0 +1,15 @@
+1、在https://rubyinstaller.org/downloads/ 
+下载Ruby 2.3.3 (x64) 和DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe
+2、运行安装包（选择添加环境变量），安装完成后再命令行运行ruby -v检查是否安装成功
+3、解压DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe
+4、创建 config.yml 文件
+打开命令行，进入devkit的解压目录
+ruby dk.rb init 初始化创建config.yml文件
+5、查看config.yml
+文件最后是否自动加上- C:/Ruby22，如果没有手动加上就可以了
+我这里以前好像装过一次，先注释掉上面一个吧
+6、回到命令行
+执行审查和安装吧
+ruby dk.rb review
+ruby dk.rb install
+打完收工！
