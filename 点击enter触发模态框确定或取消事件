@@ -1,4 +1,4 @@
-1、把模态框的按钮设成input：
+1、把模态框的按钮设成input：(按钮也可以focus所以不用改为input也没事)
 <input type="button" class="buttonNo_alertBox" id="layOut_noB" value="取消">
 （ 修改内容：window.parent.$("#layOut_noB").attr("value","取消");）
 因为input有focus状态，这样更好获取焦点
