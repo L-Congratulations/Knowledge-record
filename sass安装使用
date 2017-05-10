@@ -13,3 +13,13 @@ ruby dk.rb init 初始化创建config.yml文件
 ruby dk.rb review
 ruby dk.rb install
 打完收工！
+
+7、sass安装：
+安装完ruby之后，在开始菜单中，找到刚才我们安装的ruby，打开Start Command Prompt with Ruby
+然后直接在命令行中输入
+gem install sass
+按回车键确认，等待一段时间就会提示你sass安装成功
+运行sass -v检查是否安装成功
+
+
+8、在webpack中引入sass
