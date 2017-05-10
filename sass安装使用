@@ -23,3 +23,47 @@ gem install sass
 
 
 8、在webpack中引入sass
+（1）、在webpack中进行配置才能读取 css 和字体文件，运行命令安装下面三个东西
+npm install style-loader --save-dev
+npm install css-loader --save-dev
+npm install file-loader --save-dev
+然后在 webpack.config.js 中的 loaders 数组加入以下配置：
+{
+    test: /\\.css$/,
+    loader: "style!css"
+},
+{
+    test: /\\.(eot|woff|woff2|ttf)([\\?]?.*)$/,
+    loader: "file"
+}
+（2）为了使用sass我们需要sass的依赖包：
+//在项目下，运行下列命令行
+npm install --save-dev sass-loader
+//因为sass-loader依赖于node-sass，所以还要安装node-sass
+npm install --save-dev node-sass
+然后在 webpack.config.js 中的 loaders 数组加入以下配置：
+//解析.scss文件,对于用 import 或 require 引入的sass文件进行加载，以及<style lang="sass">...</style>声明的内部样式进行加载
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract("style", 'css!sass') //这里用了样式分离出来的插件，如果不想分离出来，
+                                                                        //可以直接这样写 loader:'style!css!sass'
+            }
+
+ //.vue文件的配置，以下是为了在.vue文件中使用ES6语法（必须安装babel相关的依赖包），以及把使用css或sass语法的样式提取出来，如果不需要可以忽略
+    vue: {
+        loaders: {
+            js: 'babel', 
+            css: ExtractTextPlugin.extract("css"),
+            sass: ExtractTextPlugin.extract("css!sass")            
+        },
+    },
+    
+sass的使用如下，例如：
+
+引入外部样式，下面两种写法都可以使用：
+import '../../css/test.scss'
+require('../../css/test2.scss');
+在.vue文件中使用
+<style lang="sass">
+     //sass语法样式
+</style>
