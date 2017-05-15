@@ -1,0 +1,13 @@
+获取WebView对象
+调用WebView对象的getSettings()方法，获取WebSettings对象
+调用WebSettings对象的setJavaScriptEnabled()方法，设置js可用，参数：布尔值
+在判断是否支持js的时候，不要用alert()，默认不起作用，可以先用document.write()测试
+调用WebView对象的addJavascriptInterface(obj, interfaceName)方法，添加js接口，参数：Object对象，String接口名称（这个对象在js中的别名）
+定义一个内部类MyJavascript
+定义一个方法showToast()，显示吐司，api版本大于17需要加注解@JavascriptInterface
+
+参考：http://www.jb51.net/article/83350.htm
+
+--------------------------------------------------------------------------------------------------------------------------------
+先获取权限，然后暴露接口。
+--------------------------------------------------------------------------------------------------------------------------------
