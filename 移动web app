@@ -7,3 +7,11 @@
 ios的viewport 是980px
 viewport做了两件事情：1、页面被渲染在了一个980px（ios）的viewport里面 2、通过缩放使你看到整个viewport全貌（viewport即手机浏览器默认做的两个事情）
 viewport由两个部分构成：视图viewport（visual viewport）和布局viewport（layout viewport  这的viewport是指980px那个而不是原页面大小）
+4、移动web最佳viewport设置：
+  视图viewport=设备宽度=布局viewport
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  
+5、flexbox布局：
+Android4.4以下只兼容旧版本的flex ，ios兼容最新的flex
+6、响应式设计：
+媒体查询 百分比布局 弹性图片
