@@ -13,5 +13,16 @@ viewport由两个部分构成：视图viewport（visual viewport）和布局view
   
 5、flexbox布局：
 Android4.4以下只兼容旧版本的flex ，ios兼容最新的flex
+
 6、响应式设计：
 媒体查询 百分比布局 弹性图片
+
+7、多行文本溢出：
+.intwoline{
+  display:-webkit-box!important;
+  ovwerflow:hidden;
+  text-ovwerflow:ellipsis;
+  work-break:break-all;
+  -webkit-box-orient:vertical;
+  -wwbkit-line-clamp:2;
+  }
