@@ -114,3 +114,7 @@ APP打包框架相当于一个工厂。
 2、去掉a、input、button点击时的阴影  ：a{ -webkit-tap-highlight-color:rgba(0,0,0,0)} 将点击时的背景色设为全透明
 3、消除按钮圆角：button{ -webkit-appearance:none; border-radious:0}
 4、默认字体设置：body{font-family:Helvetica}  因为每台设备的默认字体不一样，而这个是所有设备都有的一个字体，不过只是英文字体
+5、禁止用户修改字体大小：-webkit-text-size-adjust:100%;
+6、可以取消移动端的长按默认选中的效果。不过兼容不太好
+7、
+
