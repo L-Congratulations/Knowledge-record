@@ -117,5 +117,13 @@ APP打包框架相当于一个工厂。
 5、禁止用户修改字体大小：-webkit-text-size-adjust:100%;
 6、可以取消移动端的长按默认选中的效果。不过兼容不太好
 7、font Boosting：webkit内核下，当一段文字我们没有设置高度的时候，文字的大小可能被浏览器放大。解决办法：设置最大高度max-hight
-8、固定定位问题fixed
+8、固定定位问题fixed（需要用事件去处理）
+9、ios body 的overflow问题：当页面宽度超出屏幕宽度之后，给body设置overflow：hidden position：relative 然后用div将内容主题包起来设置
+  overflow：auto；此时横向就拖不动了
+
+适配：
+1、百分比适配：宽度可以设置百分比，高度设置一般为固定值，因为高度适配比较复杂，所以百分比适配一般用来配合其他适配方式，起辅助作用
+2、viewport适配：用js获取设备尺寸，然后通过缩放将viewport强制限定为320px，动态添加meta标签到dom元素来实现document.head.appendchild(meta)
+3、rem适配：
+4、弹性盒模型（box版和flex版）
 
