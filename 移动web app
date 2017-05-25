@@ -127,3 +127,21 @@ APP打包框架相当于一个工厂。
 3、rem适配：
 4、弹性盒模型（box版和flex版）
 
+移动端body有默认8xp的margin，要进行初始化
+box-sizing 属性允许你以某种方式定义某些元素，以适应指定区域。假如您需要并排放置两个带边框的框，可通过将 box-sizing 设置为 "border-box"。
+这可令浏览器呈现出带有指定宽度和高度的框，并把边框和内边距放入框中。
+
+rem适配布局 写页面步骤：
+1、设置meta标签，利用js设置html字体大小
+  <script>
+        (function () {
+            var html = document.documentElement;
+            var hwidth = html.getBoundingClientRect().width;
+            console.log(hwidth);
+            html.style.fontSize=hwidth/16 + "px";
+        })()
+    </script>
+2、清除移动端默认样式
+3、编写页面
+  在移动端为了用户点击按钮方便一般把按钮至于中间位置，方便点击和布局
+  
