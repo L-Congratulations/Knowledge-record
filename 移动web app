@@ -172,5 +172,21 @@ rem适配布局 写页面步骤：
     并识别0和负数
     
 移动端精灵图制作
+1、写viewport的meta标签
+2、初始化html根元素的字体大小（主要针对于设计图来进行计算。如750px设计图分成15份，则在设计图中量到的50px都可以用1rem来表示）
+3、清除默认样式
+4、因为老版flex-box不会自动换行，所以一行占不下的情况就按2块或多块处理
+5、在flex布局中，盒子内部元素的大小会影响到盒子的大小。给该盒子设置width：0px，就不会受到盒子尺寸的影响了  div{width: 0;-webkit-box-flex: 1;
+    flex-grow: 1}此时的flex为1就会平分。
+6、在移动端必须要设置一下背景图片和图片的大小
+    a:before
+          content: ''
+          display: block
+          margin: 0 auto
+          width: 86rem/$r
+          height: 85rem/$r
+          background-image: url("../img/01.jpg")
+      background-size: 86rem/$r 85rem/$r
+
 
   
