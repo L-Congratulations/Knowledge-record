@@ -157,3 +157,12 @@ rem适配布局 写页面步骤：
 6、图表字体一定要设置字体大小
 7、小的位置微调时，上下左右用top left去控制
 8、a标签里面不要再嵌套div 用span来代替
+
+弹性盒子布局
+1、使用sass时文件路径中不能有汉字
+  使用sass时，value和key之间要加个空格，编译才会正常如：-webkit-box-pack: end
+2、使用老版flex进行移动端布局，老版兼容更好
+  
+  display:-webkit-box(等同于flex)
+  主轴方向：flex-direction: row(主轴方为水平方向) flex-direction: column（主轴方向为垂直方向） 老版-webkit-box-orient:horizontal
+  主轴方向富余空间的管理：老版
