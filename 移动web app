@@ -164,5 +164,13 @@ rem适配布局 写页面步骤：
 2、使用老版flex进行移动端布局，老版兼容更好
   
   display:-webkit-box(等同于flex)
-  主轴方向：flex-direction: row(主轴方为水平方向) flex-direction: column（主轴方向为垂直方向） 老版-webkit-box-orient:horizontal
-  主轴方向富余空间的管理：老版
+  主轴方向：flex-direction: row(主轴方为水平方向) flex-direction: column（主轴方向为垂直方向） 老版-webkit-box-orient: horizontal
+  主轴方向富余空间的管理：老版-webkit-box-pack: end/start/center/justify相比较于新版缺少部分功能
+  侧周方向富余空间的管理：老版-webkit-box-align: center/start/end想比较于新版缺少部分功能
+  弹性空间：是在子集设置针对该元素本身的（上边的都是在父级设置的）。老版-webkit-box-flex: 1
+  设置元素的具体位置：老版-webkit-box-ordinal-group: 3 接受一个数值，值越小该元素越靠前，最小默认处理为1（0和负值会被当做1来处理）。新版能正常接受
+    并识别0和负数
+    
+移动端精灵图制作
+
+  
