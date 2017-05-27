@@ -231,3 +231,13 @@ rem适配布局 写页面步骤：
         a.addEventListener("touchstart",function () {
           window.location.href="http://www.baidu.com";
         })
+  阻止pc事件之后还有一些其他好处：
+  （1）、禁止pc事件之后可以解决ios10下用meta标签设置禁止用户缩放无效的bug
+  （2）、禁止pc事件后可以解决ios10下溢出隐藏的问题：
+        body, html {
+            width: 100%;
+            overflow: hidden; }
+   （3）、可以禁止系统默认的滚动条，阻止橡皮筋效果
+   （4）、可以禁止系统长按选中文字和图片，禁止长按弹出的菜单
+   （5）、解决点透问题
+   （6）、
