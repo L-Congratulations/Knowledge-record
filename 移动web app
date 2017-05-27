@@ -206,3 +206,10 @@ rem适配布局 写页面步骤：
 
 响应式：
 媒体查询检查屏幕横竖屏
+1、利用媒体查询引入不同的css样式表：<link rel="stylesheet" href="./css/01.css" media="all and (min-width:400px)"/>
+     @import url(./css/01.css) (max-width: 767px);
+     
+     
+     
+ 移动端事件：
+ 
