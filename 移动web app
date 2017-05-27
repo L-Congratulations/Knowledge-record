@@ -212,4 +212,10 @@ rem适配布局 写页面步骤：
      
      
  移动端事件：
- 
+ 1、移动端的三大事件：手指按下ontouchstart 手指移动ontouchmove 手指抬起ontouchend
+ 2、注意：在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的形式绑定事件函数要用事件绑定的形式（addEventListener）：
+    var div=document.getElementById('div1');
+    div.addEventListener("touchstart",start);
+    function start() {
+        alert(1)
+    }
