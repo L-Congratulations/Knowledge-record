@@ -266,3 +266,13 @@ rem适配布局 写页面步骤：
 2、设置根节点字体大小
 3、阻止pc和浏览器默认行为
 4、
+
+移动端transfrom：
+1、设置meta标签
+2、清除默认样式
+3、清除默认事件
+
+
+（1）、transfrom2d：
+写法：-webkit-transfrom 加前缀兼容性更好
+在函数中添加动画的写法：div.style.WebkitTransfrom = div.style.transform = 'rotate(90deg)' 为了方便在pc端进行调试这样写兼容更好
