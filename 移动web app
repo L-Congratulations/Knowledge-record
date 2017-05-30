@@ -294,3 +294,14 @@ transfrom中的大坑：矩阵
 （5）、transfrom3D
 -webkit-perspective: 200px
     perspective: 200px// 景深 （近大远小）加给要做3d变换元素的父级
+    景深还有一个原点设置： -webkit-perspective-origin: x y
+                          perspective-origin: x y 默认值是center center 效果可以简单理解为视线，即从哪个方向看元素
+    3d动画主要有：
+    一、rotateX(60deg)旋转
+    二、translate位移
+    三、-webkit-transform-style: flat
+        transform-style：flat（preserve-3d）元素在做3d变换时是否保留子元素的3d效果，默认是flat即不保留
+        
+    隐藏背面：反面（背面）：和父级角度相对的元素即为背面    
+    可以使用backface-visibility: hidden
+    -webkit-backface-visibility: hidden来隐藏背面，效果就是正面如果小于背面，则看不到背面的背景
