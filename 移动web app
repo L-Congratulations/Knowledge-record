@@ -273,6 +273,17 @@ rem适配布局 写页面步骤：
 3、清除默认事件
 
 
-（1）、transfrom2d：
-写法：-webkit-transfrom 加前缀兼容性更好
+transfrom2d：
+（1）、写法：-webkit-transfrom 加前缀兼容性更好
 在函数中添加动画的写法：div.style.WebkitTransfrom = div.style.transform = 'rotate(90deg)' 为了方便在pc端进行调试这样写兼容更好
+(2)、设置变换的原点：
+在css中设置.box{
+     transition: 1s;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;（接受百分比，距离单位（px，rem），关键字（center,left,top））
+}
+（3）、执行顺序
+div.style.transform = 'translate(100px) rotate(180deg)' 先旋转 后平移（先写的后执行）
+（4）、动画
+修改left值的性能是比较差的，修改left和top会引起元素回流，因此在移动端不推荐使用修改left和top的值去进行动画，更推荐使用translate去修改元素的位置
+去做动画，性能会好很多。
