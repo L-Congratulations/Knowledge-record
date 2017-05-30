@@ -287,3 +287,10 @@ div.style.transform = 'translate(100px) rotate(180deg)' 先旋转 后平移（�
 （4）、动画
 修改left值的性能是比较差的，修改left和top会引起元素回流，因此在移动端不推荐使用修改left和top的值去进行动画，更推荐使用translate去修改元素的位置
 去做动画，性能会好很多。
+transfrom中的大坑：矩阵
+获取元素计算后的样式：console.log(getComputedStyle(div[0])["transfrom"]) 获取第一个div的transfrom计算后的属性，得到的结果是一个矩阵
+在做IE兼容的时候可能需要用到矩阵，到时候再去了解
+
+（5）、transfrom3D
+-webkit-perspective: 200px
+    perspective: 200px// 景深 （近大远小）加给要做3d变换元素的父级
