@@ -305,3 +305,24 @@ transfrom中的大坑：矩阵
     隐藏背面：反面（背面）：和父级角度相对的元素即为背面    
     可以使用backface-visibility: hidden
     -webkit-backface-visibility: hidden来隐藏背面，效果就是正面如果小于背面，则看不到背面的背景
+    
+transfrom动画：
+1、获取动画的状态和属性：
+  （1）、transfrom的相关设置：
+    自定义一个函数cssTransfrom()里面包含3个参数，元素、属性、和值。如果要获取transfrom相关属性，那transfrom的相关设置必须要通过该函数进行设置，
+    如果直接在css中定义，那么将获取不到相关属性
+    function cssTransfrom(element,attr,val) {
+            if(typeof val == "undefined"){
+                console.log('获取');
+            }else {
+                console.log('设置');
+            }
+        }
+    因为一个元素的transfrom可能会有多个，所以定义一个对象，用来存储某个元素的transfrom属性
+    element.transform={
+                rotate:40,
+                scale:200,
+                skew:'',
+                translate:20
+            };
+            console.log(element.transform.rotate)
