@@ -326,3 +326,13 @@ transfrom动画：
                 translate:20
             };
             console.log(element.transform.rotate)
+    （1）、为了避免小数误差，可以将设置的小数*100来进行赋值
+    
+    （2）、编写cssTransfrom()函数时首先要判断是否含有element.transform属性，如果不存在说明该以前没有进行transfrom属性设置，此时需要给他
+    创建一个对象形式的属性：element.transform = {};用来存储相关的属性操作。   如果存在，说明以前已经进行过transfrom设置
+    （3）、当属性值不存在时，只需要 return element.transform[attr] 就可以得到我们想要获取的属性值。不过如果之前没有用CSSTransfrom（）进行
+    设置过参数，那么直接获取属性就会为undefined，所以我们要给他添加默认值，即即使没有设置属性也应该存在一个默认的值能够获取到。
+    （4）、用switch方法进行匹配：变量fruit的值，选择执行相应的case如果所有case都不符合，则执行最后的default部分。需要注意的是，每个case
+          代码块内部的break语句不能少，否则会接下去执行下一个case代码块，而不是跳出switch结构。
+    （5）、设置属性原理就是：将val值赋给element.transform[attr]   即element.transform[attr] = val  
+    
