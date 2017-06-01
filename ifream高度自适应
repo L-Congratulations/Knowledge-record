@@ -1,6 +1,6 @@
 jq父页面获取子页面函数：
 $('#frmResource')[0].contentWindow.reloads();
-$('#frmResource')：为父页面ifream的id
+$('#frmResource')：为父页面中需要触发的子页面的ifream的id
 reloads()：为子页面内需要触发的函数
 
 
