@@ -335,4 +335,89 @@ transfrom动画：
     （4）、用switch方法进行匹配：变量fruit的值，选择执行相应的case如果所有case都不符合，则执行最后的default部分。需要注意的是，每个case
           代码块内部的break语句不能少，否则会接下去执行下一个case代码块，而不是跳出switch结构。
     （5）、设置属性原理就是：将val值赋给element.transform[attr]   即element.transform[attr] = val  
-    
+      为了方便清晰的记录transfrom属性需要利用for循环将属性进行记录，避免被覆盖
+      
+      
+cssTransfrom 函数整体代码如下：
+         <script>
+        document.addEventListener('touchstart',function (ev) {
+            ev.preventDefault();
+        });
+        function cssTransfrom(element,attr,val) {
+//            element.transform={
+//                rotate:40,
+//                scale:200,
+//                skew:'',
+//                translate:20
+//            };
+//            console.log(element.transform.rotate)
+            if (!element.transform){
+                element.transform = {};
+            }
+            if(typeof val == "undefined"){
+                var val = element.transform[attr];
+                if (!element.transform[attr]){
+                //表示该元素没有通过这种方法创建过transfrom，那我们就返回默认值
+                    switch (attr){
+                        case "scale":
+                        case "scaleX":
+                        case "scaleY":
+                        case "scaleZ":
+                            element.transform[attr] = 100;
+                            break;
+                //当attr匹配到上边任一一个值的时候都会执行到element.transform[attr] = 100;然后break跳出循环
+                        default:
+                            element.transform[attr] = 0;
+                //如果不是scale的其他情况都为0
+                    }
+                }
+                return  element.transform[attr];
+//                console.log('获取');
+            }else {
+                element.transform[attr] = val;
+                var transformVal = '';
+                for (var s in element.transform){
+//                    console.log(s);
+                    switch (s){
+                        case "scale":
+                        case "scaleX":
+                        case "scaleY":
+                        case "scaleZ":
+                            transformVal += ' ' + s + '('+ (val/100)+')';
+                            break;
+                        case "rotate":
+                        case "rotateX":
+                        case "rotateY":
+                        case "rotateZ":
+                        case "skewX":
+                        case "skewY":
+                            transformVal += ' ' + s + '('+ val+'deg)';
+                            break;
+                        default:
+                            transformVal += ' ' + s + '('+ val+'px)';
+                    }
+                }
+                console.log(transformVal) ;
+                element.style.WebkitTransfrom = element.style.transform = transformVal
+//                console.log('设置');
+            }
+        }
+        window.onload = function () {
+            var div = document.querySelector('#div');
+//            console.log(getComputedStyle(div)["transfrom"])
+            div.addEventListener('touchend',function () {
+                var deg = cssTransfrom(div,'rotate');
+                deg += 30;
+                cssTransfrom(div, 'rotate',deg);
+//                console.log(cssTransfrom(div, 'rotate',deg))
+            });
+
+        }
+    </script>
+  该函数存在一个问题，就是设置不同transfrom时，他的上一个val值会被下一个覆盖：初步解决思路直接给参数赋单位，不用switch判断，这样就不用走循环
+----------------------------------------------------------------------------------------------------------------------
+
+transfrom有的时候并不够用，因此有的时候使用MTween（运动）效果更好：
+
+
+
