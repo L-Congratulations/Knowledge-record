@@ -471,6 +471,7 @@ html,body
     -webkit-transform: rotateY(360deg)
     
  现在旋转已经写完了，然后是从前到后的过程：
- 
+ 进入页面是，图片比较小，也就是translateZ：-1000px
+ 向前冲的过程用mtween动画来写。
 
 
