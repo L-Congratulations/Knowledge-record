@@ -414,7 +414,17 @@ cssTransfrom 函数整体代码如下：
 
         }
     </script>
-  该函数存在一个问题，就是设置不同transfrom时，他的上一个val值会被下一个覆盖：初步解决思路直接给参数赋单位，不用switch判断，这样就不用走循环
+    好处：直观，不容易因为单位而导致出错。
+  该函数存在一个问题，就是设置不同transfrom时，他的上一个val值会被下一个覆盖：初步解决思路直接给参数赋单位，不用switch判断，这样就不用走循环。
+  
+  可以换为如下方案：
+  else {
+        element.transform[attr] = val;
+        var transformVal = attr + '(' + val + ')';
+        console.log(1);
+        element.style.WebkitTransfrom = element.style.transform += transformVal;
+        console.log(element.style.transform);
+          }
 ----------------------------------------------------------------------------------------------------------------------
 
 transfrom有的时候并不够用，因此有的时候使用MTween（运动）效果更好：
