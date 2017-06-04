@@ -645,7 +645,7 @@ html,body
 陀螺仪：横竖屏的切换
 
 媒体查询的横竖屏检测无法判断移动端。最多只能判断到平板。
-在移动端比较靠谱的方法就是用js来进行监测。作用对象也是window：
+在移动端比较靠谱的方法就是用js来进行监测（注意在js中无法禁止用户进行横竖屏切换）。作用对象也是window：
 window.addEventListener('orientationchange',function (ev) {
             
         })
@@ -660,6 +660,8 @@ window.addEventListener('orientationchange',function (ev) {
             }else {
                 //竖屏下执行的函数
             }
+            
+            
         })
   禁止用户横屏播放方案：1、在横屏的时候弹出模态框，提示用户竖屏播放
     注意如果用户直接就是横屏打开的页面，他不会执行orientationchange里面的函数，因此在页面加载的时候就要做个判断，然后在横竖屏颠倒的时候再进行判断
@@ -669,4 +671,8 @@ window.addEventListener('orientationchange',function (ev) {
             }else {
                 //竖屏下执行的函数
             }
-  2、      
+  2、用户切换横竖屏之后我们把div也进行旋转      
+
+
+
+陀螺仪-检测手机角度切换
