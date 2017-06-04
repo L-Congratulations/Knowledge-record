@@ -586,7 +586,7 @@ html,body
         document.addEventListener('touchstart',function (ev) {
             ev.preventDefault();
         });
-        window.onload = function (ev) {
+        (function () {
             function getAdr() {//如果是Android会返回true
                 var u = navigator.userAgent;//获取浏览器信息
                 return u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
@@ -631,7 +631,7 @@ html,body
                 lastY = y;
                 lastZ = z;
             })
-        }
+       })()
     </script>
 </head>
 <body>
@@ -640,3 +640,33 @@ html,body
 </html>
 如果想更精确的控制摇一摇，可以取两次之间的时间差值进行控制
 ----------------------------------------------------------------------------------------------------------------------------------
+
+
+陀螺仪：横竖屏的切换
+
+媒体查询的横竖屏检测无法判断移动端。最多只能判断到平板。
+在移动端比较靠谱的方法就是用js来进行监测。作用对象也是window：
+window.addEventListener('orientationchange',function (ev) {
+            
+        })
+ 可以用window.orientation来进行判断：
+  window.addEventListener('orientationchange',function (ev) {
+            alert(window.orientation)//90 和 -90代表横屏，0或180代表竖屏
+        })
+  window.addEventListener('orientationchange',function (ev) {
+            alert(window.orientation)//90 和 -90代表横屏，0或180代表竖屏
+            if(window.orientation == 90 || window.orientation == -90){
+                //横屏下执行的函数
+            }else {
+                //竖屏下执行的函数
+            }
+        })
+  禁止用户横屏播放方案：1、在横屏的时候弹出模态框，提示用户竖屏播放
+    注意如果用户直接就是横屏打开的页面，他不会执行orientationchange里面的函数，因此在页面加载的时候就要做个判断，然后在横竖屏颠倒的时候再进行判断
+     封装成函数，在页面加载的时候就执行一次
+     if(window.orientation == 90 || window.orientation == -90){
+                //横屏下执行的函数
+            }else {
+                //竖屏下执行的函数
+            }
+  2、      
