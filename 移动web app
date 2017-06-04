@@ -484,5 +484,9 @@ html,body
 
 
 陀螺仪（重力感应）：检查手机重力加速度，旋转角度等。
-1、陀螺仪相关事件：
-  
+陀螺仪相关事件：
+1、devicemotion（检测手机晃动） 
+  这个事件是加给 window的，而不是某个页面元素
+  window.addEventListener('devicemotion',function () {
+                
+            })
