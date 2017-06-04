@@ -517,3 +517,48 @@ html,body
    首先初始化位移数据：
       var box = document.querySelector('#box');
       cssTransfrom(box,'translateX',0);//初始化样式
+   然后添加陀螺仪加速度事件，并获取水平方向加速度属性：
+               window.addEventListener('devicemotion',function (ev) {
+                var motion = ev.accelerationIncludingGravity ;//加速度对象
+                var x = Math.random(motion.x);
+                if (getAdr()){
+                    x = -x;
+                }
+            })
+     定义变量保存元素水平位移位置，并与陀螺仪加速度位移求和并赋值给CSSTransfrom
+      var tx = cssTransfrom(box,'translateX');
+                if (getAdr()){
+                    x = -x;
+                }
+                cssTransfrom(box,'translateX',tx + x);
+                
+                
+                
+    摇一摇：记录上次的加速度和当前次的加速度，算差值，差值大于一定幅度的时候，就可以认定用户在摇一摇
+      
+    首先定义变量存储xyz状态值，并定义一个最大值,定义一个幅度：
+      var lastX;
+            var lastY;
+            var lastZ;
+            var max;//用来辅助观察摇动幅度大小
+            var rang = 80;
+    然后判断用户是不是首次打开该页面：
+    if (typeof lastX == 'undefined'){
+                    lastX = x;
+                    lastY = y;
+                    lastZ = z;
+                    return;
+                }
+     去差值：
+     var dis = Math.abs(x - lastX) + Math.abs(y - lastY) +Math.abs(z - lastZ);
+                //因为不确定用户摇的是哪个方向，所以将所有方向都相加
+      max = Math.max(max,dis);//辅助作用
+      if(dis >rang){
+      alert("摇一摇");
+      }
+     然后将本次的xyz再次赋值给lastX，y,z：
+      lastX = x;
+                lastY = y;
+                lastZ = z;
+                
+     因为在用户摇动的过程中并不能看到效果，因此，要在摇一摇接受的时候触发事件，而不是用户在第一次摇动幅度符合要求的时候就触发事件           
