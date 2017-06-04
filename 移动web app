@@ -488,5 +488,12 @@ html,body
 1、devicemotion（检测手机晃动） 
   这个事件是加给 window的，而不是某个页面元素
   window.addEventListener('devicemotion',function () {
-                
-            })
+  })
+  var motion = ev.accelerationIncludingGravity ;//加速度对象
+                var x = Math.random(motion.x),//代表屏幕宽的方向
+                    y = Math.random(motion.y),//代表屏幕高的方向
+                    z = Math.random(motion.z);//代表手机厚的方向
+                    
+    兼容：在ios下是-10，安卓上是+10       
+    解决方法：判断是ios还是安卓：
+      
