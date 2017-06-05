@@ -483,9 +483,9 @@ html,body
   window.addEventListener('devicemotion',function () {
   })
   var motion = ev.accelerationIncludingGravity ;//加速度对象
-                var x = Math.random(motion.x),//代表屏幕宽的方向
-                    y = Math.random(motion.y),//代表屏幕高的方向
-                    z = Math.random(motion.z);//代表手机厚的方向
+                var x = Math.round(motion.x),//代表屏幕宽的方向
+                    y = Math.round(motion.y),//代表屏幕高的方向
+                    z = Math.round(motion.z);//代表手机厚的方向
                     
     兼容：在ios下是-10，安卓上是+10       
     解决方法：判断是ios还是安卓：
@@ -780,3 +780,7 @@ html, body {
 
 如果想实现圆柱效果，可以把图片切成更多分，然后拼接，这样就更接近圆柱的效果
 -----------------------------------------------------------------------------------------------------------------------------------
+
+tween运动函数：
+1、先初始化
+定义一个对象
