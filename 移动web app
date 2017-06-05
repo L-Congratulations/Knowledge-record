@@ -675,4 +675,108 @@ window.addEventListener('orientationchange',function (ev) {
 
 
 
-陀螺仪-检测手机角度切换
+陀螺仪-检测手机角度切换（手机旋转）
+window.addEventListener('deviceorientation',function (ev) {//手机旋转角度后触发事件
+           var x = Math.round(ev.beta);//左右
+           var y = Math.round(ev.gamma);//上下
+           var x = Math.round(ev.alpha);//前后
+        })
+--------------------------------------------------------------------------------------------------------------------------------        
+手机切换角度完整代码：
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./cssTransfrom.js"></script>
+
+</head>
+<body>
+<div id="view">
+    <div id="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<script>
+    document.addEventListener('touchstart',function (ev) {
+        ev.preventDefault();
+    });
+    (function () {
+        var box = document.querySelector('#box');
+        var divs = box.querySelectorAll('div');
+//        cssTransfrom(box,'translateZ',-2000);//加入使立体感出现
+        var start;//判断用户是否首次打开页面，如果首次打开要把第一视图摆正
+        var last;//防抖动处理，给一个阈值，在阈值范围内认为用户手抖动不触发事件
+        cssTransfrom(box,'rotateY',0);
+        for (var  i = 0; i< divs.length; i++){
+            cssTransfrom(divs[i],'rotateY',i*90);
+            cssTransfrom(divs[i],'translateZ',-512);
+        }
+        window.addEventListener('deviceorientation',function (ev) {//手机旋转角度后触发事件
+            var y = Math.round(ev.gamma);//左右
+            if(typeof start == 'undefined'){
+                start = y;
+                last = start;
+                return;
+            }
+            y = y - start;//这样在第一次进入界面的时候会做一个计算，让y为0
+            if(Math.abs(y - last) > 5){
+                cssTransfrom(box,'rotateY',y);
+                last = y;
+                //此时移动起来感觉有点卡动，可以通过加个动画来实现一个过渡：transition:.3s，
+                // 让用户感觉是自然过渡
+            }
+
+
+        })
+    })();
+
+
+</script>
+</body>
+</html>
+
+html, body {
+  height: 100%; }
+
+#view {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-perspective: 300px;
+  perspective: 300px; }
+  #view #box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -384px 0 0 -512px;
+    width: 1024px;
+    height: 768px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: 0.3s; }
+    #view #box div {
+      left: 0;
+      top: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: center center no-repeat;
+      background-size: cover; }
+    #view #box div:nth-of-type(1) {
+      background-image: url("../img/01.jpg"); }
+    #view #box div:nth-of-type(2) {
+      background-image: url("../img/02.jpg"); }
+    #view #box div:nth-of-type(3) {
+      background-image: url("../img/03.jpg"); }
+    #view #box div:nth-of-type(4) {
+      background-image: url("../img/04.jpg"); }
+
+如果想实现圆柱效果，可以把图片切成更多分，然后拼接，这样就更接近圆柱的效果
+-----------------------------------------------------------------------------------------------------------------------------------
