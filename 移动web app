@@ -821,9 +821,8 @@ function startMove(obj,json,times,fx,fn) {
         }
     }//到这初始
 
-    //清除旧定时器，防止多次点击累加定时器
-    var timer;
-    clearInterval(obj,timer);
+    //清除旧定时器，防止多次点击累加定时器    
+    clearInterval(obj.timer);
     //我们在当前操作元素下建立一个timer，作用就是实现多物体运动，必须要给每一个物体加一个单独的定时器
     obj.timer = setInterval(function () {
 
