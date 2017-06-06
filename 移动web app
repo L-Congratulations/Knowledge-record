@@ -781,6 +781,217 @@ html, body {
 如果想实现圆柱效果，可以把图片切成更多分，然后拼接，这样就更接近圆柱的效果
 -----------------------------------------------------------------------------------------------------------------------------------
 
-tween运动函数：
-1、先初始化
-定义一个对象
+tween运动函数：时间版运动函数
+-----------------------------------------------------------------------------------------------------------------------------------
+时间版运动函数完整代码：
+/**
+ * Created by ls-pc on 2017/6/6.
+ */
+function getStyle(obj,attr) {//不同浏览器中获取元素属性的值
+    if(obj.currentStyle){
+        //IE获取透明度方法
+        return obj.currentStyle[attr]
+    }else {
+        return getComputedStyle(obj,false)[attr]
+    }
+}
+//    tween.js
+// obj:当前操作元素 json:    times:时间   fx：运动方式  fn：回调函数
+function startMove(obj,json,times,fx,fn) {
+//            思路就是把starMove和tween结合起来，找到tween所需要的4个参数
+//        json里面可能含有一组值如：{top:-150,left:200}所以要定义一个对象来存放json参数里面的变量
+    var iCur = {};
+    var startTime = now();//开始时间
+//        通过for循环来遍历json中的所有参数
+    for (var attr in json){
+//            将json属性进行初始化
+        iCur[attr] = 0;
+        //因为透明度的值为小数，和其他属性（top，left）值不一样，所以要进行判断，属性中的透明度
+        if(attr == 'opacity'){
+            //因为浏览器兼容，在IE和其他浏览器下获取属性的方式不一样，所以定义一个函数来获取元素的属性
+//                iCur[attr] = getStyle(obj,attr);因为透明度是个小数，需要将他转为0到100之间的数
+            //又因为小数有个精度问题，所以用四舍五入的方法进行处理
+            iCur[attr] = Math.round(getStyle(obj,attr));
+        }else {
+            //获取的top等属性有单位px，此处要把单位去掉
+            iCur[attr] = parseInt(getStyle(obj,attr));
+        }
+    }//到这初始
+
+    //清除旧定时器，防止多次点击累加定时器
+    var timer;
+    clearInterval(obj,timer);
+    //我们在当前操作元素下建立一个timer，作用就是实现多物体运动，必须要给每一个物体加一个单独的定时器
+    obj.timer = setInterval(function () {
+        //用for循环来找到具体的多个值运动的形式
+        var changeTime = now();//运动时的时间
+
+        var scale =1 - Math.max(0,startTime - changeTime + times)/times;
+        for(var attr in json){
+
+            //主要就是找Tween[fx](t,b,c,d)的四个参数
+
+            var value = Tween[fx](scale * times,iCur[attr],json[attr] - iCur[attr],times);
+//                b = iCur[attr];//初始值
+//                c = json[attr] - iCur[attr];//变化量就是目标点减去初始值
+//                d = times; //总时间
+//                //t 是当前时间，需要通过获取本地的时间来算，先写一个获取本地时间的方法
+//                t = scale * times;
+            if (attr == 'opacity'){
+                //兼容IE和其他浏览器的写法
+                obj.style.filter = 'alpha(opacity='+value+')';
+                obj.style.opacity = value/100;
+            }else {
+                obj.style[attr] = value + 'px';
+            }
+
+            //停止条件当scale==1的时候就是停止
+            if (scale == 1){
+                //清除定时器
+                clearInterval(obj,timer);
+                //先判断回调存不存在
+                if(fn){
+                    fn.call(obj)//改变回调的this指向
+                }
+
+            }
+
+        }
+    },30);
+    function now() {
+        //获取本地时间，调用gettime方法得到距离1970年的ms值
+        return (new Date()).getTime();
+    }
+
+}
+
+var Tween = {
+//        t:当前时间  b:初始值  c:变化值  d:总时间   return :当前位置
+    linear: function (t, b, c, d){  //匀速
+        return c*t/d + b;   //  t/d = prop;
+    },
+    easeIn: function(t, b, c, d){  //加速曲线
+        return c*(t/=d)*t + b;
+    },
+    easeOut: function(t, b, c, d){  //减速曲线
+        return -c *(t/=d)*(t-2) + b;
+    },
+    easeBoth: function(t, b, c, d){  //加速减速曲线
+        if ((t/=d/2) < 1) {
+            return c/2*t*t + b;
+        }
+        return -c/2 * ((--t)*(t-2) - 1) + b;
+    },
+    easeInStrong: function(t, b, c, d){  //加加速曲线
+        return c*(t/=d)*t*t*t + b;
+    },
+    easeOutStrong: function(t, b, c, d){  //减减速曲线
+        return -c * ((t=t/d-1)*t*t*t - 1) + b;
+    },
+    easeBothStrong: function(t, b, c, d){  //加加速减减速曲线
+        if ((t/=d/2) < 1) {
+            return c/2*t*t*t*t + b;
+        }
+        return -c/2 * ((t-=2)*t*t*t - 2) + b;
+    },
+    elasticIn: function(t, b, c, d, a, p){  //正弦衰减曲线（弹动渐入）
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d) == 1 ) {
+            return b+c;
+        }
+        if (!p) {
+            p=d*0.3;
+        }
+        if (!a || a < Math.abs(c)) {
+            a = c;
+            var s = p/4;
+        } else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+    },
+    elasticOut: function(t, b, c, d, a, p){    //正弦增强曲线（弹动渐出）
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d) == 1 ) {
+            return b+c;
+        }
+        if (!p) {
+            p=d*0.3;
+        }
+        if (!a || a < Math.abs(c)) {
+            a = c;
+            var s = p / 4;
+        } else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+    },
+    elasticBoth: function(t, b, c, d, a, p){
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d/2) == 2 ) {
+            return b+c;
+        }
+        if (!p) {
+            p = d*(0.3*1.5);
+        }
+        if ( !a || a < Math.abs(c) ) {
+            a = c;
+            var s = p/4;
+        }
+        else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        if (t < 1) {
+            return - 0.5*(a*Math.pow(2,10*(t-=1)) *
+                Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+        }
+        return a*Math.pow(2,-10*(t-=1)) *
+            Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
+    },
+    backIn: function(t, b, c, d, s){     //回退加速（回退渐入）
+        if (typeof s == 'undefined') {
+            s = 1.70158;
+        }
+        return c*(t/=d)*t*((s+1)*t - s) + b;
+    },
+    backOut: function(t, b, c, d, s){
+        if (typeof s == 'undefined') {
+            s = 3.70158;  //回缩的距离
+        }
+        return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+    },
+    backBoth: function(t, b, c, d, s){
+        if (typeof s == 'undefined') {
+            s = 1.70158;
+        }
+        if ((t /= d/2 ) < 1) {
+            return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+        }
+        return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+    },
+    bounceIn: function(t, b, c, d){    //弹球减振（弹球渐出）
+        return c - Tween['bounceOut'](d-t, 0, c, d) + b;
+    },
+    bounceOut: function(t, b, c, d){
+        if ((t/=d) < (1/2.75)) {
+            return c*(7.5625*t*t) + b;
+        } else if (t < (2/2.75)) {
+            return c*(7.5625*(t-=(1.5/2.75))*t + 0.75) + b;
+        } else if (t < (2.5/2.75)) {
+            return c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
+        }
+        return c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
+    },
+    bounceBoth: function(t, b, c, d){
+        if (t < d/2) {
+            return Tween['bounceIn'](t*2, 0, c, d) * 0.5 + b;
+        }
+        return Tween['bounceOut'](t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
+    }
+};
