@@ -826,6 +826,7 @@ function startMove(obj,json,times,fx,fn) {
     clearInterval(obj,timer);
     //我们在当前操作元素下建立一个timer，作用就是实现多物体运动，必须要给每一个物体加一个单独的定时器
     obj.timer = setInterval(function () {
+
         //用for循环来找到具体的多个值运动的形式
         var changeTime = now();//运动时的时间
 
@@ -851,16 +852,17 @@ function startMove(obj,json,times,fx,fn) {
             //停止条件当scale==1的时候就是停止
             if (scale == 1){
                 //清除定时器
-                clearInterval(obj,timer);
+                clearInterval(obj.timer);
                 //先判断回调存不存在
                 if(fn){
-                    fn.call(obj)//改变回调的this指向
+                     fn.call(obj)//改变回调的this指向
+
                 }
 
             }
 
         }
-    },30);
+    },13);
     function now() {
         //获取本地时间，调用gettime方法得到距离1970年的ms值
         return (new Date()).getTime();
@@ -998,6 +1000,5 @@ var Tween = {
         return Tween['bounceOut'](t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
     }
 };
-
 
 ------------------------------------------------------------------------------------------------------------------------------------
