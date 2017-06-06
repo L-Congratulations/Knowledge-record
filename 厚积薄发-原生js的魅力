@@ -79,4 +79,41 @@
             console.log(result);
           }
           show(2,4,7)//13
-------------------------------------------------------------------------------------------------------------------------------          
+------------------------------------------------------------------------------------------------------------------------------  
+3、利用arguments来封装css（）函数
+        function css(obj,attr,value) {
+            if (arguments.length ==2){//获取属性
+                //style只能获取设置在行内的样式，因此要获取在css中定义的样式需要用别的方式
+                //获取非行间的样式使用：currentStyle（获取计算后的样式--IE）
+                //在火狐下使用getComputedStyle()接受两个参数，一个是需要获取的元素，另外一个全都写false就行
+                //如何让这两个写法在不同浏览器下自动切换？很简单利用true和false
+//                console.log(arguments[0].currentStyle);//返回一个非空对象，利用这个可以做浏览器判断
+//                if (arguments[0].currentStyle){
+//                    return arguments[0].currentStyle[arguments[1]];
+//                }else {
+//                    return getComputedStyle(arguments[0],false)[arguments[1]];
+//                }
+                //获取属性很常用，为了书写方便将他封装为一个函数
+                function getStyle(obj,attr) {
+                    if (obj.currentStyle){
+                        //currentStyle好处可以取到默认值，即使没设置属性。不过只能获取单一样式如
+                        //background 结果为undefined backgroundColor结果为red
+                        return obj.currentStyle[attr];
+                    }else {
+                        return getComputedStyle(obj,false)[attr];
+                    }
+                }
+//                getStyle(arguments[0],arguments[1]);
+                getStyle(obj,attr);
+            }else {//设置属性
+                //代码优化：提高代码的可读性，因为arguments和参数是可以共存的，arguments[0]===函数的第一个参数
+                //所以可以给函数几个初始的参数css(obj,attr,value),相应的将arguments[i]替换掉
+                //而且在函数中写3个参数不代表这一定要用到3个参数，调用的时候可以不同
+
+//                arguments[0].style[arguments[1]] = arguments[2];
+                //注意此处不能用style.arguments[1]而是要用style[arguments[1]]
+
+                obj.style[attr] = value;
+            }
+        }
+
