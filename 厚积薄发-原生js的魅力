@@ -205,5 +205,12 @@ alert(document.cookie);
             //如果用户初次登陆还没有设置cookie此时应该返回一个''
             return '';
         }
+  封装删除cookie函数：
+          function removeCookie(name) {
+            var date = new Date();
+            date.setDate(date.getDate()-1);//原理是让该cookie在昨天就过期
+            document.cookie = name + '=1;expires='+date
+
+        }
  -------------------------------------------------------------------------------------------------------------
  
