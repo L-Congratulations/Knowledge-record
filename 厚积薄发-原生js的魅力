@@ -243,3 +243,38 @@ alert(document.cookie);
           工厂方式的问题（缺点）：
           1、没有new
           2、每个对象都有一套自己的函数，这是极其浪费资源的         
+10.5、this：当前方法属于谁，this就指谁。但是有一种情况例外，就是在函数前面有new 的情况下。在这种情况下，this指的是在函数内部新创建的一个对象
+         （原料（var obj =new Object();） 指的是这里面的obj）
+10.6、原型prototype
+          原型的作用可以类比class 给一类元素添加方法
+          Array.prototype.sum =function () {
+           // .....
+          }
+          
+          var arr = new Array();
+          Array是类，不具备实际的功能（Array.push（）是错误的），只能用来构造对象。简单理解就是生产蛋糕的模子，能造出东西来，但并不能吃
+                    在js中类就是构造函数，构造函数就是类
+          arr是对象，是真正有功能的东西（arr.push()是正确的），是被类构造出来的
+          
+          用原型添加方法好处多多：可以极大简化函数。每个根据类构造出的对象都只有一套方法（所有对象共用一套方法，不用每个对象都重新创建一套方法），
+          节省了资源
+          
+          构造函数在调用的时候前边要加new，为了区别普通函数和构造函数，应该将构造函数的首字母大写
+                  function CreatePerson(name,sex) {//构造函数，以他为模子，去创建新的函数
+            this.name = name;
+            this.sex = sex;            
+        }
+        CreatePerson.prototype.showName = function () {
+            alert('我的名字是:'+this.name);
+        };
+        CreatePerson.prototype.showSex = function () {
+            alert('我的性别是:'+this.sex);
+        };
+        var p1 = new CreatePerson('blue','男');
+        var p2 = new CreatePerson('leo','女');
+
+        p1.showName();
+        p1.showSex();
+        p2.showName();
+        p2.showSex();
+          
