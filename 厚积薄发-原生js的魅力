@@ -170,9 +170,16 @@
 cookie和网页缓存没有任何关系
 cookie完全由js来控制
 cookie有一个特性：他是完全存在客户端上的，也就是在用户的计算机上以一个文件的形式存在的
+cookie只有在服务器环境下才能正常运行，（只有火狐的cookie是可以在本地运行的，其他浏览器的cookie都需要借助服务器环境才能运行）
 2、cookie的特性
 （1）、同一个网站的所有页面共享一套cookie（比如baidu.com下的页面共享的是一套cookie）
 （2）、数量和大小有限（一般来讲一个网站的cookie的数量不会超过50个，大小也有限）
 （3）、cookie有过期时间，一段时间之后就会消失，过期时间由js控制
 3、在js中使用cookie
-
+在js中，cookie实际上是document上的一个属性
+alert(document.cookie);
+（1）、设置cookie
+          格式：名字=值 如： document.cookie = 'user=blue';
+          不会覆盖：在cookie的设置中  ‘=’ 意味着添加而不是赋值 如：document.cookie = 'user=blue';        document.cookie = 'password=123';
+                   得到的结果是两个
+          如果没有指定cookie中信息的过期时间，那么默认的是到浏览器关闭为止         
