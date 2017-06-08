@@ -186,3 +186,24 @@ alert(document.cookie);
                             var date = new Date();//获取当前时间
                             date.setDate(date.getDate()+30);//当前时间+30天
                             document.cookie = 'user=blue;expires='+ date;//当前时间的30天后过期
+ -----------------------------------------------------------------------------------------------------------
+ 封装设置cookie函数：
+        function setCookie(name,val,iDay) {
+            var date = new Date();
+            date.setDate(date.getDate()+iDay);
+            document.cookie = name + '=' + val +';expires='+date
+        }
+ 封装获取cookie函数：
+         function getCookie(name) {
+            var arr = document.cookie.split('; ');
+            for (var i =0;i<arr.length;i++){
+                var arr2 = arr[i].split('=');
+                if (arr2[0] == name){
+                    return arr2[1];
+                }
+            }
+            //如果用户初次登陆还没有设置cookie此时应该返回一个''
+            return '';
+        }
+ -------------------------------------------------------------------------------------------------------------
+ 
