@@ -182,4 +182,7 @@ alert(document.cookie);
           格式：名字=值 如： document.cookie = 'user=blue';
           不会覆盖：在cookie的设置中  ‘=’ 意味着添加而不是赋值 如：document.cookie = 'user=blue';        document.cookie = 'password=123';
                    得到的结果是两个
-          如果没有指定cookie中信息的过期时间，那么默认的是到浏览器关闭为止         
+          设置过期时间：如果没有指定cookie中信息的过期时间，那么默认的是到浏览器关闭为止 。利用setDate（）方法来设置时间
+                            var date = new Date();//获取当前时间
+                            date.setDate(date.getDate()+30);//当前时间+30天
+                            document.cookie = 'user=blue;expires='+ date;//当前时间的30天后过期
