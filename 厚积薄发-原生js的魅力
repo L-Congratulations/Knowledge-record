@@ -300,3 +300,19 @@ alert(document.cookie);
       this什么时候会出问题：
       10.7.1、用到定时器的时候会出问题（但凡是被定时器调用的函数，该函数里面的this就是指的window）。
               解决方法：再套一层
+                           function Aa() {
+            var _this = this;//此处的this就是指的该构造函数隐式创建的一个新对象
+            this.a = 12;//给新对象上的属性a赋值12
+            setInterval(this.show,1000);//但凡是被定时器调用的函数，该函数里面的this就是指的window
+            //解决思路是不让定时器直接调用show，在show方法外面再套一层函数,改变所属关系这样被定时器调用的函数就不是show
+            setInterval(function () {//同理$('#btn).onclick = this.show()中 show（）函数里面的this指的是button按钮,解决方法：
+                                       // function(){  _this.show();}
+//                alert(this);//这的this依旧是window，因此要想获取Aa（）构造函数的show方法就要用_this
+                _this.show();//此时调用show（）方法的对象就是Aa（）所以在show（）方法中的this就是指的
+                //this.a = 12;
+            },1000)
+        }
+        Aa.prototype.show = function () {
+            alert(this.a);//但凡是被定时器调用的函数，这的this就是指的window
+        };
+        var obj = new Aa();
