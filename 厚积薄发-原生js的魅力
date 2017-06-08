@@ -260,9 +260,22 @@ alert(document.cookie);
           节省了资源
           
           构造函数在调用的时候前边要加new，为了区别普通函数和构造函数，应该将构造函数的首字母大写
-                  function CreatePerson(name,sex) {//构造函数，以他为模子，去创建新的函数
+        function CreatePerson(name,sex) {//构造函数，以他为模子，去创建新的函数
             this.name = name;
-            this.sex = sex;            
+            this.sex = sex;
+            //因为在使用构造函数的时候是通过new CreatePerson('blue','男');此处有new
+            //可以默认的理解为new为我们做了如下处理,就是在构造函数内部自动创建了一个对象
+            // 存在了变量this里面，然后在构造函数结束的时候自动return 了对象，也就是return this：
+//            function CreatePerson(name,sex) {
+                //var this = new Object()
+//                var obj = new Object();
+//                obj.name = name;
+//                obj.sex =sex;
+//                  ...
+                //return this
+//            }
+//            console.log(this);//{name: "blue", sex: "男"} 因此在这的this实际是指的
+            // 是这个新创建出来的对象var this = new Object()
         }
         CreatePerson.prototype.showName = function () {
             alert('我的名字是:'+this.name);
@@ -277,4 +290,6 @@ alert(document.cookie);
         p1.showSex();
         p2.showName();
         p2.showSex();
-          
+
+  其实我们是在构造函数里面添加的属性，而在原型里面添加的方法。因为每个对象的属性可能各不相同，所以我们在构造函数中添加属性，方法是所有对象都一样的
+  
