@@ -316,3 +316,15 @@ alert(document.cookie);
             alert(this.a);//但凡是被定时器调用的函数，这的this就是指的window
         };
         var obj = new Aa();
+
+
+
+
+十一、实例：
+11.1、调用函数什么时候加括号什么时候不加括号：加括号代表立即执行函数体内的代码，不加括号代表指向函数的指针，等onload执行完之后再去根据指针执行函数。
+          例如window.onload=init;
+          init函数并不会在这行代码时就执行，浏览器加载文档时这句话会被加载，会被告知文档加载完要执行哪个函数，但实际上没有当时就执行，
+          等到整个文档加载完成之后才会通过init这个指针去执行init()。
+11.2、charAt() 方法可返回指定位置的字符。
+          var str = "HELLO WORLD";
+          var n = str.charAt(str.length-1);//D          
