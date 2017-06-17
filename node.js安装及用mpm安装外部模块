@@ -13,7 +13,8 @@ node公开宣称的目标是：构建可伸缩网络程序     （的方法）�
  
 2. Node 的工作原理以及它的设计运行方式。
     2.1 node肯定不是什么
-            Node 是一个服务器程序。但是，基础 Node 产品肯定不 像 Apache 或 Tomcat。本质上，那些服务器 “安装就绪型” 服             务器产品，支持立即部署应用程序。
+            Node 是一个服务器程序。但是，基础 Node 产品肯定不 像 Apache 或 Tomcat。本质上，那些服务器 “安装就绪型” 服务器产品，
+            支持立即部署应用程序。
 
 7.更常见的是通过node.exe来执行xxx.js文件。下面我们就要进入windows真正的命令行了。
 8.启动nodejs服务 需要在cmd中地址精确到helllo.js所在的文件夹下
@@ -52,4 +53,4 @@ mysql 安装教程
 工具：mysql5.7.16winx64.msi
 安装教程：http://jingyan.baidu.com/article/597035521d5de28fc00740e6.html
 报错解决方法：https://zhidao.baidu.com/question/1240993463316101459.html
-辅助工具：Navicat_for_MySQL_10.1.7_绿色版.exe
+辅助工具：Navicat_for_MySQL_10.1.7_绿色版.exe(Navicat Premium.exe比较新的版本更好用)
