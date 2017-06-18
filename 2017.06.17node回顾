@@ -76,4 +76,53 @@
 二、express安装
   2.1、
 三、node服务器搭建
+  3.1、事件驱动的异步服务器端JavaScript和它的回调。
+    当我们使用 http.createServer 方法的时候，我们当然不只是想要一个侦听某个端口的服务器，我们还想要它在服务器收到一个HTTP请求的时候做点什么。
+    问题是，这是异步的：请求任何时候都可能到达，但是我们的服务器却跑在一个单进程中。
+    那么在我们的Node.js程序中，当一个新的请求到达8888端口的时候，我们怎么控制流程呢？嗯，这就是Node.js/JavaScript的事件驱动设计能够真正帮上
+    忙的地方了
+    我们创建了服务器，并且向创建它的方法传递了一个函数。无论何时我们的服务器收到一个请求，这个函数就会被调用。
+    我们不知道这件事情什么时候会发生，但是我们现在有了一个处理请求的地方：它就是我们传递过去的那个函数。至于它是被预先定义的函数还是匿名函数，
+    就无关紧要了。这个就是传说中的 回调 。我们给某个方法传递了一个函数，这个方法在有相应事件发生时调用这个函数来进行 回调 。
+    
+    var http = require("http");
+
+    function onRequest(request, response){
+      console.log("Request received.");
+      response.writeHead(200,{"Content-Type":"text/plain"});
+      response.write("Hello World");
+      response.end();
+    }
+    http.createServer(onRequest).listen(8888);
+    console.log("Server has started.");
+    注意：在 onRequest （我们的回调函数）触发的地方，我用 console.log 输出了一段文本。在HTTP服务器开始工作之后，也输出一段文本。
+    当我们与往常一样，运行它node server.js时，它会马上在命令行上输出“Server has started.”。当我们向服务器发出请求
+    （在浏览器访问http://localhost:8888/ ），“Request received.”这条消息就会在命令行中出现。
+    这就是事件驱动的异步服务器端JavaScript和它的回调啦！
+    （请注意，当我们在服务器访问网页时，我们的服务器可能会输出两次“Request received.”。那是因为大部分服务器都会在你访问 http://localhost:8888 /
+    时尝试读取 http://localhost:8888/favicon.ico )
+  3.2、服务器是如何处理请求的
+    我们的 onRequest() 函数被触发的时候，有两个参数被传入： request 和 response 。
+    它们是对象，你可以使用它们的方法来处理HTTP请求的细节，并且响应请求（比如向发出请求的浏览器发回一些东西）。
+    最后，我们调用 response.end() 完成响应。
+  3.3、模块化处理
+    目前，我们的HTTP服务器需要导出的功能非常简单，因为请求服务器模块的脚本仅仅是需要启动服务器而已。
+    我们把我们的服务器脚本放到一个叫做 start 的函数里，然后我们会导出这个函数。
+    var http = require("http");
+    function start(){
+      function onRequest(request, response){
+        console.log("Request received.");
+        response.writeHead(200,{"Content-Type":"text/plain"});
+        response.write("Hello World");
+        response.end();
+      }
+      http.createServer(onRequest).listen(8888);
+      console.log("Server has started.");
+    }
+    exports.start = start;
+    创建 index.js 文件并写入以下内容：
+    var server = require("./server");
+    server.start();
+    正如你所看到的，我们可以像使用任何其他的内置模块一样使用server模块：请求这个文件并把它指向一个变量，其中已导出的函数就可以被我们使用了。
+    这样，我们现在就可以创建我们的主文件 index.js 并在其中启动我们的HTTP了，虽然服务器的代码还在 server.js 中。
 四、restful风格服务器搭建
