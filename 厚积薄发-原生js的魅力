@@ -162,7 +162,28 @@
   
   
 七、DOM元素操作
-1、
+7.1、createElement创建节点，是在document上创建的节点：var oli = document.createElement('li');
+7.2、在父元素结尾插入节点：
+    var ul=;
+    var li=;
+    var txt=;
+    var oli = document.createElement('li');
+    oli.innerHTML = txt;
+    ul.appendChild(oli);
+ 7.3、在父元素开头插入节点：
+ ul.insertBefore(oli,li[0]);//有两个参数，插入的节点，和插入的位置（在谁前边插入谁）
+ 7.4、删除父元素里面的节点：
+ ul.removeChild(oli);
+ 7.5、文档碎片
+ document.createDocumentFragment();//文档碎片
+ 用于提高文档性能，原理是将创建的很多个节点打包到文档碎片里，然后在一次性渲染（相当于超市买了很多东西是一个一个往家拿还是装在袋子里一次性拿回家）
+ var frag = document.createDocumentFragment();//文档碎片
+    for (var i = 0;i<1000000;i++){
+        var l = document.createElement('li');
+        frag.appendChild(l);
+    }
+    ul.appendChild(frag);
+
 
 
 八、cookie
