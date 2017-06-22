@@ -240,5 +240,81 @@
       通过以上代码，我们首先检查给定的路径对应的请求处理程序是否存在，如果存在的话直接调用相应的函数。
       我们可以用从关联数组中获取元素一样的方式从传递的对象中获取请求处理函数，因此就有了简洁流畅的形如handle[pathname]();的表达式，
       这个感觉就像在前方中提到的那样：“嗨，请帮我处理了这个路径”。
+      
+   3.5、让请求处理程序作出响应
+        好，那么问题在哪里呢？简单的说就是： 当未来有请求处理程序需要进行非阻塞的操作的时候，我们的应用就“挂”了。
+     3.5.1、以非阻塞操作进行请求响应
+            用Node.js就有这样一种实现方案： 函数传递。
+            现在我们采用如下这种新的实现方式：相对采用将内容传递给服务器的方式，我们这次采用将服务器“传递”给内容的方式。
+            从实践角度来说，就是将response对象（从服务器的回调函数onRequest()获取）通过请求路由传递给请求处理程序。 随后，
+            处理程序就可以采用该对象上的函数来对请求作出响应。
+            
+            简单来说就是通过上边的原理，吧response对象作为参数传递给router函数，
+            先从server.js开始：
+
+            var http = require("http");
+            var url = require("url");
+
+            function start(route, handle){
+              function onRequest(request, response){
+                var pathname = url.parse(request.url).pathname;
+                console.log("Request for "+ pathname +" received.");
+
+                route(handle, pathname, response);
+              }
+
+              http.createServer(onRequest).listen(8888);
+              console.log("Server has started.");
+            }
+
+            exports.start = start;
+            相对此前从route()函数获取返回值的做法，这次我们将response对象作为第三个参数传递给route()函数，并且，
+            我们将onRequest()处理程序中所有有关response的函数调都移除，因为我们希望这部分工作让route()函数来完成。
+            下面就来看看我们的router.js:
+
+              function route(handle, pathname, response){
+                console.log("About to route a request for "+ pathname);
+                if(typeof handle[pathname]==='function'){
+                  handle[pathname](response);
+                }else{
+                  console.log("No request handler found for "+ pathname);
+                  response.writeHead(404,{"Content-Type":"text/plain"});
+                  response.write("404 Not found");
+                  response.end();
+                }
+              }
+
+              exports.route = route;
+              同样的模式：相对此前从请求处理程序中获取返回值，这次取而代之的是直接传递response对象。
+
+              如果没有对应的请求处理器处理，我们就直接返回“404”错误。
+              最后，我们将requestHandler.js修改为如下形式：
+
+              var exec = require("child_process").exec;
+
+              function start(response){
+                console.log("Request handler 'start' was called.");
+
+                exec("ls -lah",function(error, stdout, stderr){
+                  response.writeHead(200,{"Content-Type":"text/plain"});
+                  response.write(stdout);
+                  response.end();
+                });
+              }
+
+              function upload(response){
+                console.log("Request handler 'upload' was called.");
+                response.writeHead(200,{"Content-Type":"text/plain"});
+                response.write("Hello Upload");
+                response.end();
+              }
+
+              exports.start = start;
+              exports.upload = upload;
+              我们的处理程序函数需要接收response参数，为了对请求作出直接的响应。
+
+              start处理程序在exec()的匿名回调函数中做请求响应的操作，而upload处理程序仍然是简单的回复“Hello World”，只是这次是使用
+              response对象而已。
+     
     
 四、restful风格服务器搭建
