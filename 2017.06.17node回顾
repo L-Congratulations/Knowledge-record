@@ -127,5 +127,118 @@
     这样，我们现在就可以创建我们的主文件 index.js 并在其中启动我们的HTTP了，虽然服务器的代码还在 server.js 中。
   3.4、请求路由处理
     处理不同的HTTP请求在我们的代码中是一个不同的部分，叫做“路由选择”——那么，我们接下来就创造一个叫做 路由 的模块吧。
+    我们需要的所有数据都会包含在request对象中，该对象作为onRequest()回调函数的第一个参数传递。但是为了解析这些数据，我们需要额外的Node.JS模块，
+    它们分别是url和querystring模块。
+    解析url中所需要的信息，保存在变量pathname中，便于作为参数进行传递。
+    定义router.js模块：
+        function route(pathname){
+          console.log("About to route a request for "+ pathname);
+        }
+
+        exports.route = route;
+     然后把route函数作为参数传入到start函数中进行调用
+     我们的服务器应当知道路由的存在并加以有效利用。我们当然可以通过硬编码的方式将这一依赖项绑定到服务器上，但是其它语言的编程经验告诉我们这会是
+     一件非常痛苦的事，因此我们将使用依赖注入的方式较松散地添加路由模块（你可以读读Martin Fowlers关于依赖注入的大作来作为背景知识）。
+
+    首先，我们来扩展一下服务器的start()函数，以便将路由函数作为参数传递过去：
+     
+    var http = require("http");
+    var url = require("url");
+
+    function start(route){
+      function onRequest(request, response){
+        var pathname = url.parse(request.url).pathname;
+        console.log("Request for "+ pathname +" received.");
+
+        route(pathname);
+
+        response.writeHead(200,{"Content-Type":"text/plain"});
+        response.write("Hello World");
+        response.end();
+      }
+
+      http.createServer(onRequest).listen(8888);
+      console.log("Server has started.");
+    }
+
+    exports.start = start;
+    同时，我们会相应扩展index.js，使得路由函数可以被注入到服务器中：
+    var server = require("./server");
+    var router = require("./router"); 
+    server.start(router.route);
+    行为驱动执行
+    请允许我再次脱离主题，在这里谈一谈函数式编程。
+
+    将函数作为参数传递并不仅仅出于技术上的考量。对软件设计来说，这其实是个哲学问题。想想这样的场景：在index文件中，我们可以将router对象传递进去，
+    服务器随后可以调用这个对象的route函数。
+    路由，顾名思义，是指我们要针对不同的URL有不同的处理方式。例如处理/start的“业务逻辑”就应该和处理/upload的不同。
+    我们暂时把作为路由目标的函数称为请求处理程序。现在我们不要急着来开发路由模块，因为如果请求处理程序没有就绪的话，再怎么完善路由模块也没有多大意义。
+
+    应用程序需要新的部件，因此加入新的模块 -- 已经无需为此感到新奇了。我们来创建一个叫做requestHandlers的模块，并对于每一个请求处理程序，
+    添加一个占位用函数，随后将这些函数作为模块的方法导出：
+    function start(){
+      console.log("Request handler 'start' was called.");
+    }
+
+    function upload(){
+      console.log("Request handler 'upload' was called.");
+    }
+
+    exports.start = start;
+    exports.upload = upload;
+    最后再回到代码上来。现在我们已经确定将一系列请求处理程序通过一个对象来传递，并且需要使用松耦合的方式将这个对象注入到route()函数中。
+    我们先将这个对象引入到主文件index.js中：
+
+      var server = require("./server");
+      var router = require("./router");
+      var requestHandlers = require("./requestHandlers");
+
+      var handle ={}
+      handle["/"]= requestHandlers.start;
+      handle["/start"]= requestHandlers.start;
+      handle["/upload"]= requestHandlers.upload;
+
+      server.start(router.route, handle);
+      正如所见，将不同的URL映射到相同的请求处理程序上是很容易的：只要在对象中添加一个键为"/"的属性，对应requestHandlers.start即可，
+      这样我们就可以干净简洁地配置/start和/的请求都交由start这一处理程序处理。
+
+      在完成了对象的定义后，我们把它作为额外的参数传递给服务器，为此将server.js修改如下：
+      var http = require("http");
+      var url = require("url");
+
+      function start(route, handle){
+        function onRequest(request, response){
+          var pathname = url.parse(request.url).pathname;
+          console.log("Request for "+ pathname +" received.");
+
+          route(handle, pathname);
+
+          response.writeHead(200,{"Content-Type":"text/plain"});
+          response.write("Hello World");
+          response.end();
+        }
+
+        http.createServer(onRequest).listen(8888);
+        console.log("Server has started.");
+      }
+
+      exports.start = start;
+      这样我们就在start()函数里添加了handle参数，并且把handle对象作为第一个参数传递给了route()回调函数。
+
+      然后我们相应地在route.js文件中修改route()函数：
+
+      function route(handle, pathname){
+        console.log("About to route a request for "+ pathname);
+        if(typeof handle[pathname]==='function'){
+          handle[pathname]();
+        }else{
+          console.log("No request handler found for "+ pathname);
+        }
+      }
+
+      exports.route = route;
+      通过以上代码，我们首先检查给定的路径对应的请求处理程序是否存在，如果存在的话直接调用相应的函数。
+      我们可以用从关联数组中获取元素一样的方式从传递的对象中获取请求处理函数，因此就有了简洁流畅的形如handle[pathname]();的表达式，
+      这个感觉就像在前方中提到的那样：“嗨，请帮我处理了这个路径”。
     
 四、restful风格服务器搭建
