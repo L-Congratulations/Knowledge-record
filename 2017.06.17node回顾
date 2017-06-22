@@ -339,6 +339,87 @@
 
       我们需要告诉Node.js当这些事件触发的时候，回调哪些函数。怎么告诉呢？ 我们通过在request对象上注册监听器（listener） 来实现。
       这里的request对象是每次接收到HTTP请求时候，都会把该对象传递给onRequest回调函数。
-     
+      我们需要告诉Node.js当这些事件触发的时候，回调哪些函数。怎么告诉呢？ 我们通过在request对象上注册监听器（listener） 来实现。这里的request对象
+      是每次接收到HTTP请求时候，都会把该对象传递给onRequest回调函数。
+      在我看来，获取所有来自请求的数据，然后将这些数据给应用层处理，应该是HTTP服务器要做的事情。因此，我建议，我们直接在服务器中处理POST数据，
+      然后将最终的数据传递给请求路由和请求处理器，让他们来进行进一步的处理。
+
+      因此，实现思路就是： 将data和end事件的回调函数直接放在服务器中，在data事件回调中收集所有的POST数据，当接收到所有数据，触发end事件后，
+      其回调函数调用请求路由，并将数据传递给它，然后，请求路由再将该数据传递给请求处理程序。
+
+      还等什么，马上来实现。先从server.js开始：
+      var http = require("http");
+      var url = require("url");
+
+      function start(route, handle){
+        function onRequest(request, response){
+          var postData ="";
+          var pathname = url.parse(request.url).pathname;
+          console.log("Request for "+ pathname +" received.");
+
+          request.setEncoding("utf8");
+
+          request.addListener("data",function(postDataChunk){
+            postData += postDataChunk;
+            console.log("Received POST data chunk '"+
+            postDataChunk +"'.");
+          });
+
+          request.addListener("end",function(){
+            route(handle, pathname, response, postData);
+          });
+
+        }
+
+        http.createServer(onRequest).listen(8888);
+        console.log("Server has started.");
+      }
+
+      exports.start = start;
+      上述代码做了三件事情： 首先，我们设置了接收数据的编码格式为UTF-8，然后注册了“data”事件的监听器，用于收集每次接收到的新数据块，
+      并将其赋值给postData 变量，最后，我们将请求路由的调用移到end事件处理程序中，以确保它只会当所有数据接收完毕后才触发，并且只触发一次。
+      我们同时还把POST数据传递给请求路由，因为这些数据，请求处理程序会用到。
+
+      上述代码在每个数据块到达的时候输出了日志，这对于最终生产环境来说，是很不好的（数据量可能会很大，还记得吧？），但是，在开发阶段是很有用的，
+      有助于让我们看到发生了什么。
+
+      我建议可以尝试下，尝试着去输入一小段文本，以及大段内容，当大段内容的时候，就会发现data事件会触发多次。
+      再来点酷的。我们接下来在/upload页面，展示用户输入的内容。要实现该功能，我们需要将postData传递给请求处理程序，修改router.js为如下形式：
+
+      function route(handle, pathname, response, postData){
+        console.log("About to route a request for "+ pathname);
+        if(typeof handle[pathname]==='function'){
+          handle[pathname](response, postData);
+        }else{
+          console.log("No request handler found for "+ pathname);
+          response.writeHead(404,{"Content-Type":"text/plain"});
+          response.write("404 Not found");
+          response.end();
+        }
+      }
+
+      exports.route = route;
+      然后，在requestHandlers.js中，我们将数据包含在对upload请求的响应中：
+      function upload(response, postData){
+          console.log("Request handler 'upload' was called.");
+          response.writeHead(200,{"Content-Type":"text/plain"});
+          response.write("You've sent: "+ postData);
+          response.end();
+        }
+     好了，我们现在可以接收POST数据并在请求处理程序中处理该数据了。
+
+      我们最后要做的是： 当前我们是把请求的整个消息体传递给了请求路由和请求处理程序。我们应该只把POST数据中，我们感兴趣的部分传递给请求路由
+      和请求处理程序。在我们这个例子中，我们感兴趣的其实只是text字段。
+
+      我们可以使用此前介绍过的querystring模块来实现：
+
+      var querystring = require("querystring");
+      function upload(response, postData){
+          console.log("Request handler 'upload' was called.");
+          response.writeHead(200,{"Content-Type":"text/plain"});
+          response.write("You've sent the text: "+
+          querystring.parse(postData).text);
+          response.end();
+        }
     
 四、restful风格服务器搭建
