@@ -4,3 +4,12 @@
     第二个参数:需要定义的属性或方法的名字。
 
     第三个参数:目标属性所拥有的特性。（descriptor）
+    查东西可以去mdn上查
+    https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties
+二、虚拟dom
+
+    模板 =》 渲染函数 =》虚拟dom树 =》真实dom
+    
+三、vue实例
+vue实例自身属性和方法：即以$开头的$el,$data...可以通过打印vue实例console.log(vm)来查看。
+    
