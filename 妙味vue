@@ -1,3 +1,4 @@
+
 一、响应的数据绑定：利用了Object.defineProperty(a,b,{})
     第一个参数:目标对象
 
@@ -13,3 +14,6 @@
 三、vue实例
 vue实例自身属性和方法：即以$开头的$el,$data...可以通过打印vue实例console.log(vm)来查看。
     
+四、vue.use
+Vue.use的作用其实就是执行一个plugin函数或者执行pluign的install方法进行插件注册，
+并且向plugin或其install方法传入Vue对象作为第一个参数，use的其他参数作为plugin或install的其他参数。
