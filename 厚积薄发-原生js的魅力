@@ -31,7 +31,27 @@ http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html
 
 
 -----------------------------------------------------------------------------------------------------------------------------
+JavaScript有三种方法，可以确定一个值到底是什么类型。
+typeof运算符
+instanceof运算符
+Object.prototype.toString方法
 
+typeof可以判断：基本类型可以直接判断出来。
+数值、字符串、布尔值分别返回number、string、boolean、函数返回function。
+undefined返回undefined。利用这一点，typeof可以用来检查一个没有声明的变量，而不报错。
+// 正确的写法
+if (typeof v === "undefined") {
+  // ...
+}
+除此以外，其他情况都返回object。
+既然typeof对数组（array）和对象（object）的显示结果都是object，那么怎么区分它们呢？instanceof运算符可以做到。
+
+var o = {};
+var a = [];
+
+o instanceof Array // false
+a instanceof Array // true
+-----------------------------------------------------------------------------------------------------------------------------
 
 一、变量作用域和闭包：
 1、闭包的理解：子函数可以使用父函数的局部变量
