@@ -16,9 +16,28 @@ $('input :eq(1)')
 3、内容过滤选择器：
 $('div:contains("我")') 选取含有文本“我”的div
 4、属性过滤选择器
-
+$("input[name='newsletter']")
 三、jq DOM操作
 1、查找节点
-var liTxt = $('ul li :eq(1)')
-查找属性节点
-var p
+获取文本
+var liTxt = $('ul li :eq(1)').text()
+获取属性
+var ptitle = $('p').attr('titlt')
+
+2、创建节点
+var $li = $('<li title = "a">香蕉</li>')
+$('ul').append($li)
+
+3、插入节点
+a.append(b)向a的内部追加b
+a.after(b)向a元素后边插入内容
+
+4、删除节点
+a.remove()删除a节点
+
+5、复制节点
+a.clone(true)true的含义是同时复制元素中绑定的事件
+
+6、替换节点
+a.repalcewith(b) b把a替换掉
+
