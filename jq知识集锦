@@ -41,3 +41,74 @@ a.clone(true)true的含义是同时复制元素中绑定的事件
 6、替换节点
 a.repalcewith(b) b把a替换掉
 
+7、属性操作
+a.attr('title','yourtitle')
+a.removrAttr('title')
+
+8、样式操作
+a.addclass('another')
+a.removeClass('another')
+a.hassclass('another')   //判断是否含有某个样式，如果有返回true
+a.css('width','200px')
+
+9、设置和获取html、文本和值
+a.html()
+a.text()
+a.val()
+
+四、事件
+1、on()
+a.on('click mouseover',function(){})  //两个事件都会触发一个函数
+a.on('click':function(){},'mouseover':function(){})     //按各自的事件触发
+
+2、off()
+a.on('click',function(){
+    ...;
+    a.off();   //关闭a所有的事件操作
+})
+a.on('click mouseover',function(){
+    ....;
+    a.off('mouseover')   //只关闭mouseover事件
+})
+
+3、event事件
+e.pagex
+e.which    //键盘和鼠标的键值
+
+4、动画
+1、animate()
+第一个参数：运动的属性和值{width:300,height:300}
+第二个参数：时间 默认是400ms
+第三参数：运动形式
+第四个参数：回调函数
+
+2、stop()
+a.stop()   //只会阻止当前的运动
+a.stop(true)  //阻止所有后续运动
+
+3、finish()
+a.finish();   //立刻停止并到动画结束的位置
+
+4、delay()
+a.anmiate().delay(1000)   //延迟1000ms执行
+
+5、trim()
+$.trim(str)    //去掉前后空格
+
+
+6、插件
+$extend:扩展工具方法下的插件形式如：$.sss()
+$extend({
+    leftTrim:function(){
+      ....
+    }
+});
+$.leftTrim(str)
+
+$.fn.extend:扩展jq对象下的插件形式，如：$().sss()
+$.fn.extend({
+  drag:function(){
+    ....
+  }
+});
+a.drag();调用drag方法
