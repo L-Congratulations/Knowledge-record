@@ -1,0 +1,24 @@
+一、jq和js转化（jq对象是包装dom对象后产生的对象）
+1、var $cr = $('#cr')  //jq对象
+var cr = $cr[0]   //dom对象
+
+var cr = document.queryselector('cr')   //dom对象
+var $cr = $(cr)     //jq对象
+
+
+二、jq选择器
+1、层次选择器
+2、过滤选择器：通过特定的过滤规则来筛选所需要的dom元素，选择器都以一个冒号（：）开头。
+$('div : first/last')
+$('input :not(.myclass)')
+$('div : even偶数/odd奇数)索引是偶数的input元素
+$('input :eq(1)')
+3、内容过滤选择器：
+$('div:contains("我")') 选取含有文本“我”的div
+4、属性过滤选择器
+
+三、jq DOM操作
+1、查找节点
+var liTxt = $('ul li :eq(1)')
+查找属性节点
+var p
