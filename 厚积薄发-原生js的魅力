@@ -1,3 +1,5 @@
+json转化
+ Object.toJSONString()，而后者变成了 String.parseJSON()
 jsonp原理：
 利用<script>标签没有跨域限制的“漏洞”（历史遗迹啊）来达到与第三方通讯的目的。当需要通讯时，本站脚本创建一个<script>元素，
 地址指向第三方的API网址，形如：     <script src="http://www.example.net/api?param1=1&param2=2"></script>    
