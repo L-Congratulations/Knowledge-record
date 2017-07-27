@@ -1,2 +1,36 @@
 官网下载https://www.python.org/getit/
 使用3.0版本
+特别要注意勾上Add Python 3.5 to PATH，然后点“Install Now”即可完成安装。
+二、Python解释器
+也就是命令行输入python之后启动的就是CPython解释器
+当我们从Python官方网站下载并安装好Python 3.5后，我们就直接获得了一个官方版本的解释器：CPython。这个解释器是用C语言开发的，
+所以叫CPython。在命令行下运行python就是启动CPython解释器。
+
+CPython是使用最广的Python解释器。教程的所有代码也都在CPython下执行。
+
+三、命令行模式和python交互式环境区别
+3.1、在命令行模式下，可以执行python进入Python交互式环境，也可以执行python hello.py运行一个.py文件。
+    在Python交互式环境下，只能输入Python代码并立刻执行。
+3.2、在命令行模式运行.py文件和在Python交互式环境下直接运行Python代码有所不同。Python交互式环境会把每一行Python代码的结果自动打印出来
+    但是，直接运行Python代码却不会。
+    例如，在Python交互式环境下，输入：
+
+    >>> 100 + 200 + 300
+    600
+    直接可以看到结果600。
+    但是，写一个calc.py的文件，内容如下：
+
+    100 + 200 + 300
+    然后在命令行模式下执行：
+
+    C:\work>python calc.py
+    发现什么输出都没有。
+    
+    这是正常的。想要输出结果，必须自己用print()打印出来。把calc.py改造一下：
+
+    print(100 + 200 + 300)
+    再执行，就可以看到结果：
+
+    C:\work>python calc.py
+    600
+    在Python交互式命令行下，可以直接输入代码，然后执行，并立刻得到结果。
