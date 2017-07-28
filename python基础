@@ -76,3 +76,36 @@ elif expression :
    suite 
 else : 
    suite
+
+3.6、import 与 from...import
+在 python 用 import 或者 from...import 来导入相应的模块。
+将整个模块(somemodule)导入，格式为： import somemodule
+从某个模块中导入某个函数,格式为： from somemodule import somefunction
+从某个模块中导入多个函数,格式为： from somemodule import firstfunc, secondfunc, thirdfunc
+将某个模块中的全部函数导入，格式为： from somemodule import *
+
+四、python基本数据类型
+4.1、变量
+Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。
+在 Python 中，变量就是变量，它没有类型，我们所说的"类型"是变量所指的内存中对象的类型。
+等号（=）用来给变量赋值。
+等号（=）运算符左边是一个变量名,等号（=）运算符右边是存储在变量中的值。例如：
+
+Python允许你同时为多个变量赋值。例如：
+a = b = c = 1
+以上实例，创建一个整型对象，值为1，三个变量被分配到相同的内存空间上。
+您也可以为多个对象指定多个变量。例如：
+a, b, c = 1, 2, "runoob"
+以上实例，两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "runoob" 分配给变量 c。
+
+4.2标准数据类型
+Python3 中有六个标准的数据类型：
+Number（数字）
+String（字符串）
+List（列表）
+Tuple（元组）
+Sets（集合）
+Dictionary（字典）
+4.2.1 Number（数字）
+type()不会认为子类是一种父类类型。   type(a)
+isinstance()会认为子类是一种父类类型。  isinstance(a, int)
