@@ -9,7 +9,7 @@
 
 
 三、git安装使用
-参考：http://blog.jobbole.com/78960/
+参考：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 3.1、git安装
 从网上下载一个msysgit（http://msysgit.github.io/），然后进行默认安装即可。安装完成后，在开始菜单里面找到 “Git –> Git Bash”
 然后在git bash里面配置账号和邮箱（ 因为Git是分布式版本控制系统，所以需要填写用户名和邮箱作为一个标识。）
