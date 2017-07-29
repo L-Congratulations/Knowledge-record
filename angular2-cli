@@ -1,1 +1,18 @@
+一、在使用angular2的时候我们需要用到的前端开发工具：
+1.1、webpack
+1.2、typescript
+1.3、Arma
+1.4、jasmine
+。。。
+在angular-cli中已经得到了集成
+二、angular-cli安装：
 
+
+三、git安装使用
+3.1、git安装
+从网上下载一个msysgit（http://msysgit.github.io/），然后进行默认安装即可。安装完成后，在开始菜单里面找到 “Git –> Git Bash”
+然后在git bash里面配置账号和邮箱（ 因为Git是分布式版本控制系统，所以需要填写用户名和邮箱作为一个标识。）
+git config  --global user.name 'yonghuming'
+git config  --global user.email 'aaa.@bb.com'
+
+3.2、创建版本库
