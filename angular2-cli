@@ -9,6 +9,7 @@
 
 
 三、git安装使用
+参考：http://blog.jobbole.com/78960/
 3.1、git安装
 从网上下载一个msysgit（http://msysgit.github.io/），然后进行默认安装即可。安装完成后，在开始菜单里面找到 “Git –> Git Bash”
 然后在git bash里面配置账号和邮箱（ 因为Git是分布式版本控制系统，所以需要填写用户名和邮箱作为一个标识。）
@@ -16,3 +17,14 @@ git config  --global user.name 'yonghuming'
 git config  --global user.email 'aaa.@bb.com'
 
 3.2、创建版本库
+ 什么是版本库？版本库又名仓库，英文名repository,你可以简单的理解一个目录，这个目录里面的所有文件都可以被Git管理起来，
+ 每个文件的修改，删除，Git都能跟踪， 以便任何时刻都可以追踪历史，或者在将来某个时刻还可以将文件”还原”。
+ 在git bash 命令行中用cd命令一步一步进入到你想创建的仓库文件夹：
+ $ cd d:
+ $ cd git_banbenku
+ $ cd test
+ 然后执行：
+ $ git init(通过命令 git init 把这个目录变成git可以管理的仓库)
+ 这时候你当前testgit目录下会多了一个.git的目录，这个目录是Git来跟踪管理版本的，没事千万不要手动乱改这个目录里面的文件，否则，会把git仓库给破坏了
+ 
+3.3、远程仓库
