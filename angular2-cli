@@ -6,6 +6,11 @@
 。。。
 在angular-cli中已经得到了集成
 二、angular-cli安装：
+（npm安装完环境变量之后再安装库才能在命令行中直接调用）
+2.1、用npm安装typescript和typings，因为据说angular-cli是用typescript写的，所以要先装这两个：
+npm install -g typescript typings
+2.2、安装angular-cli:
+npm install -g angular-cli@latest
 
 
 三、git安装使用
@@ -28,3 +33,9 @@ git config  --global user.email 'aaa.@bb.com'
  这时候你当前testgit目录下会多了一个.git的目录，这个目录是Git来跟踪管理版本的，没事千万不要手动乱改这个目录里面的文件，否则，会把git仓库给破坏了
  
 3.3、远程仓库
+
+四、使用ng2
+4.1、找到想创建项目的文件夹，在命令行中输入 ng new projectname
+创建完成之后进入到projectname目录下运行 npm install
+4.2、
+自动化测试在慕课大漠穷秋的ng1里面有介绍
