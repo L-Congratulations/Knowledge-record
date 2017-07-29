@@ -39,3 +39,12 @@ git config  --global user.email 'aaa.@bb.com'
 创建完成之后进入到projectname目录下运行 npm install
 4.2、
 自动化测试在慕课大漠穷秋的ng1里面有介绍
+
+4.3、ng2最核心的三个概念
+虽然ng2概念很多，但是并不是只有掌握了所有概念才能工作
+掌握了其中最核心的三个概念：组件-路由-模块就可以上手了
+4.3.1、组件
+nicefish
+
+五、ui组件
+推荐ng2-bootstrap
