@@ -15,7 +15,13 @@ npm install -g angular-cli@latest
 2.3、cli常用技巧
 2.3.1、cli默认不会创建路由，要想创建好的项目里面包含路由，需要在运行时输入：ng new demoname --routing
 2.3.2、ng server 有个port 可以用来修改启动服务的默认端口：ng server --port 4201
-2.3.3、ng test
+2.3.3、ng test使用karma , jasmine进行测试
+2.3.4、ng build  打包好处，将分散的文件进行梳理合并，减少请求数量和体积
+打包完成之后查看打包后文件大小 ： du -h dist/
+ng2中特有的优化方式：预编译技术 （aot） ng build --aot
+打包时进一步优化，以生产模式进行打包： ng build -prod 打包之后的文件会被合并，每个文件有一个哈希码（是为了cdn判断文件是否进行了更新）
+2.3.5、ng generate
+
 
 
 三、git安装使用
