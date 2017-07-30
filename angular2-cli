@@ -20,9 +20,12 @@ npm install -g angular-cli@latest
 打包完成之后查看打包后文件大小 ： du -h dist/
 ng2中特有的优化方式：预编译技术 （aot） ng build --aot
 打包时进一步优化，以生产模式进行打包： ng build -prod 打包之后的文件会被合并，每个文件有一个哈希码（是为了cdn判断文件是否进行了更新）
-2.3.5、ng generate
+2.3.5、ng generate（创建组件）
+在命令行使用创建组件：ng generate component 组件名 
+用命令行创建的组件会自动在app文件下的app.module.ts的declarations中进行注册
+使用的时候在组件名文件加下的.ts文件里找到selector的值，然后在app文件夹下的app.component.hrml里面用<zujianming></zujianming>引入
 
-
+还可以用ng generate servivce ....创建服务
 
 三、git安装使用
 参考：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
