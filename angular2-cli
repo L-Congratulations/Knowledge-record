@@ -12,6 +12,11 @@ npm install -g typescript typings
 2.2、安装angular-cli:
 npm install -g angular-cli@latest
 
+2.3、cli常用技巧
+2.3.1、cli默认不会创建路由，要想创建好的项目里面包含路由，需要在运行时输入：ng new demoname --routing
+2.3.2、ng server 有个port 可以用来修改启动服务的默认端口：ng server --port 4201
+2.3.3、ng test
+
 
 三、git安装使用
 参考：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
