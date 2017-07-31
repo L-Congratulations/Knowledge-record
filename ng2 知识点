@@ -2,7 +2,8 @@
 1.1 将项目克隆下来并在本地运行（已经安装好了angular-cli）
 1.克隆项目： git clone https://github.com/lzxb/vue-c...
 2.安装nodejs
-3.进入项目NiceFish目录 安装依赖： npm install
+3.进入项目NiceFish目录 安装依赖： npm install（根据需求看是用cnpm还是npm安装）
 4.启动服务： ng serve --prod --aot 
 如果down下来的项目中angular-cli的版本和电脑中装的不一致需要把电脑中的cli卸载：npm uninstall -g angular-cli
 然后重新安装 npm install -g @angular/cli
+如果还是有问题就重新down一遍代码然后配置。因为有的时候可能存在文件依赖顺序。
