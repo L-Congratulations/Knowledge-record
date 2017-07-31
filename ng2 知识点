@@ -1,1 +1,7 @@
-一、
+一、以大漠穷秋的NiceFish为案例进行
+1.1 将项目克隆下来并在本地运行（已经安装好了angular-cli）
+1.克隆项目： git clone https://github.com/lzxb/vue-c...
+2.安装nodejs
+3.进入项目NiceFish目录 安装依赖： npm install
+4.启动服务： ng serve --prod --aot 
+5.发布代码： npm run dist
