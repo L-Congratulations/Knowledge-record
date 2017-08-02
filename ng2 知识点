@@ -7,3 +7,5 @@
 如果down下来的项目中angular-cli的版本和电脑中装的不一致需要把电脑中的cli卸载：npm uninstall -g angular-cli
 然后重新安装 npm install -g @angular/cli
 如果还是有问题就重新down一遍代码然后配置。因为有的时候可能存在文件依赖顺序。
+
+二、组件
