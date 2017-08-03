@@ -22,32 +22,48 @@ ng2中特有的优化方式：预编译技术 （aot） ng build --aot
 使用的时候在组件名文件加下的.ts文件里找到selector的值，然后在app文件夹下的app.component.hrml里面用<zujianming></zujianming>引入
 
 还可以用ng generate servivce ....创建服务
-二、组件
-import { Component, OnInit } from '@angular/core';
+二、typescript
+TypeScript的主要特征之一是添加类型信息，也因此得名
+
+三、ng2学习路程
+3.1 组件
+3.1.1 创建组件
+  创建组件需要三步：
+    1、从 @angular/core 引入 Component 装饰器
+    2、创建一个类，并用 @Component 修饰
+    3、在 @Component 中 ，设置selector、template 和 styles 等元数据
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({ // 装饰器   在装饰器里面的参数就是八大核心中的元数据
-  // 装饰器是ts提供的一种语法特性 用来修饰一个类
+              // 装饰器是ts提供的一种语法特性 用来修饰一个类
   // 元数据与装饰器的关联 如果我们只定义了一个类，ng2是不知道如何解释这个类的，而如果在这个
   // 类上加上了@Component装饰器 这个装饰器会在运行的时候把他的元数据参数通过某种方式注入到
   // 这个类里面，然后ng2就会识别出来这个类是一个组件  装饰器的作用就是赋予一个类更丰富的信息，
-  // 这些信息就是元数据   
-  // 在这里简单解释就是 装饰器通过元数据丰富了组件
+  // 这些信息就是元数据   在这里简单解释就是 装饰器通过元数据丰富了组件
   selector: 'app-demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent implements OnInit { // class类（es6）组件类
-
-
-  constructor() { }
-
-  ngOnInit() {
+  name = ''; // 看其他人写法声明变量在constructor外部声明
+  constructor(public elementRef: ElementRef) { // 使用构造注入的方式注入依赖对象
+    this.name = 'Semlinker'; // 执行初始化操作
+    // 依赖注入和初始化数据的任务交给constructor
   }
+  // constructor() { } 是es6中class类的独有方法constructor(构造函数) 是类中的特殊方法，
+  // 主要用来做初始化操作，在进行类实例化操作时，会被自动调用。
+  // constructor 应用场景在ng2 中，构造函数一般用于依赖注入或执行一些简单的初始化操作。
 
+  ngOnInit() { // 其中 ngOnInit 用于在 Angular 获取输入属性后初始化组件，
+               // 该钩子方法会在第一次 ngOnChanges 之后被调用。另外需要
+    // 注意的是 ngOnInit 钩子只会被调用一次ngOnInit 应用场景
+    // 在项目开发中我们要尽量保持构造函数简单明了，让它只执行简单的数据初始化操作，
+    // 因此我们会把其他的初始化操作放在 ngOnInit 钩子中去执行。如在组件获取输入属性之后，
+    // 需执行组件初始化操作等。
+  }
+// 在 Angular 2 中 constructor 一般用于依赖注入或执行简单的数据初始化操作，
+// ngOnInit 钩子主要用于执行组件的其它初始化操作或获取组件输入的属性值。
 }
-
-三、typescript
-TypeScript的主要特征之一是添加类型信息，也因此得名
-
-四、ng2学习路程
-4.1 ng2应用程序文件结构
+--------------------------------------------------------------------------------------------------------
+constructor与ngOnInit区别：https://segmentfault.com/a/1190000008685752
+--------------------------------------------------------------------------------------------------------
