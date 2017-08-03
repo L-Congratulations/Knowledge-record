@@ -38,6 +38,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoComponent implements OnInit { // class类（es6）组件类
 
+三、typescript
+TypeScript的主要特征之一是添加类型信息，也因此得名
   constructor() { }
 
   ngOnInit() {
