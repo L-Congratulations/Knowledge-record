@@ -8,4 +8,39 @@
 然后重新安装 npm install -g @angular/cli
 如果还是有问题就重新down一遍代码然后配置。因为有的时候可能存在文件依赖顺序。
 
+2.3、cli常用技巧
+2.3.1、cli默认不会创建路由，要想创建好的项目里面包含路由，需要在运行时输入：ng new demoname --routing
+2.3.2、ng server 有个port 可以用来修改启动服务的默认端口：ng server --port 4201
+2.3.3、ng test使用karma , jasmine进行测试
+2.3.4、ng build  打包好处，将分散的文件进行梳理合并，减少请求数量和体积
+打包完成之后查看打包后文件大小 ： du -h dist/
+ng2中特有的优化方式：预编译技术 （aot） ng build --aot
+打包时进一步优化，以生产模式进行打包： ng build -prod 打包之后的文件会被合并，每个文件有一个哈希码（是为了cdn判断文件是否进行了更新）
+2.3.5、ng generate（创建组件）
+在命令行使用创建组件：ng generate component 组件名 
+用命令行创建的组件会自动在app文件下的app.module.ts的declarations中进行注册
+使用的时候在组件名文件加下的.ts文件里找到selector的值，然后在app文件夹下的app.component.hrml里面用<zujianming></zujianming>引入
+
+还可以用ng generate servivce ....创建服务
 二、组件
+import { Component, OnInit } from '@angular/core';
+
+@Component({ // 装饰器   在装饰器里面的参数就是八大核心中的元数据
+  // 装饰器是ts提供的一种语法特性 用来修饰一个类
+  // 元数据与装饰器的关联 如果我们只定义了一个类，ng2是不知道如何解释这个类的，而如果在这个
+  // 类上加上了@Component装饰器 这个装饰器会在运行的时候把他的元数据参数通过某种方式注入到
+  // 这个类里面，然后ng2就会识别出来这个类是一个组件  装饰器的作用就是赋予一个类更丰富的信息，
+  // 这些信息就是元数据   
+  // 在这里简单解释就是 装饰器通过元数据丰富了组件
+  selector: 'app-demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.scss']
+})
+export class DemoComponent implements OnInit { // class类（es6）组件类
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
