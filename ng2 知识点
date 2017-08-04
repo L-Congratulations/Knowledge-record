@@ -215,3 +215,7 @@ import { NgModule } from '@angular/core';
 export class AppModule { }
 在上面的例子中，我们已经将类AppModule转换为Angular 2模块，只需使用NgModule装饰器。 
 NgModule装饰器至少需要三个属性：import，declarations和bootstrap
+
+
+
+五、ng4
