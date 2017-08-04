@@ -69,6 +69,48 @@ constructor与ngOnInit区别：https://segmentfault.com/a/1190000008685752
 --------------------------------------------------------------------------------------------------------
 
 3.1.2 组件间数据传递
+3.1.2.1  父组件向子组件传递参数
+@Input()装饰器定义了一组可以从父组件传递的参数
+父组件html：
+<p>
+  first works!{{name}}
+  <app-first-child [pname]="sex"></app-first-child>
+  <!--[pname]是在子组件中通过@input属性定义的一个存储变量pname-->
+  <!--"sex"对应父组件中定义的变量名，想给pname传什么值就对应将变量名填入-->
+  <!--这是链接父子组件的桥梁pname对应着子组件的变量 sex对应着父组件的变量-->
+</p>
+父组件js：
+export class FirstComponent implements OnInit {
+  sex: string;
+  name = ' ';
 
+  constructor() {
+    this.name = 'parentName';
+    this.sex = '女';
+  }
+
+  ngOnInit() {
+  }
+
+}
+子组件html：
+<p>
+  first-child works!{{name}}{{pname}}
+  <!--{{name}}{{pname}}依旧只是对应着该组件中的name pname变量-->
+</p>
+
+子组件js：
+export class FirstChildComponent implements OnInit {
+  name = ' ';
+  @Input() pname: string;
+  // @Input()注意这里有小括号 在这只相当于声明了一个变量pname，桥梁搭建是在[pname]="sex"
+  constructor() {
+    this.name = 'ChildName';
+  }
+
+  ngOnInit() {
+  }
+
+}
 四、模块
 4.1.1 模块是以相关的组件，指令，管道和服务的组合的机制，其可以与其他模块组合以创建应用程序。
