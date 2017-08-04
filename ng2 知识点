@@ -69,6 +69,7 @@ constructor与ngOnInit区别：https://segmentfault.com/a/1190000008685752
 --------------------------------------------------------------------------------------------------------
 
 3.1.2 组件间数据传递
+
 3.1.2.1  父组件向子组件传递参数
 @Input()装饰器定义了一组可以从父组件传递的参数
 父组件html：
@@ -119,5 +120,80 @@ export class FirstChildComponent implements OnInit {
 引用父组件数据的时候直接用正常使用变量的方式调用{{panme}}
 
 -----------------------------------------------------------------------------------------------------------------
+
+3.1.2.2 父组件监听子组件变化（子组件传递数据给父组件）
+子组件js:
+export class FirstChildComponent implements OnInit { 
+  @Output() change = new EventEmitter<number>();
+  // 使用装饰器@Output修饰了change属性，并为其赋了初值为EventEmitter的实例；
+  // count = 0; count变量可以直接在本地定义也可以从父组件获取
+  @Input() count: number;  
+  constructor() {}
+  increaseNum() {
+    this.count ++;
+    this.change.emit(this.count);
+    // 在increaseNumber和descreaseNumber方法修改了count属性后，
+    // 调用了change属性的emit方法通知父组件。
+  }
+  descreaseNum() {
+    this.count --;
+    this.change.emit(this.count);
+  }
+  ngOnInit() {
+  }
+
+}
+子组件html：
+<p>
+  Count:{{count}}
+  <!--{{name}}{{pname}}依旧只是对应着该组件中的name pname变量-->
+</p>
+<button (click)="increaseNum()">+</button>
+<button (click)="descreaseNum()">-</button>
+父组件js：
+export class FirstComponent implements OnInit { 
+  caseCount = 10;
+  // 定义并初始化一个变量用来接收从子组件传递过来的数据
+  constructor() {    
+  }
+  countChange($event) {
+    // 通过桥梁与子组件的chang建立联系，并把值此处的$event就相当于
+    // this.change.emit(this.count);中的this.count 并把传递过来的值保存到本组件中
+    this.caseCount = $event;
+  }
+  ngOnInit() {
+  }
+
+}
+父组件html：
+<p>
+  parentNum{{caseCount}}
+  <app-first-child [count]="caseCount" (change)="countChange($event)"></app-first-child>
+  <!--通过(change)="countChange($event)"把子组件的chang与父组件的countChange进行桥梁链接
+  $event接收的就是传递的数据--> 
+</p>
+-----------------------------------------------------------------------------------------------------------------------
+父组件监听子组件变化（子组件传递数据给父组件）：
+1、首先在子组件中借助@Output    change = new EventEmitter();初始化一个chang属性
+2、然后建立一个触发事件 
+increaseNum() {
+    this.count ++;
+    this.change.emit(this.count);
+    // 在increaseNumber和descreaseNumber方法修改了count属性后，
+    // 调用了change属性的emit方法通知父组件。
+ }
+通过chang属性的emit方法把想要传递的数据告诉父组件
+3、子组件父组件通过
+<app-first-child (change)="countChange($event)"></app-first-child>
+建立桥梁连接 此时父组件的countChange方法会接收到子组件传递的数据，数据就存储在$event参数中
+4、在父组件中处理取到的子组件数据
+caseCount = 10;  // 定义并初始化一个变量用来接收从子组件传递过来的数据
+countChange($event) {
+    // 通过桥梁与子组件的chang建立联系，并把值此处的$event就相当于
+    // this.change.emit(this.count);中的this.count 并把传递过来的值保存到本组件中
+    this.caseCount = $event;
+  }
+-----------------------------------------------------------------------------------------------------------------------
+
 四、模块
 4.1.1 模块是以相关的组件，指令，管道和服务的组合的机制，其可以与其他模块组合以创建应用程序。
