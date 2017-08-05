@@ -11,3 +11,56 @@
 
 组件、服务、指令是用来完成功能的。
 模块是用来打包分发功能的
+
+1.2、ng-cli创建的目录分析
+e2e：端到端测试，用来做自动化测试的
+src：应用的源代码目录
+angular-cli.json:angular命令行工具的配置文件，实战中会去修改这个文件，比如引入第三方的包的时候
+package.json：npm命令工具配置文件
+tslint.json：tslint的配置文件，做代码规则检测的 
+src/environments：环境配置，可以在不同的环境（开发环境、生产环境、测试环境）开发。比如开发环境和生产环境的后台地址是不一样的
+就需要在这里进行配置
+src/polyfills.ts:使angular能够正常的运行在老的浏览器 
+src/tsconfig.json:是typescript编译器的配置文件，已经配好，基本不用修改
+
+1.3、关键文件的代码分析
+1.3.1、组件：app.component.ts
+与组件相关的基本概念：
+（1）@Component（）装饰器
+用来告知angular框架如何处理一个typescript的类。component包含多个属性，这些属性
+的值叫做元数据。angular会根据这些元数据的值来渲染组件并执行组件的逻辑
+（2）Template 模板
+我们可以在模板中使用angular的数据绑定语法，来呈现控制器中的数据
+（3）Controller控制器
+就是一个普通的typescript类，他会被Component装饰器来装饰。控制器会包含组件所有的
+属性和方法，绝大多数页面逻辑都是写在控制器里的。控制器通过数据绑定与模板（template）
+进行通信，模板（template）展示控制器（Controller）的数据。控制器处理模板
+（template）上发生的事件。
+以上三点是组件的必备元素。
+import { Component } from '@angular/core';
+// 从angular的核心模块中引入了component装饰器
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+// 用装饰器定义了一个组件 以及组件的元数据
+// 所有组件都必须使用一个component装饰器来注解
+// （前边带有@的是装饰器）
+
+export class AppComponent {
+  // AppComponent是一个标准的typescript类
+  // 要告诉angular AppComponent是一个组件需要把
+  // 一些元数据附加到这个类上。在typescript中我们使用装饰器来附加元数据
+  // 通过@Component把一些元数据加到 AppComponent类上
+  // angular就会知道需要把AppComponent变成angular框架
+  // 的一个组件
+  // 元数据会告诉angular如何将AppComponent处理成一个组件
+
+  // AppComponent这个typescript类定义了这个组件的控制器
+  // 数据绑定是让模板的各个部分与控制器的各个部分相互作用的一个机制
+  
+  title = 'app';
+}
+
