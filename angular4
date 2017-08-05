@@ -102,3 +102,16 @@ import { AppComponent } from './app.component';
   // bootstrap声明了模块的主组件是什么
 })
 export class AppModule { }
+
+1.4、angular启动过程
+启动的配置在angular-cli.json文件中
+src/main.ts是整个应用启动的入口，整个应用的起点是从
+platformBrowserDynamic().bootstrapModule(AppModule);开始运行的，
+加载AppModule模块，首先分析app.module.ts(是AppModule对应的那个主模块)
+需要依赖哪些模块（比如BrowserModule模块），把依赖的那些模块加载了之后再
+分析那些模块需要什么模块，直到加载完所有所需的依赖。加载完之后会去index.html
+中寻找<app-root></app-root>标签并把app.component.ts中装饰器中templateUrl
+所指定的'./app.component.html'内容替换掉app-root标签。在替换的过程中主页面
+会显示<app-root>Loading。。。</app-root>中的内容（loading。。。）
+
+
