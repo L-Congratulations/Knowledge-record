@@ -319,7 +319,7 @@ export class Product {
   ) {}
 }
 2、使用对象
-private products: Array<Product>;
+ products: Array<Product>;
   // 在定义完产品信息之后我们需要在ProductComponent
 //   控制器中去声明一个数组，来存储页面上将要
 //   展示的产品的数据
