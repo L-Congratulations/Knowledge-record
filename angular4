@@ -299,5 +299,38 @@ export class Product {
     // 这个类描述了我们产品所包含的信息
   ) {}
 }
-
+-------------------------------------------------------------------------------------------------------------------------
+总结：
+1、创建对象：因为是用typescript写的，所以对象的创建用class类。
+在创建对象时直接作为constructor的参数定义。主意需要限定属性的类型：
+export class Product {
+  // 首先定义一个product对象
+  constructor(
+    // 在Product的构造函数中声明产品所拥有
+    // 的属性
+    public id: number,
+    public title: string,
+    public price: number,
+    public rating: number,
+    public desc: string,
+    public categories: Array<string>
+    // string类型的数组
+    // 这个类描述了我们产品所包含的信息
+  ) {}
+}
+2、使用对象
+private products: Array<Product>;
+  // 在定义完产品信息之后我们需要在ProductComponent
+//   控制器中去声明一个数组，来存储页面上将要
+//   展示的产品的数据
+//  该数组是一个受Product格式限制的数组
+3、初始化数组
+this.products = [
+      new Product(1, '第一个商品', 1.88, 3.5, 'angular4.0', ['图书', '硬件设备']),
+      new Product(2, '第二个商品', 2.88, 2.5, 'angular4.0', ['电子产品', '硬件设备']),
+      new Product(3, '第三个商品', 3.88, 4.5, 'angular4.0', ['硬件设备']),
+      new Product(4, '第四个商品', 4.88, 2.5, 'angular4.0', ['电子产品']),
+      new Product(5, '第五个商品', 5.88, 1.5, 'angular4.0', ['图书']),
+      new Product(6, '第六个商品', 6.88, 4.5, 'angular4.0', ['图书', '硬件设备'])
+    ];
 
