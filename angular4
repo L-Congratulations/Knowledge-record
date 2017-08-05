@@ -114,4 +114,33 @@ platformBrowserDynamic().bootstrapModule(AppModule);开始运行的，
 所指定的'./app.component.html'内容替换掉app-root标签。在替换的过程中主页面
 会显示<app-root>Loading。。。</app-root>中的内容（loading。。。）
 
+二、auction第一个版本
+2.1、设置依赖
+在项目中会用到jQuery和bootstrap等第三方的库，所以在开发前需要把库引入到我们的项目中：
+（1）、将第三方库安装到本地
+在auction项目目录下：npm install jquery --save(--save是为了吧jQuery记入到package.json文件中)
+npm install bootstrap --save
+（2）、把库引入到项目中
+需要修改angular-cli.json文件。在文件中添加：
+"styles": [
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
+      ],
+"scripts": [
+  "../node_modules/jquery/dist/jquery.js",
+  "../node_modules/bootstrap/dist/js/bootstrap.js"
+],
+
+（3）、因为jQuery是JavaScript的东西，typescript是不能直接使用的。需要安装jQuery和bootstrap的类型描述文件才能在typescript中正常使用
+npm install @types/jquery --save-dev（不加dev放在package.json 的dependencies里面 ,加dev放在package.json的 devDependencies里面）
+npm install @types/bootstrap --save-dev
+安装完成。
+
+2.2、angular开发思路：
+在angular框架设计目标中最主要的目标之一就是方便开发人员开发出可重用的组件。很多特性都是为这个服务的。
+开发的时候要用一种组件化的思路来思考我们要解决的问题。
+将auction应用模块分成七个组件进行开发：navbar、footer、search、carousel、product、stars
+
+
+
 
