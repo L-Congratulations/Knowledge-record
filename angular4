@@ -24,6 +24,7 @@ src/polyfills.ts:使angular能够正常的运行在老的浏览器
 src/tsconfig.json:是typescript编译器的配置文件，已经配好，基本不用修改
 
 1.3、关键文件的代码分析
+
 1.3.1、组件：app.component.ts
 与组件相关的基本概念：
 （1）@Component（）装饰器
@@ -63,4 +64,41 @@ export class AppComponent {
   
   title = 'app';
 }
+（4）、非必备要素：
+可选的可注入对象：属性输入@Inputs（）、提供器providers（用来做依赖注入的）、声明周期钩子
+可选的输出对象：生命周期钩子、样式表、动画、输出属性@Outputs（）
 
+1.3.2、模块app.module.ts
+模块也是由装饰器修饰的typescript类
+
+import { BrowserModule } from '@angular/platform-browser';
+
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    // declarations声明了模块中有什么东西，在这只声明
+    // 了一个组件AppComponent。
+    // 注意在这个属性中只能声明组件、指令和管道
+    AppComponent
+  ],
+  imports: [
+    // 声明了模块要正常运转还需要什么东西。也就是AppModule
+    // 模块需要依赖的其他模块。在这声明了一个angular框架
+    // 提供的模块BrowserModule（是开发web应用的必选依赖）
+    // 还有FormsModule（处理表单的模块）、HttpModule等
+    // （提供http服务的模块）等肯能用到的模块
+    // 当把模块引入之后就可以在应用中使用这些模块所提供的
+    // 组件、指令、服务等
+    BrowserModule
+  ],
+  providers: [],
+  // providers默认是空的。用来声明模块中提供了什么服务
+  // 依赖注入的时候使用。这里只能声明服务。服务只能声明在
+  // 这里
+  bootstrap: [AppComponent]
+  // bootstrap声明了模块的主组件是什么
+})
+export class AppModule { }
