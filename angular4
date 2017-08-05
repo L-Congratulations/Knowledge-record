@@ -141,6 +141,115 @@ npm install @types/bootstrap --save-dev
 开发的时候要用一种组件化的思路来思考我们要解决的问题。
 将auction应用模块分成七个组件进行开发：navbar、footer、search、carousel、product、stars
 
+2.2.1、es6 class类知识点补充
+//定义类
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+}
+上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象
+Point类除了构造方法，还定义了一个toString方法。注意，定义“类”的方法的时候，前面不需要加上function这个关键字，
+直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。
+constructor方法是类的默认方法
+constructor方法默认返回实例对象（即this）
+与 ES5 一样，实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）。
+//定义类
+class Point {
 
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+
+}
+
+var point = new Point(2, 3);
+
+point.toString() // (2, 3)
+
+point.hasOwnProperty('x') // true
+point.hasOwnProperty('y') // true
+point.hasOwnProperty('toString') // false
+point.__proto__.hasOwnProperty('toString') // true
+上面代码中，x和y都是实例对象point自身的属性（因为定义在this变量上），所以hasOwnProperty方法返回true，
+而toString是原型对象的属性（因为定义在Point类上），所以hasOwnProperty方法返回false。这些都与 ES5 的行为保持一致。
+
+与 ES5 一样，类的所有实例共享一个原型对象。
+
+var p1 = new Point(2,3);
+var p2 = new Point(3,2);
+
+p1.__proto__ === p2.__proto__
+//true
+上面代码中，p1和p2都是Point的实例，它们的原型都是Point.prototype，所以__proto__属性是相等的。
+
+这也意味着，可以通过实例的__proto__属性为“类”添加方法。
+
+__proto__ 并不是语言本身的特性，这是各大厂商具体实现时添加的私有属性，虽然目前很多现代浏览器的JS引擎中都提供了这个私有属性
+，但依旧不建议在生产中使用该属性，避免对环境产生依赖。生产环境中，我们可以使用 Object.getPrototypeOf 方法来获取实例对象的原型，
+然后再来为原型添加方法/属性。
+
+var p1 = new Point(2,3);
+var p2 = new Point(3,2);
+
+p1.__proto__.printName = function () { return 'Oops' };
+
+p1.printName() // "Oops"
+p2.printName() // "Oops"
+
+var p3 = new Point(4,2);
+p3.printName() // "Oops"
+上面代码在p1的原型上添加了一个printName方法，由于p1的原型就是p2的原型，因此p2也可以调用这个方法。
+而且，此后新建的实例p3也可以调用这个方法。这意味着，使用实例的__proto__属性改写原型，必须相当谨慎，
+不推荐使用，因为这会改变“类”的原始定义，影响到所有实例。
+--------------------------------------------------------------------------------------------------------------------------------
+总结：在es6 的class类中
+class Point {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+
+}
+
+var point = new Point(2, 3);
+
+point.toString() // (2, 3)
+
+point.hasOwnProperty('x') // true
+point.hasOwnProperty('y') // true
+point.hasOwnProperty('toString') // false
+point.__proto__.hasOwnProperty('toString') // true
+在constructor里面定义的x和y都是(class类自身的属性)实例对象point自身的属性（因为定义在this变量上），所以hasOwnProperty方法返回true，
+在constructor外面定义的toString是class类原型对象的属性（因为定义在Point类上），所以hasOwnProperty方法返回false。
+类的所有实例共享一个原型对象。
+区分：一个是类自己的，一个是类原型上的。
+-----------------------------------------------------------------------------------------------------------------------------
+
+2.2.2、typescript中的类
+extends 继承时的父类
+private 装载私有属性，里面定义的成员外部不可使用且不能继承给子类，当成员被标记成private时，它就不能在声明它的类的外部访问。
+protected 装载保护属性，里面定义的成员外部不可使用但可以继承给子类
+public 装载公有属性默认为public
+static 装载静态方法和属性
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+new Animal("Cat").name; // Error: 'name' is private;
