@@ -253,3 +253,51 @@ class Animal {
 }
 
 new Animal("Cat").name; // Error: 'name' is private;
+
+
+2.3、在typescript中创建产品数据
+首先在typescript中定义一个对象来封装产品信息，并做格式限制。
+然后在组件的controller中定义一个数组用来存储需要展现的产品信息
+最后在ngOnInit生命周期钩子中初始化数组。
+完整代码如下：
+export class ProductComponent implements OnInit {
+  private products: Array<Product>;
+  // 在定义完产品信息之后我们需要在ProductComponent
+//   控制器中去声明一个数组，来存储页面上将要
+//   展示的产品的数据
+//  该数组是一个受Product格式限制的数组
+  constructor() { }
+
+  ngOnInit() {
+    // ngOnInit声明周期钩子，会在组件实例化
+    // 之后调用一次
+    this.products = [
+      new Product(1, '第一个商品', 1.88, 3.5, 'angular4.0', ['图书', '硬件设备']),
+      new Product(2, '第二个商品', 2.88, 2.5, 'angular4.0', ['电子产品', '硬件设备']),
+      new Product(3, '第三个商品', 3.88, 4.5, 'angular4.0', ['硬件设备']),
+      new Product(4, '第四个商品', 4.88, 2.5, 'angular4.0', ['电子产品']),
+      new Product(5, '第五个商品', 5.88, 1.5, 'angular4.0', ['图书']),
+      new Product(6, '第六个商品', 6.88, 4.5, 'angular4.0', ['图书', '硬件设备'])
+    ];
+  }
+
+}
+// 因为我们是在用typescript在写程序，所以
+// 需要用一个对象来封装所用到的产品信息
+export class Product {
+  // 首先定义一个product对象
+  constructor(
+    // 在Product的构造函数中声明产品所拥有
+    // 的属性
+    public id: number,
+    public title: string,
+    public price: number,
+    public rating: number,
+    public desc: string,
+    public categories: Array<string>
+    // string类型的数组
+    // 这个类描述了我们产品所包含的信息
+  ) {}
+}
+
+
