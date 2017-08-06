@@ -337,5 +337,51 @@ this.products = [
 
 2.4、评级组件
 
+2.4.1、ng4的属性绑定：
+使用[属性]=“值”进行属性绑定(属性如果不加[],那么就直接是传统的赋值，加上[]就是angular中属性绑定)
+<p>2.属性绑定:</p>
+<img src="{{src}}"/>
+<p>3.属性绑定:</p>
+<img [src]="src"/>
+
+2.4.2、样式绑定
+1、基本HTML属性绑定
+<td [attr.colspan]="表达式"></td>
+2、css绑定
+<div class="a" [class]="b"></div> //b会完全替代a
+<div [class.a]="fn()"></div> //fn()返回true，false，如果true添加.a
+<div [ngClass]="{a:isA,b:isB}"></div> //b会完全替代a
+3、样式绑定
+<button [style.color]="a?red:green">button</button>
+<button [ngStyle]="{'font-style':a?'red':'green'}">button</button>
+
+2.4.3、编写评级组件
+
+star.html:
+<span *ngFor="let star of stars" class="glyphicon glyphicon-star"
+  [class.glyphicon-star-empty]="star"></span>
+  <span>{{rating}}</span>
+</span>
+star.js
+export class StarsComponent implements OnInit {
+  stars: boolean[];
+  @Input() rating: number;
+  constructor() { }
+
+  ngOnInit() {
+    this.stars = [];
+    for (let i = 1; i <= 5 ; i++) {
+      this.stars.push(i > this.rating);
+    }
+  }
+
+}
+---------------------------------------------------------------------------------------------------------------------
+总结：
+1、样式绑定：[class.glyphicon-star-empty]="star"意思是根据star的布尔值来判断是否将glyphicon-star-empty插入到class中。
+2、 this.stars.push(i > this.rating);通过this.rating来拿到外边定义的值，使用 this.stars = [];来初始化数组
+3、灵活使用push方法来创建数组this.stars.push(i > this.rating);
+---------------------------------------------------------------------------------------------------------------------
+
 
 三、路由
