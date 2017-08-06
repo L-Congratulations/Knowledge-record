@@ -385,4 +385,52 @@ export class StarsComponent implements OnInit {
 
 
 三、路由
-3.1、
+3.1、spa 主页面只加载一次，然后通过路由切换改变页面显示的内容
+3.2、路由基础：
+3.2.1、Routes：路由配置，保存着哪个URL对应展示哪个组件，以及在哪个RouterOutlet
+中展示
+就是在app-routing.module.ts里面的routes
+里面是用来配置path和component的：
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'product', component: ProductComponent},
+  { path: '**', component: Code404Component}
+];
+这里需要注意component后面的组件需要用import { HomeComponent } from './home/home.component';
+引入
+在路由的path参数中不能用斜线开头'/product'配置
+3.2.2、RouterOutlet：在html中标记路由内容呈现位置的占位符指令。
+需要展现的内容会显示在RouterOutlet的后面
+3.2.3、Router：负责在运行时执行路由的对象，可以通过调用其navgate（）和
+navgateByUrl（）方法来导航到一个指定的路由
+3.2.4、RouterLink：在html中声明路由导航用的指令
+相当于a标签的href属性
+<a [routerLink]="['/']">主页</a>
+<a [routerLink]="['/product']">商品详情页</a>
+注意在这写路径的时候需要用斜线开头['/product']，因为涉及到子路由的时候需要
+用'././product'的方式来确定这个链接是导航到跟路由还是自路由。/开头就表示根路由
+注意routerLink的参数是一个数组，因为我们可以在路由的时候传递一些参数
+在传递参数的时候就可以直接在数组中添加参数的值
+
+与他相同的另一种写法：（上边是在页面上的链接跳转的，这个是通过后台控制器
+中调用router的方法实现的也就是3.2.3中的方法）
+首先定义一个点击事件：<input type="button" value="商品详情" (click)="toProductDetails()">
+然后在对应的.ts中添加如下代码：
+constructor(private router: Router) {}
+  toProductDetails() {
+  this.router.navigate(['/product']);//这的参数和routerlingk的参数一样
+  }
+3.2.5、ActivatedRouter:当前激活的路由对象，保存着当前路由的信息，如路由地址，
+路由参数等
+
+3.2.6、在哪里使用了事件或属性就在对应组件的.ts文件中去定义
+
+3.2.7、路由重定向
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'product', component: ProductComponent},
+  { path: '**', component: Code404Component}//当页面不存在时会展现404页面的内容
+];
+
+
+
