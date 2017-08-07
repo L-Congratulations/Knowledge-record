@@ -464,6 +464,9 @@ export class ProductComponent implements OnInit {
 this.productId = this.routeInfo.queryParams['id'];
 其他不变
 
+参数订阅，为了更好的
+在url中传参方法获取数据的时候使用参数订阅
+this.routeInfo.params.subscribe((params: Params) => {this.productId = params['id']; });
 3.2.11、路由守卫
 场景：
 1、只有当用户已经登录并拥有某些权限时才能进入某些路由
