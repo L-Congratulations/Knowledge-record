@@ -431,6 +431,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent},
   { path: '**', component: Code404Component}//当页面不存在时会展现404页面的内容
 ];
+
 3.2.8、路由重定向
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -439,6 +440,22 @@ const routes: Routes = [
   { path: '**', component: Code404Component}
 ];
 注意redirectTo的参数包含斜线/
+
+3.2.9、路由传递参数
+这里注意记录在查询参数中传递参数和路由路径中传递参数两种方法：
+1、在查询参数中传递参数：
+<a [routerLink]="['/product']" [queryParams]="{id: 1}">商品详情页</a>
+此时点击链接之后就会看到网址变成了http://localhost:4200/product?id=1，此时已经在路由中传了参数
+接收参数此时页面已经跳转到了详情页，因此要在详情页对应的.ts文件中接收参数：
+export class ProductComponent implements OnInit {
+  private productId: number;
+  constructor(private routeInfo: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.productId = this.routeInfo.snapshot.queryParams['id'];
+  }
+
+}先定义一个变量productId接收参数，然后在构造函数中注入routeInfo，最后在声明周期钩子中给productId赋值
 
 3.2.11、路由守卫
 场景：
