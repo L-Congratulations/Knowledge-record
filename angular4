@@ -425,13 +425,20 @@ constructor(private router: Router) {}
 
 3.2.6、在哪里使用了事件或属性就在对应组件的.ts文件中去定义
 
-3.2.7、路由重定向
+3.2.7、
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent},
   { path: '**', component: Code404Component}//当页面不存在时会展现404页面的内容
 ];
-
+3.2.8、路由重定向
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'product', component: ProductComponent, canActivate: [LoginGuard]},
+  { path: '**', component: Code404Component}
+];
+注意redirectTo的参数包含斜线/
 
 3.2.11、路由守卫
 场景：
