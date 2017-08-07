@@ -457,6 +457,13 @@ export class ProductComponent implements OnInit {
 
 }先定义一个变量productId接收参数，然后在构造函数中注入routeInfo，最后在声明周期钩子中给productId赋值
 
+2、在URL中传递参数
+首先将路由配置文件中的path该成一个可以接受参数的路径path: 'product/:id'
+然后将routerLink改为<a [routerLink]="['/product', 1]">商品详情页</a>
+最后在取值的时候改为：
+this.productId = this.routeInfo.queryParams['id'];
+其他不变
+
 3.2.11、路由守卫
 场景：
 1、只有当用户已经登录并拥有某些权限时才能进入某些路由
