@@ -536,4 +536,11 @@ html属性初始了dom属性，然后他的任务就完成了
 
 angular模板绑定是通过dom属性和事件来工作的，而不是HTML属性
 3、html属性绑定
+css类绑定：
+<div class="aa bb" [class]="someExpression"></div>后边的值会覆盖掉前边class的值
+<div [class.special]="isSpcial"></div>special类会根据后边参数的布尔值来决定是否添加到div中
+<div [ngClass]="{aaa:isA, bbb:isB}"></div>控制多个class类是否添加到div中
+样式绑定：和css类绑定类似
 4、双向绑定
+
+
