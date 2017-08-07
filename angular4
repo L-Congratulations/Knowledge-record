@@ -442,6 +442,34 @@ const routes: Routes = [
 路由系统提供了一些钩子来控制进入离开路由。
 在这介绍三种路由守卫：
 1、CanActivate：处理导航到某路由情况。如果不满足则不能进入到指定路由
+首先新建一个guard文件，在里面新建一个.ts文件
+然后在ts文件里写：
+import {CanActivate} from '@angular/router';
+/**
+ * Created by ls-pc on 2017/8/7.
+ */
+export class LoginGuard implements CanActivate {
+  canActivate() {
+    let logeIn: boolean = Math.random() > 0.5;
+    if (!logeIn) {
+      console.log('用户未登录');
+    }
+    return logeIn;//注意要从这个地方来返回true或者false
+  }
+}
+在app.routing路由配置文件中：
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'product', component: ProductComponent, canActivate: [LoginGuard]},
+  { path: '**', component: Code404Component}
+];
+在有权限的路由上加上canActivate: [LoginGuard] 然后一定要在修饰器中进行注册
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers: [LoginGuard]
+})
 2、CanDeactivate：处理从当前路由离开的情况。不满足则不能离开
 3、Resolve：在路由激活之前获取路由数据
 
