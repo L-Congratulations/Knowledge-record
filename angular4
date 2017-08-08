@@ -569,7 +569,11 @@ typescript编译成JavaScript内容如下：
     "node_modules"
   ]
 }
-
+再创建一个文件夹server
+为了减少开发的代码量，需要引入express框架：npm i express --save
+和node一样，我们也需要转express的类型定义文件以便我们可以使用typescript来开发 npm i @types/express --save
+然后安装一个node工具，npm i -g -nodemon 这个工具会监控node代码，当代码改变时会自动重启服务运行最新的代码
+之后启动服务器用nodemon build/auction_server.js来启动服务
 8.4.2、使用express创建restful的http服务
 8.4.3、如何健康服务器文件的变化
 
