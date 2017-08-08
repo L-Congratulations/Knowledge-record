@@ -553,6 +553,22 @@ css类绑定：
 8.4.1.1、首先新建一个新的文件夹server 并用npm初始化 npm init -y （-y参数会为我们创建一个包含默认配置的packge.json文件）
 8.4.1.2、我们使用typescript语言来开发我们的服务器。首先我们需要引入node的类型定义文件npm i @types/node --save
 类型文件的作用是为了让开发者在使用typescript开发中可以使用已有的js写成的库
+node本身是不认识typescript的，所以我们需要将typescript编译成JavaScript。我们需要写个配置文件tsconfig.json来告诉编译器如何将
+typescript编译成JavaScript内容如下：
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "build",
+    "lib": ["es6"]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
 
 8.4.2、使用express创建restful的http服务
 8.4.3、如何健康服务器文件的变化
