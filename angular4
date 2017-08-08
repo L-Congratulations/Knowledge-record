@@ -576,7 +576,9 @@ typescript编译成JavaScript内容如下：
 之后启动服务器用nodemon build/auction_server.js来启动服务
 8.4.2、使用express创建restful的http服务
 8.4.3、如何健康服务器文件的变化
-
+8.4.4、angular的http服务
+默认的情况下，angular的http服务采用响应式编程的方式来处理http请求
+在web中应该异步的去执行http请求，
 九、代码构建部署
 构建直接：ng build就能满足要求
 部署：在nodejs编写的服务器里面新建一个文件夹client。然后将ng build打包出来的代码拷贝进去。然后将读取的文件地址改为我们创建的client里面
