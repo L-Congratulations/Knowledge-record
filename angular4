@@ -385,6 +385,14 @@ export class StarsComponent implements OnInit {
 
 
 三、路由
+路由作用：改变页面内容。为每个视图提供一个唯一的url 以便用户可以根据URL跳转视图。
+需要在同一个区域根据路由不同显示不同内容的时候，那这个区域要使用插座来满足需求。通过封装父组件的方式来控制该区域内有若干个子组件的要求。
+在angular里主要提供了五个路由对象用来处理路由相关的功能：
+Routes：是app-routring.module.ts中的配置对象，用来指明路由的path和component
+RouterOutlet：在html中标记路由内容呈现位置的占位符指令。需要展现的内容会显示在RouterOutlet的后面<router-outlet></router-outlet>
+Router：和RouterLink一样是用来导航到一个指定的路由。不同的是Router是在控制器里面用的的通过调方法来实现导航。RouterLink是直接写在html里导航
+类比于a标签的作用。
+
 3.1、spa 主页面只加载一次，然后通过路由切换改变页面显示的内容
 3.2、路由基础：
 3.2.1、Routes：路由配置，保存着哪个URL对应展示哪个组件，以及在哪个RouterOutlet
@@ -399,8 +407,8 @@ const routes: Routes = [
 这里需要注意component后面的组件需要用import { HomeComponent } from './home/home.component';
 引入
 在路由的path参数中不能用斜线开头'/product'配置
-3.2.2、RouterOutlet：在html中标记路由内容呈现位置的占位符指令。
-需要展现的内容会显示在RouterOutlet的后面
+3.2.2、
+
 3.2.3、Router：负责在运行时执行路由的对象，可以通过调用其navgate（）和
 navgateByUrl（）方法来导航到一个指定的路由
 3.2.4、RouterLink：在html中声明路由导航用的指令
