@@ -391,8 +391,9 @@ export class StarsComponent implements OnInit {
 Routes：是app-routring.module.ts中的配置对象，用来指明路由的path和component
 RouterOutlet：在html中标记路由内容呈现位置的占位符指令。需要展现的内容会显示在RouterOutlet的后面<router-outlet></router-outlet>
 Router：和RouterLink一样是用来导航到一个指定的路由。不同的是Router是在控制器里面用的的通过调方法来实现导航。RouterLink是直接写在html里导航
-类比于a标签的作用。
-
+类比于a标签的作用。<a [routerLink]="['/']">主页</a>
+ActivatedRouter:当前激活的路由对象，保存着当前路由的信息，如路由地址，
+路由参数等
 3.1、spa 主页面只加载一次，然后通过路由切换改变页面显示的内容
 3.2、路由基础：
 3.2.1、Routes：路由配置，保存着哪个URL对应展示哪个组件，以及在哪个RouterOutlet
