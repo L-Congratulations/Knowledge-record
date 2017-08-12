@@ -628,4 +628,27 @@ typescript编译成JavaScript内容如下：
 此时页面不能刷新，要想能实现刷新，需要在 app.module.ts里面的providers里面添加一个{provide: .....}重新编译
 十、组件间通信
 黑盒模型：只需要了解接收到什么参数之后返回什么结果。
-输入属性：@Input()
+输入属性：@Input() 注意双方链接的桥梁是<app-first-child [pname]="sex"></app-first-child> 属性绑定是单向的，从父组件到子组件
+父组件html：
+<p>
+  first works!{{name}}
+  <input type="text" [(ngModel)]="name"> // 双向数据绑定到name
+  <app-first-child [pname]="name"></app-first-child>
+  <!--[pname]是在子组件中通过@input属性定义的一个存储变量pname-->
+  <!--"sex"对应父组件中定义的变量名，想给pname传什么值就对应将变量名填入-->
+  <!--这是链接父子组件的桥梁pname对应着子组件的变量 sex对应着父组件的变量-->
+</p>
+父组件js：
+export class FirstComponent implements OnInit {
+  sex: string;
+  name = ' ';
+
+  constructor() {
+    this.name = 'parentName';
+    this.sex = '女';
+  }
+
+  ngOnInit() {
+  }
+
+}
