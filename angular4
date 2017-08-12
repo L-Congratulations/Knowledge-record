@@ -658,3 +658,5 @@ export class FirstComponent implements OnInit {
 }
 10.2、输出属性
 注意：用特定的数据结构用类或接口来明确定义是一个很好的习惯
+
+10.3、中间人模式（非父子组件之间的信息传递）
