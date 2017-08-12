@@ -626,9 +626,13 @@ typescript编译成JavaScript内容如下：
 部署：在nodejs编写的服务器里面新建一个文件夹client。然后将ng build打包出来的代码拷贝进去。然后将读取的文件地址改为我们创建的client里面
 的index
 此时页面不能刷新，要想能实现刷新，需要在 app.module.ts里面的providers里面添加一个{provide: .....}重新编译
+
 十、组件间通信
+
 黑盒模型：只需要了解接收到什么参数之后返回什么结果。
-输入属性：@Input() 注意双方链接的桥梁是<app-first-child [pname]="sex"></app-first-child> 属性绑定是单向的，从父组件到子组件
+
+10.1、输入属性：@Input() 注意双方链接的桥梁是<app-first-child [pname]="sex"></app-first-child> 属性绑定是单向的，从父组件到子组件也就是子组件元素变化
+不会影响到父组件  只能是父子组件之间进行数据传递
 父组件html：
 <p>
   first works!{{name}}
@@ -652,3 +656,5 @@ export class FirstComponent implements OnInit {
   }
 
 }
+10.2、输出属性
+注意：用特定的数据结构用类或接口来明确定义是一个很好的习惯
