@@ -658,5 +658,77 @@ export class FirstComponent implements OnInit {
 }
 10.2、输出属性
 注意：用特定的数据结构用类或接口来明确定义是一个很好的习惯
+子组件js:EventEmitter这个类有多个声明，要选择angular/core这个里面的声明。他需要一个泛型如<number>
+用 @Output()注解之后在构造函数里面emit发射事件： this.change.emit(this.count);    // 在increaseNumber和descreaseNumber方法修改了count属性后，
+调用了change属性的emit方法通知父组件
+export class FirstChildComponent implements OnInit { 
+  @Output() change = new EventEmitter<number>();
+  // 使用装饰器@Output修饰了change属性，并为其赋了初值为EventEmitter的实例；
+  // count = 0; count变量可以直接在本地定义也可以从父组件获取
+  @Input() count: number;  
+  constructor() {}
+  increaseNum() {
+    this.count ++;
+    this.change.emit(this.count);
+    // 在increaseNumber和descreaseNumber方法修改了count属性后，
+    // 调用了change属性的emit方法通知父组件。
+  }
+  descreaseNum() {
+    this.count --;
+    this.change.emit(this.count);
+  }
+  ngOnInit() {
+  }
 
+}
+子组件html：
+<p>
+  Count:{{count}}
+  <!--{{name}}{{pname}}依旧只是对应着该组件中的name pname变量-->
+</p>
+<button (click)="increaseNum()">+</button>
+<button (click)="descreaseNum()">-</button>
+父组件js：
+export class FirstComponent implements OnInit { 
+  caseCount = 10;
+  // 定义并初始化一个变量用来接收从子组件传递过来的数据
+  constructor() {    
+  }
+  countChange($event) {
+    // 通过桥梁与子组件的chang建立联系，并把值此处的$event就相当于
+    // this.change.emit(this.count);中的this.count 并把传递过来的值保存到本组件中
+    this.caseCount = $event;
+  }
+  ngOnInit() {
+  }
+
+}
+父组件html：
+<p>
+  parentNum{{caseCount}}
+  <app-first-child [count]="caseCount" (change)="countChange($event)"></app-first-child>
+  <!--通过(change)="countChange($event)"把子组件的chang与父组件的countChange进行桥梁链接
+  $event接收的就是传递的数据--> 
+</p>
+-----------------------------------------------------------------------------------------------------------------------
+父组件监听子组件变化（子组件传递数据给父组件）：
+1、首先在子组件中借助@Output    change = new EventEmitter();初始化一个chang属性
+2、然后建立一个触发事件 
+increaseNum() {
+    this.count ++;
+    this.change.emit(this.count);
+    // 在increaseNumber和descreaseNumber方法修改了count属性后，
+    // 调用了change属性的emit方法通知父组件。
+ }
+通过chang属性的emit方法把想要传递的数据告诉父组件
+3、子组件父组件通过
+<app-first-child (change)="countChange($event)"></app-first-child>
+建立桥梁连接 此时父组件的countChange方法会接收到子组件传递的数据，数据就存储在$event参数中
+4、在父组件中处理取到的子组件数据
+caseCount = 10;  // 定义并初始化一个变量用来接收从子组件传递过来的数据
+countChange($event) {
+    // 通过桥梁与子组件的chang建立联系，并把值此处的$event就相当于
+    // this.change.emit(this.count);中的this.count 并把传递过来的值保存到本组件中
+    this.caseCount = $event;
+  }
 10.3、中间人模式（非父子组件之间的信息传递）
