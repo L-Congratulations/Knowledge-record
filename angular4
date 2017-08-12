@@ -626,3 +626,6 @@ typescript编译成JavaScript内容如下：
 部署：在nodejs编写的服务器里面新建一个文件夹client。然后将ng build打包出来的代码拷贝进去。然后将读取的文件地址改为我们创建的client里面
 的index
 此时页面不能刷新，要想能实现刷新，需要在 app.module.ts里面的providers里面添加一个{provide: .....}重新编译
+十、组件间通信
+黑盒模型：只需要了解接收到什么参数之后返回什么结果。
+输入属性：@Input()
