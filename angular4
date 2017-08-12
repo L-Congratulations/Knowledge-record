@@ -574,6 +574,15 @@ dataResource: Observable<any>; // 用来接收http返回来的数据
          有了这个配置文件之后需要告诉angular服务在启动的时候加上这个配置文件。打开packag.json在start配置项中添加：
          "start": "ng serve --proxy-config proxy.conf.json",
   配置好之后需要修改请求路径： this.dataResource = this.http.get('/api/products'),当然对应的服务端的地址也应该改为app.get("/api/products")
+  
+  发送请求头信息：
+   constructor(private http: Http) {
+    const myHeaders: Headers = new Headers();
+    myHeaders.append('Authorization', 'Basic 123456');
+    this.dataResource = this.http.get('/api/products', {headers: myHeaders})
+      .map((res) => res.json()); // 调用map方法需要引入import 'rxjs/Rx';
+  }
+  
 8.1、如何使用angular的API与服务器进行通信
 8.2、如何使用angular的http服务，创建并发送http请求。并且响应式的处理服务器端的返回
 8.3、如何通过websocke协议来与服务器通讯。在这主要学习如何从服务器向客户端推送数据
