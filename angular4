@@ -583,6 +583,10 @@ dataResource: Observable<any>; // 用来接收http返回来的数据
       .map((res) => res.json()); // 调用map方法需要引入import 'rxjs/Rx';
   }
   
+  
+  websocket通信：是一个长连接协议，不需要每次发送信息时都重新进行连接
+  在node.js中我们使用ws。首先安装ws的依赖库和类型定义文件npm i ws --save 然后安装ws的类型定义文件：npm i @types/ws --save-dev
+  
 8.1、如何使用angular的API与服务器进行通信
 8.2、如何使用angular的http服务，创建并发送http请求。并且响应式的处理服务器端的返回
 8.3、如何通过websocke协议来与服务器通讯。在这主要学习如何从服务器向客户端推送数据
