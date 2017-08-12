@@ -553,7 +553,27 @@ css类绑定：
 4、双向绑定
 
 八、与服务器通信
+angular的http服务：
+dataResource: Observable<any>; // 用来接收http返回来的数据
+  products: Array<any> = []; // 与html模板进行绑定
+  constructor(private http: Http) {
+    this.dataResource = this.http.get('/products')
+      .map((res) => res.json()); // 调用map方法需要引入import 'rxjs/Rx';
+  }
 
+  ngOnInit() {
+    this.dataResource.subscribe(
+      (data) => this.products = data
+    );
+  }
+  配置跨域：配置angular命令行告诉他服务发往的位置。
+  首先编写一个配置文件：在根目录下新建proxy.conf.json在里面编写
+  {"/api":{
+         "target":"http://localhost:8000" // 也就是当我请求的路径是/api开头的时候他会把请求转发到8000这个服务器上
+         }}
+         有了这个配置文件之后需要告诉angular服务在启动的时候加上这个配置文件。打开packag.json在start配置项中添加：
+         "start": "ng serve --proxy-config proxy.conf.json",
+  
 8.1、如何使用angular的API与服务器进行通信
 8.2、如何使用angular的http服务，创建并发送http请求。并且响应式的处理服务器端的返回
 8.3、如何通过websocke协议来与服务器通讯。在这主要学习如何从服务器向客户端推送数据
