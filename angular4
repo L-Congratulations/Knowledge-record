@@ -486,7 +486,7 @@ this.routeInfo.params.subscribe((params: Params) => {this.productId = params['id
 路由系统提供了一些钩子来控制进入离开路由。
 在这介绍三种路由守卫：
 1、CanActivate：处理导航到某路由情况。如果不满足则不能进入到指定路由
-首先新建一个guard文件，在里面新建一个.ts文件
+首先新建一个guard文件，在里面新建一个login.guard.ts文件
 然后在ts文件里写：
 import {CanActivate} from '@angular/router';
 /**
