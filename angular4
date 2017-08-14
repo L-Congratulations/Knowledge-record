@@ -239,6 +239,7 @@ point.__proto__.hasOwnProperty('toString') // true
 在constructor外面定义的toString是class类原型对象的属性（因为定义在Point类上），所以hasOwnProperty方法返回false。
 类的所有实例共享一个原型对象。
 区分：一个是类自己的，一个是类原型上的。
+constructor指向其构造函数
 -----------------------------------------------------------------------------------------------------------------------------
 
 2.2.2、typescript中的类
