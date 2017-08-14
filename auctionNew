@@ -1,0 +1,30 @@
+一、创建项目
+1.1、在命令行中：ng new auction --routing  运行ng serve 检查程序运行是否正常
+1.2、引入外部库：首先在当前项目中引入库npm i jquery --save   npm i bootstrap --save
+然后把库引入到项目中：在angular.cli.json文件中添加
+"styles": [
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
+      ],
+1.3、安装库的类型描述文件（将JavaScript所写的东西转化为typescript能识别的文件），这样typescript才能认识这些库中的代码。
+npm i @types/jquery --save-dev   npm i @types/bootstrap --save-dev
+
+二、项目开发
+
+2.1、项目架构分析（目的是为了开发可重用的组件，用组件化的思路思考）
+项目需要分成多少个组件开发：根据功能进行划分为若干个小的组件（在本项目中可划分：app组件，就是最外层的跟组件、导航栏组件、footer组件、搜索表单组件、
+轮播图组件、产品列表展示组件、星级评价组件）
+
+2.2、根据划分的组件使用angular命令行生成对应的组件：
+ng g component navbar  ng g component footer   ng g component search  ng g component carousel   ng g component product
+ng g component stars
+
+2.3、组件静态页面编写
+因为组件可以通过标签直接引用，所以编写的时候就是根据UI图中组件所在的位置给他进行定位
+然后就是写具体组件中的样式
+
+2.4、
