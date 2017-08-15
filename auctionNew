@@ -26,5 +26,18 @@ ng g component stars
 2.3、组件静态页面编写
 因为组件可以通过标签直接引用，所以编写的时候就是根据UI图中组件所在的位置给他进行定位
 然后就是写具体组件中的样式
+private starts: Array<boolean>;
+private products: Array<Product>;
+  constructor() { }
 
+  ngOnInit() {
+    this.products = [
+      new Product(1, '第一个商品', 1.88, 3.5, 'angular4.0', ['图书', '硬件设备'], '../../assets/imgs/3.png'),
+      new Product(2, '第二个商品', 2.88, 2.5, 'angular4.0', ['电子产品', '硬件设备'], '../../assets/imgs/1.png'),
+      new Product(3, '第三个商品', 3.88, 4.5, 'angular4.0', ['硬件设备'], '../../assets/imgs/2.png'),
+      new Product(4, '第四个商品', 4.88, 2.5, 'angular4.0', ['电子产品'], '../../assets/imgs/1.png'),
+      new Product(5, '第五个商品', 5.88, 1.5, 'angular4.0', ['图书'], '../../assets/imgs/2.png'),
+      new Product(6, '第六个商品', 6.88, 4.5, 'angular4.0', ['图书', '硬件设备'], '../../assets/imgs/3.png')
+    ];
+  }
 2.4、
