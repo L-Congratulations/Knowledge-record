@@ -77,3 +77,8 @@ const routes: Routes = [
 
 3.5、配合路由传递参数，在product.component.html中：
 <h4 class="pull-left"><a [routerLink]="['/product', product.title]">{{product.title}}</a></h4>来配合路由将title传递出去
+
+四、依赖注入
+
+4.1、编写produServes
+使用angular命令行在一个shared文件夹下创建一个服务：ng g service shared/product
