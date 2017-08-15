@@ -113,3 +113,6 @@ const routes: Routes = [
 注意，从路由中获取的参数是字符串，需要使用parseInt转化为整数，在使用parseInt转化为整数之后用===进行比较。在ts中parseInt的第二个参数不能省略。
 0代表10进制
 const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
+注意同一个class类可能会有很多个声明，要选择对应的声明
+
+五、响应式编程
