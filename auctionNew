@@ -98,4 +98,18 @@ const routes: Routes = [
   }
   4.2、将路由传商品名称改为传商品id，获取到商品id之后根据id调用服务中的数据
   4.3、注入服务并调用。
-  首先在使用服务之前要注册在！！模块！！的providers上
+  首先在使用服务之前要注册在！！模块！！的providers上 providers: [ProductService],
+  然后在需要使用服务的组件上注入：
+  export class ProductComponent implements OnInit {
+  private products: Array<Product>;
+  constructor(private productService: ProductService) { } // 在构造函数中注入服务
+
+  ngOnInit() {
+    this.products = this.productService.getProducts(); // 注入服务之后就可以调用服务中的函数
+  }
+
+}
+然后调用函数
+注意，从路由中获取的参数是字符串，需要使用parseInt转化为整数，在使用parseInt转化为整数之后用===进行比较。在ts中parseInt的第二个参数不能省略。
+0代表10进制
+const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
