@@ -40,4 +40,5 @@ private products: Array<Product>;
       new Product(6, '第六个商品', 6.88, 4.5, 'angular4.0', ['图书', '硬件设备'], '../../assets/imgs/3.png')
     ];
   }
+  <span *ngFor="let star of starts" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star"></span>
 2.4、
