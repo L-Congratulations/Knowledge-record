@@ -116,3 +116,6 @@ const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
 注意同一个class类可能会有很多个声明，要选择对应的声明
 
 五、响应式编程
+
+
+六、编写评论组件
