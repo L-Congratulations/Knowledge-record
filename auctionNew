@@ -41,4 +41,39 @@ private products: Array<Product>;
     ];
   }
   <span *ngFor="let star of starts" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star"></span>
-2.4、
+
+三、路由应用
+
+3.1、创建商品详情组件ng g component productDetail
+因为要从路由中获取到参数，所以需要在constructor中注入
+export class ProductDetailComponent implements OnInit {
+  private productTitle: string;
+  private productImg: string;
+  constructor(private routeInfo: ActivatedRoute) { } // 注入ActivatedRoute
+
+  ngOnInit() {
+    this.productTitle = this.routeInfo.snapshot.params['productTitle']; // 将从路由中获取到的
+    // 参数赋值给自己定义的变量。在这的配置是和路由中配置相匹配的
+    this.productImg = '../../assets/imgs/2.png';
+  }
+
+}
+
+3.2、定义一个home组件用来包含轮播和商品列表组件
+
+3.3、将app.component.html中原来放置轮播和列表的地方用插座替换
+<div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+注意：路由切换的是插座内的内容
+
+3.4、配置路由：根据路径的不同，切换插座内显示的内容
+const routes: Routes = [
+  {
+    path: '', component: HomeComponent,
+  },
+  {path: 'product/:productTitle', component: ProductDetailComponent}
+];
+
+3.5、配合路由传递参数，在product.component.html中：
+<h4 class="pull-left"><a [routerLink]="['/product', product.title]">{{product.title}}</a></h4>来配合路由将title传递出去
