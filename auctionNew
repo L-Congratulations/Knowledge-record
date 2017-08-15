@@ -80,5 +80,22 @@ const routes: Routes = [
 
 四、依赖注入
 
-4.1、编写produServes
-使用angular命令行在一个shared文件夹下创建一个服务：ng g service shared/product
+4.1、编写produServes,我们封装了一个服务将所有和商品信息和评论相关的东西进行了封装，可以在多个组件中进行复用
+使用angular命令行在一个shared文件夹下创建一个服务，因为这个服务会在多个组件中共享，所以单独拿到shared文件夹：ng g service shared/product
+
+数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，
+然后返回该成员。如果没有符合条件的成员，则返回undefined。[1, 4, -5, 10].find((n) => n < 0)
+
+函数的返回值也可以定义类型：
+ getProducrs() {
+    return this.products;
+  }
+  getProduct(id: number): Product { // 的返回值在这定义为了Product类型
+    return this.products.find((product) => product.id === id);
+  }
+  getCommentForProductId(id: number): Comment[] { // 注意这因为是用的是fillter返回的是所有符合要求的数据应该是个数组
+    return this.comments.filter((comment: Comment) => comment.productId === id);
+  }
+  4.2、将路由传商品名称改为传商品id，获取到商品id之后根据id调用服务中的数据
+  4.3、注入服务并调用。
+  首先在使用服务之前要注册在！！模块！！的providers上
