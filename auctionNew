@@ -119,3 +119,7 @@ const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
 
 
 六、编写评论组件
+6.1、首先要给星级组件添加点击事件，然后需要知道点击的是哪颗星星，所以需要传入一个脚标。
+<span *ngFor="let star of start; let i = index" class="glyphicon glyphicon-star"
+        [class.glyphicon-star-empty]="star" (click)="clickStar(i)"></span>
+ clickStar也生成了5次，比如点击第五个星星时，触发的函数式clickStar(5).给五颗星星添加了五个clickStar(i)函数，根据i的不同触发不同的函数
