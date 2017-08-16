@@ -133,7 +133,7 @@ const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
   
   4.2、星级评价分为两个状态，只读和可修改。
  隐藏需要定义一个变量，根据变量的布尔值来判断是否是只读，通过在angular中使用属性绑定来修改变量的布尔值，从而修改星级评价的属性
-private readonly = true;
+ @Input()  private readonly = true; // 因为需要通过属性绑定修改组件是否可读
 clickStar(index: number) {
     if (!this.readonly) {
       this.rating = index + 1;
@@ -141,4 +141,15 @@ clickStar(index: number) {
     }
   }
   4.3、评论组件
+  在新的评论中，我们做了两件事，一个是评级（几星），一个是评价
+默认星级为5星，评价内容为空：
+private newRating = 5;
+  private newComment = '';
   
+  然后在html中添加模板样式：
+  <app-stars [rating]="newRating" [readonly]="false"></app-stars>
+    <textarea ngModel="newComment"></textarea>
+    <button class="btn" (click)="addComment()">提交</button>
+    
+    添加addComment()函数。原理就是重新创建一个comment对象，然后将新对象添加到comments数组中
+    
