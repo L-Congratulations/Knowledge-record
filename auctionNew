@@ -191,3 +191,26 @@ this.newRating = 5;
  const sum = this.comments.reduce((sums, comments) => sums + comments.rating, 0);
     this.product.rating = sum / this.comments.length;
     {{rating | number:'1.0-2'}}
+
+五、http服务
+5.1、用node搭建简单的服务器：
+在项目同级目录下新建一个文件夹server 使用mpm init -y 初始化
+然后引入node的类型描述文件（让typescript写的代码node可以认识）npm i @types/node --save
+然后新建一个tsconfig.json来让typescript编译成JavaScript：
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "build",
+    "lib": ["es6"]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+可能还需要配置下webstrom
+5.2、安装express框架：
+npm i express --save 然后装express类型定义文件： npm i @types/express --save
