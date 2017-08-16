@@ -217,3 +217,4 @@ npm i express --save 然后装express类型定义文件： npm i @types/express 
 安装node热加载模块：npm i nodemon -g
 在server文件夹下新建一个文件auction_server.ts文件来编写服务
 启动服务：nodemon build/auction_server.js
+然后就是把客户端编写的数据拿到服务器。
