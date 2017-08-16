@@ -162,3 +162,8 @@ private newRating = 5;
    <app-stars [(rating)]="newRating" [readonly]="false"></app-stars>
    这时候评论组件中的rating变化也会影响到comments中rating的变化
    this.ratingChange.emit(this.rating);
+4.4、按钮控制评论组件的显示和隐藏
+首先定义一个变量，iscommenthidden=true，即默认是隐藏状态
+<button class="btn btn-success" (click)="isCommentHidden = !isCommentHidden"></button>
+    <div [hidden]="isCommentHidden">
+    然后通过事件绑定和属性绑定进行切换
