@@ -148,8 +148,11 @@ private newRating = 5;
   
   然后在html中添加模板样式：
   <app-stars [rating]="newRating" [readonly]="false"></app-stars>
-    <textarea ngModel="newComment"></textarea>
+    <textarea [(ngModel)]="newComment"></textarea>   // 使用双向绑定前要引入FormsModule才能正常使用
     <button class="btn" (click)="addComment()">提交</button>
     
     添加addComment()函数。原理就是重新创建一个comment对象，然后将新对象添加到comments数组中
-    
+    addComment() {
+    const comment = new Comment(0, this.product.id, new Date().toISOString(), 'someone', this.newRating, this.newComment);
+    this.comments.unshift(comment);
+  }
