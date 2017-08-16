@@ -167,3 +167,22 @@ private newRating = 5;
 <button class="btn btn-success" (click)="isCommentHidden = !isCommentHidden"></button>
     <div [hidden]="isCommentHidden">
     然后通过事件绑定和属性绑定进行切换
+4.5、表单初始化：
+this.newRating = 5;
+    this.newComment = null;
+    this.isCommentHidden = true;
+    此时虽然通过双向绑定初始了rating的值，但是并没有初始starts数组，因此想要初始化数组需要使用OnChanges
+    export class StarsComponent implements OnInit, OnChanges { // 注意这块要用逗号隔开 
+    ngOnChanges(changes: SimpleChanges): void {
+    this.stars = [];
+    for (let i = 1; i < 6; i++) {
+    this.stars.push(i > this.rating);
+    }
+  }
+  此时触发：
+  clickStar(index: number) {
+    if (!this.readonly) {
+      this.rating = index + 1;
+      this.ratingChange.emit(this.rating);
+    }
+  }里面的输入属性rating，就会触发ngOnChanges，从而更新视图
