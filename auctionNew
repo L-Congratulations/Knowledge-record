@@ -186,3 +186,8 @@ this.newRating = 5;
       this.ratingChange.emit(this.rating);
     }
   }里面的输入属性rating，就会触发ngOnChanges，从而更新视图
+4.7、计算所有评论的平均值：
+思路：当点击提交按钮的时候获取到所有的评论值，然后进行计算
+ const sum = this.comments.reduce((sums, comments) => sums + comments.rating, 0);
+    this.product.rating = sum / this.comments.length;
+    {{rating | number:'1.0-2'}}
