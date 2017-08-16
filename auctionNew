@@ -156,3 +156,9 @@ private newRating = 5;
     const comment = new Comment(0, this.product.id, new Date().toISOString(), 'someone', this.newRating, this.newComment);
     this.comments.unshift(comment);
   }
+  双向绑定星级评分：
+  @Input() rating: number;
+   @Output() ratingChange: EventEmitter<number> = new EventEmitter();
+   <app-stars [(rating)]="newRating" [readonly]="false"></app-stars>
+   这时候评论组件中的rating变化也会影响到comments中rating的变化
+   this.ratingChange.emit(this.rating);
