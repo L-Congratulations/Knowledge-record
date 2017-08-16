@@ -123,3 +123,22 @@ const productId = parseInt(this.routeInfo.snapshot.params['productId'], 0);
 <span *ngFor="let star of start; let i = index" class="glyphicon glyphicon-star"
         [class.glyphicon-star-empty]="star" (click)="clickStar(i)"></span>
  clickStar也生成了5次，比如点击第五个星星时，触发的函数式clickStar(5).给五颗星星添加了五个clickStar(i)函数，根据i的不同触发不同的函数
+ 
+ 当点击星星的时候触发函数：
+ clickStar(index: number) {
+    this.rating = index + 1;
+    this.ngOnInit(); // 调用类里面的函数也是通过this来调用
+  }
+  重置rating然后重新调用方法重置stars数组，从而刷新星星的组件。
+  
+  4.2、星级评价分为两个状态，只读和可修改。
+ 隐藏需要定义一个变量，根据变量的布尔值来判断是否是只读，通过在angular中使用属性绑定来修改变量的布尔值，从而修改星级评价的属性
+private readonly = true;
+clickStar(index: number) {
+    if (!this.readonly) {
+      this.rating = index + 1;
+      this.ngOnInit(); // 调用类里面的函数也是通过this来调用
+    }
+  }
+  4.3、评论组件
+  
