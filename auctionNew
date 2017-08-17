@@ -251,3 +251,27 @@ constructor(private http: Http) {
     this.dataSource = this.http.get('/products', {headers: myHeaders})
       .map((res) => res.json());
   }
+5.6、商品搜索功能实现：
+首先改造getProducts（）方法：
+原来的方法是：
+getProducts(): Product[] {return this.products;}
+现在因为要从服务器取数据，因此首先在构造函数中注入http服务，然后改造getProducts的返回值，现在不是返回一个Product数组而是返回Product数组的一个流：
+getProducts(): Observable<Product[]> {} 
+getProducts(): Observable<Product[]> {
+    return this.http.get('/api/products').map((res) => res.json());
+  }
+  getProduct(id: number): Observable<Product> {
+    return this.http.get('/api/product/' + id).map((res) => res.json());
+  }
+  
+  
+  在组件中：
+  this.productService.getProduct(productId).subscribe(
+      (product) => this.product = product
+      // 此时getProduct(productId)返回的就是从服务器请求过来的流，
+      // 然后用subscribe方法去订阅这个流。subscribe方法里第一个匿名函数的参数
+      // 就是流中的数据，用一个变量接受(product) => this.product = product
+    );
+    this.productService.getCommentForProductId(productId).subscribe(
+      (comments) => this.comments = comments
+    );
