@@ -244,3 +244,10 @@ constructor(private http: Http) {
   this.dataSource.subscribe(
       (data) => this.product
     )
+5.5、添加请求头信息：
+constructor(private http: Http) {
+    const myHeaders: Headers = new Headers();
+    myHeaders.append('Authorization', 'Basic 123456');
+    this.dataSource = this.http.get('/products', {headers: myHeaders})
+      .map((res) => res.json());
+  }
