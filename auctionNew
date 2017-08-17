@@ -219,3 +219,28 @@ npm i express --save 然后装express类型定义文件： npm i @types/express 
 启动服务：nodemon build/auction_server.js
 然后就是把客户端编写的数据拿到服务器。
 主要是类的定义和假数据
+5.4、编写http服务：
+每个方法都返回一个observable<response>（流），流中的数据类型是response。我们应该通过定义这个流来获取服务端响应的数据，或者错误信息。
+首先要定义一个变量用来接收http服务返回来的数据dataSource: Observable<any>;
+然后定义一个变量，用来和html模板进行数据绑定：product: Array<any>;
+然后在构造函数中注入http服务：（
+注意引入之前要检查app.module.ts中的
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpModule // 是否已经在这引入 
+  ],）
+在这引入之后在构造函数中引入：
+constructor(private http: Http) {
+因为get返回的是一个流，里面的元素是response，1接收的是一个json格式的数据，因此要对数据进行加工
+constructor(private http: Http) {
+    this.dataSource = this.http.get('/products')
+      .map((res) => res.json());
+  }
+  因为map方法是rxjs的，所以要引入rxjs
+  import 'rxjs/Rx';
+  此时dataSource里面存的就是http服务返回来的流，然后就是去订阅这个流：
+  this.dataSource.subscribe(
+      (data) => this.product
+    )
