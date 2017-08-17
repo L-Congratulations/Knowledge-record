@@ -5,3 +5,4 @@
 将系统变量里面的JAVA_HOME 的值改为：C:\Program Files (x86)\Java\jdk1.8.0_144（即java安装的默认路径）
 将系统变量里面的path的值添加值：%JAVA_HOME%\bin。配置完成后退出环境配置
 检查：java -version   javac -version 出现对应的版本号表示安装成功
+1.4、安装Android sdk 
