@@ -40,4 +40,7 @@ render:function(createElement) {
             )
         }
  
- 
+ 掌握一门框架：
+ 1、核心理念
+ 2、基本语法
+ 3、常用方法（数据传递，路由，http服务等）
