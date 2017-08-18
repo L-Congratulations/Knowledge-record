@@ -14,5 +14,30 @@
  3.1.2、组合的视图模型：
  
  3.2、虚拟dom：
- vue的模板（咱们写的代码）--》经过vue的编译生成一个渲染函数--》渲染函数通过render方法形成一个虚拟dom树（一个包含模板所有属性的对象）--》虚拟dom树经过
- 调用方法生成真正的dom节点
+ vue的模板（咱们写的代码）--》vue调用createElement渲染函数将vue模板进行解析--》通过render方法返回的结果就是虚拟dom树（一个包含模板所有属性的对象）--》
+ 虚拟dom树经过调用方法生成真正的dom节点。   当数据发生改变的时候新旧虚拟dom树会进行对比，然后只渲染改动的地方
+ 
+ 3.2、mvvm
+ m：数据模型  数据通过视图进行展示
+ v：视图模板
+ vm：视图模型  拿到数据之后通过vm将数据与视图进行绑定   当用户交互的时候通过vm监听事件与数据进行交互 视图和数据通过vm进行联系
+ 在vue中 new Vue（） 就是vm层
+ 
+ 四、模板
+ 4.1、html模板。就是正常写的html
+ 4.2、字符串模板：vue实例中的template。将一段字符串翻译成html代码。根节点只能有一个（如不能在字符串的最外层元素包含多个同级div）
+ 灵活的用法：将字符串放在一个类型为x-template的script标签内，在vue实例template属性上通过ID将字符串进行转义为html。放在哪？？？
+ 4.3、render函数：
+ 在vue实例中有一个render函数，有一个默认的参数createElement方法，在这个方法上进行
+render:function(createElement) {
+            return createElement(
+                'ul',
+                {},  // 属性写在对象里面，子元素写在数组里面，逐层嵌套
+                [
+                    createElement('li',1)
+                ]
+
+            )
+        }
+ 
+ 
