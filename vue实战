@@ -44,3 +44,8 @@ render:function(createElement) {
  1、核心理念
  2、基本语法
  3、常用方法（数据传递，路由，http服务等）
+
+
+
+五、指令：
+5.1、v-for
