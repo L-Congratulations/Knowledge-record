@@ -160,6 +160,7 @@ v-for 指令需要以 item in items 形式的特殊语法， items 是源数据�
 5.2、v-on：
 数据驱动：获取数据通过vue指令来获取，而不是通过dom的vue属性来获取
 通过双向数据绑定将dom中元素的值获取到，而不是通过dom的value属性来获取。
+简单的理解就是能用vue实现的就不用JavaScript实现
 <input v-module="todo">
 
 data{
@@ -168,7 +169,8 @@ todo:"",
 methods:{
             add(){
                 this.list.push({
-                    title:this.todo
-                })
+                    title:this.todo //通过双向数据绑定来获取值，
+                });
+                this.todo = '' // 事件完成之后制空input框
             }
         }
