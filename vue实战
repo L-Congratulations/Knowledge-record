@@ -7,6 +7,16 @@ cnpm install webpack -g
 安装vue脚手架
 npm install vue-cli -g 
 
+ 要创建项目，首先我们要选定目录，然后再命令行中把目录转到选定的目录。在这里，我选择桌面来存放新建的项目，则我们需要先把目录cd到桌面，
+  如下图。在桌面目录下，在命令行中运行命令 vue init webpack firstVue 。解释一下这个命令，这个命令的意思是初始化一个项目，其中
+  webpack是构建工具，也就是整个项目是基于webpack的。其中firstVue是整个项目文件夹的名称，这个文件夹会自动生成在你指定的目录中
+  （会有一些初始化的设置，如下输入:
+  Target directory exists. Continue? (Y/n)直接回车默认(然后会下载 vue2.0模板，这里可能需要连代理)
+  Project name (vue-test)直接回车默认
+  Project description (A Vue.js project) 直接回车默认
+  Author 写你自己的名字
+  
+  
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
 组件：
