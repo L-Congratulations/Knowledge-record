@@ -21,6 +21,11 @@ npm install vue-cli -g
   这里简单介绍下 npm run dev 命令，其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命
   令的一个快捷方式。
   
+  
+  v-for还能循环组件：
+  
+  
+  
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
 组件：
