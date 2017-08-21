@@ -35,7 +35,23 @@ npm install vue-cli -g
   }
   
   $emit方法定义自定义事件。
-  
+  -------------------------------------------------------------------------------------------------------------------------
+  vue表单：v-model来绑定表单
+  多选：
+  <input type="checkbox" v-model="check" value="apple1">
+    <input type="checkbox" v-model="check" value="apple2">
+    <input type="checkbox" v-model="check" value="apple3">
+    <input type="checkbox" v-model="check" value="apple4">
+    {{check}}
+  要在vue实例中声明check是一个数组：
+   data: {
+            check:[]
+        },
+  v-model支持三种修改器：
+  v-model.lazy="myvalue" // 用于在input框内内容完成时更新视图，而不是每次输入一个字母都更新
+  v-model.number // 将value值转为number类型，如果不加则默认是字符串
+  v-model.trim  // 去除视图和双向绑定的数据中的前后空格
+  ---------------------------------------------------------------------------------------------------------------------
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
 组件：
