@@ -1,7 +1,30 @@
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
+组件：
+在vue实例中有一个参数选项components
+ let vm = new Vue({
+        el:'#demo',
+        data:{
 
+        },
+        components:{
+            'my-header': myHeader // my-header是标签 myHeader是模板，而且myHeader本身也是一个vue的实例对象，所以可以像定义vue实例一样去定义
+            // myHeader里面的参数选项。
 
+        }
+    })
+let myHeader = {
+    template:'<p>{{myheader}} <my-header-child></my-header-child></p>',
+    data:function () { // 注意在组件中data是函数
+        return{
+            myheader:'this is header'
+        }
+    },
+    components:{
+        'my-header-child': myHeaderChild
+
+    }
+};
 核心就是充分利用数据绑定，充分利用数组，使用vue提供的方法将效果实现出来。
 数据驱动：获取数据通过vue指令来获取，而不是通过dom的value属性来获取。数据驱动精髓，就是通过定义vue数据来控制，而不是获取dom属性。一切都是以操作
 数据为目的，通过改变数据来让vue自动映射到视图
