@@ -23,8 +23,16 @@ npm install vue-cli -g
   
   
   v-for还能循环组件：
+  <componnentA v-for="(value, key) in objectList" :key='key'></componnentA>
   
-  
+  vue中的某些方法是可以直接触发视图更新的，但是有的方法不能触发视图更新。如果想实现的话可以调用vue的全局方法set方法：
+  methods:{
+      add(){
+        Vue.set(this.ObjectList,1,{ // 第一个参数是要改变的数组，第二个参数是改变的数组的位置，第三个参数是将要改变的内容
+            name:'bbb'
+          })
+      }
+  }
   
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
