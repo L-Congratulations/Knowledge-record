@@ -16,6 +16,10 @@ npm install vue-cli -g
   Project description (A Vue.js project) 直接回车默认
   Author 写你自己的名字
   
+   在项目目录中，运行命令 npm run dev ，会用热加载的方式运行我们的应用，热加载可以让我们在修改完代码后不用手动刷新浏览器就能实时
+  看到修改后的效果。
+  这里简单介绍下 npm run dev 命令，其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命
+  令的一个快捷方式。
   
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
