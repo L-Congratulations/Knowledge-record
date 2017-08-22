@@ -104,6 +104,13 @@ npm install vue-cli -g
     getchild(hello){
         console.log(hello)
     }
+    
+    插槽slot
+    
+    动态组件：就是用属性绑定的:is通过给他的值付不同的值来更换该位置需要渲染的组件：
+    <p :is="changecomment"></p>
+    changecomment:'coma'
+    当事件触发的时候通过改变changecomment的值来添加需要显示的组件。和路由相似，也支持<keep-alive></keep-alive>
  ---------------------------------------------------------------------------------------------------------------------------
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
