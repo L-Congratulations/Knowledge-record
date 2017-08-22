@@ -84,6 +84,26 @@ npm install vue-cli -g
  用props接收到的数据和data中声明的一样,所以也没有必要再去data里面声明一遍。在vue中属性大小写不敏感，尽量不要使用驼峰方式。
  在props中使用驼峰方式命名的属性在html结构中需要使用-加小写字母的方式进行转化。
  props也可以接收对象
+ 
+ <input type="text" v-model="myval">
+  <com-a :myvalue="myval"></com-a> // 这里要用属性绑定:myvalue才能将myval变量正确赋值，否则只是一个字符串。在这:myvalue中的myvalue是子组件中的
+  属性名。
+  
+  子组件向父组件传递数据：
+  通过事件触发。
+  在子组件中定义一个传递数据的事件：<button @click="emit"></button>
+  然后在methods中定义emit方法：
+  emit(){
+      this.emit('myevent',this.hello) // myevent是自定义事件，用来
+      // 进行事件传递的，this.hello就是需要传的参数
+    }
+    
+    在父组件中，通过标签作为桥梁：
+    <com-a :myval="myval" @myevent="getchild"></com-a>  使用事件绑定 @myevent将子组件的事件获取到 myevent是在子组件中emit方法中定义的
+    自定义事件，当自定义事件被触发的时候调用getchild方法。在调用getchild的时候传入的参数就是在子组件中想要传入的数据：
+    getchild(hello){
+        console.log(hello)
+    }
  ---------------------------------------------------------------------------------------------------------------------------
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
