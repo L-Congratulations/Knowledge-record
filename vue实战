@@ -111,7 +111,28 @@ npm install vue-cli -g
     <p :is="changecomment"></p>
     changecomment:'coma'
     当事件触发的时候通过改变changecomment的值来添加需要显示的组件。和路由相似，也支持<keep-alive></keep-alive>
+    
  ---------------------------------------------------------------------------------------------------------------------------
+ vue-router:
+ 路由传参
+ 在router文件夹的index.js的router实例中添加参数选项：
+ export default new Router({
+  mode:'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    }
+  ]
+})
+就可以去除掉路由中的哈希值#
+用routerlingk进行页面内跳转：
+ <router-link :to="{path:'apple'}"></router-link>
+ ---------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 
 vue的三个功能：模板渲染、模块化、扩展功能（路由，ajax）
 
 组件：
