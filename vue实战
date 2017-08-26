@@ -1,3 +1,50 @@
+vue打包：
+
+------------------------------------------------------------------------------------------------------------------------
+vue缓存：
+
+------------------------------------------------------------------------------------------------------------------------
+vue按需加载：
+//懒加载路由  
+const routes = [  
+  {          //当首次进入页面时，页面没有显示任何组件；让页面一加载进来就默认显示first页面  
+    path:'/',   //重定向，就是给它重新指定一个方向，加载一个组件；  
+    component:resolve => require(['@/components/First'],resolve)  
+  },  
+  {  
+    path:'/first',  
+    component:resolve => require(['@/components/First'],resolve)  
+  },  
+  {  
+    path:'/second',  
+    component: resolve => require(['@/components/Second'],resolve)  
+  }  
+//这里require组件路径根据自己的配置引入  
+]  
+------------------------------------------------------------------------------------------------------------------------
+vue权限控制：
+http://www.cnblogs.com/yeziTesting/p/7189731.html
+https://juejin.im/post/59097cd7a22b9d0065fb61d2
+------------------------------------------------------------------------------------------------------------------------
+axios高并发处理：
+function getUserAccount(){
+  return axios.get('/user/12345');
+}
+function getUserPermissions(){
+  return axios.get('/user/12345/permissions');
+}
+axios.all([getUserAccount(),getUserPermissions()])
+  .then(axios.spread(function(acct,perms){
+    //当这两个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
+  }))
+  
+  //iterable是一个可以迭代的参数如数组等
+axios.all(iterable)
+//callback要等到所有请求都完成才会执行
+axios.spread(callback)
+详细教程：
+http://www.jianshu.com/p/df464b26ae58
+----------------------------------------------------------------------------------------------------------------------
 
 大家都知道国内直接使用 npm 的官方镜像是非常慢的，这里推荐使用淘宝 NPM 镜像。
 npm install -g cnpm --registry=https://registry.npm.taobao.org
