@@ -221,7 +221,7 @@ npm install vue-cli -g
   routes: [
     {
       path: '/',
-      name: 'Hello',
+      name: 'apple',
       component: Hello,
       children:[
       {
@@ -231,6 +231,14 @@ npm install vue-cli -g
       ]
     }
   ]
+  
+  具名路由：
+  在路由配置的时候给他一个name属性。
+  在使用routerLink访问的时候通过name来访问：<router-link :to="{name:'apple'}"></router-link>
+  
+  如果想把routerLink渲染成一个li而不是一个a标签，可以使用tag属性<router-link :to="{name:'apple'}" tag='li'></router-link>
+  
+  
  ---------------------------------------------------------------------------------------------------------------------------
  vue的状态管理：vuex
  在完整项目中有时候组件会共享一个状态，比如用户的登陆状态。比如一个购物车在多个地方使用。当我改变头部的购物车信息的时候其他地方的购物车也
