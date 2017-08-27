@@ -206,12 +206,31 @@ npm install vue-cli -g
 })
 就可以去除掉路由中的哈希值#
 用routerlingk进行页面内跳转：
- <router-link :to="{path:'apple'}"></router-link>
+ <router-link :to="{path:'apple'}"></router-link> // 如果只是一个简单的页面跳转只需要使用to='/apple'传递一个路径的字符串就行，如果想在
+ routerlingk里面的to参数传递一个对象，那么就需要使用属性绑定:to，此时:to也可以双向绑定vue实例中的一个属性。
+ 在routerLink里面传参：
+ <router-link :to="{path:'apple',param:{color:'yellow'}}"></router-link> 
  
  路由传参：
  path: '/apple/:color',
  使用this.$route.params 获取到路由参数
  {{$$route.params.color}}
+ 
+ 嵌套路由：
+ 子组件只会渲染到父组件内，不会渲染到根节点。因此需要在父组件里面添加<router-view></router-view>
+  routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello,
+      children:[
+      {
+        path:'red',  // 因为不是根节点所以这不加/
+        component:'redApple'
+      }
+      ]
+    }
+  ]
  ---------------------------------------------------------------------------------------------------------------------------
  vue的状态管理：vuex
  在完整项目中有时候组件会共享一个状态，比如用户的登陆状态。比如一个购物车在多个地方使用。当我改变头部的购物车信息的时候其他地方的购物车也
