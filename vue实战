@@ -4,8 +4,25 @@ http://www.jianshu.com/p/25d797b983cd   Cordova打包Vue项目Android
 C:\Users\ls-pc\AppData\Local\Android\sdk\platforms
 百度下载安装sdk。
 cordova@6.0.0
-jdk 1.8
+http://cordova.apache.org/docs/en/latest/reference/cordova-cli/index.html#syntax // cordova官网
+1.jdk.1.8
 
+2.android_SDK.
+
+2.安装这两个，并配置环境变量
+安装ant：官网下载http://ant.apache.org。然后解压。并配置环境变量：
+ANT_HOME    C:/ apache-ant-1.8.1
+
+path             C:/ apache-ant-1.8.1/bin
+
+classpath      C:/apache-ant-1.8.1/lib
+检测安装是否成功：输入如下命令：ant
+
+如果出现如下内容，说明安装成功：
+
+Buildfile: build.xml does not exist!
+
+Build failed
 ------------------------------------------------------------------------------------------------------------------------
 vue缓存：
 
