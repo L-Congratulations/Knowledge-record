@@ -1,1 +1,7 @@
 一、安装：
+npm install -g reacr-native-cli
+安装androidstutio
+
+二、创建第一个项目：
+在命令行中：react-native init firstapp
+打开android模拟器或者连上android设备。在命令行中：react-native run-android 运行第一个reactnative项目
