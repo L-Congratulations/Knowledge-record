@@ -15,7 +15,7 @@ npm install -g create-react-app
 let HelloMessage = React.createClass ({
     render:function () {
         return(
-            <h1>Hello world</h1>
+            <h1>Hello world</h1> // 意组件类只能包含一个顶层标签，否则也会报错。
         )
     }
 })
@@ -24,3 +24,17 @@ ReactDOM.render(<HelloMessage/>, document.querySelector('#root1'));
 
 React.createClass 方法用于生成一个组件类 HelloMessage。
 <HelloMessage /> 实例组件类并输出信息。
+3.2、组件属性
+注意，在添加属性时， class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
+如果我们需要向组件传递参数，可以使用 this.props 对象,实例如下：
+var HelloMessage = React.createClass({
+  render: function() {
+    return <h1>Hello {this.props.name}</h1>;
+  }
+});
+ 
+ReactDOM.render(
+  <HelloMessage name="Runoob" />,
+  document.getElementById('example')
+);
+以上实例中 name 属性通过 this.props.name 来获取。
