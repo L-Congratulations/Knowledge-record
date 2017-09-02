@@ -24,6 +24,7 @@ ReactDOM.render(<HelloMessage/>, document.querySelector('#root1'));
 
 React.createClass 方法用于生成一个组件类 HelloMessage。
 <HelloMessage /> 实例组件类并输出信息。
+
 3.2、组件属性
 注意，在添加属性时， class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
 如果我们需要向组件传递参数，可以使用 this.props 对象,实例如下：
@@ -38,3 +39,38 @@ ReactDOM.render(
   document.getElementById('example')
 );
 以上实例中 name 属性通过 this.props.name 来获取。
+
+3.3、复合组件：
+我们可以通过创建多个组件来合成一个组件，即把组件的不同功能点进行分离。
+let Name = React.createClass({
+    render:function () {
+        return(
+            <h2>{this.props.name}</h2>
+        )
+    }
+});
+
+let Link = React.createClass({
+    render:function () {
+        return(
+            <a href={this.props.site}>{this.props.site}</a>
+        )
+    }
+});
+
+let Web = React.createClass({
+    render:function () {
+        return(
+            <div>
+                <Name name={this.props.name} />
+                <Link site={this.props.site} />
+            </div>
+
+        )
+    }
+});
+ReactDOM.render(<Web name="菜鸟教程" site="http://www.runoob.com"/>,document.querySelector('#root2'));
+
+3.4、React State(状态)
+React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。
+React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
