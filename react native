@@ -109,3 +109,27 @@ if (tipE.style.display === 'none'){
             tipE.style.display = 'none'
         }
         <span ref='tip'>测试内容</span>
+        
+onChang事件：
+let TestInputComponent = React.createClass({
+    handleChange:function (event) {
+        this.setState({
+            inputContent:event.target.value
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    getInitialState:function () {
+      return {
+          inputContent:''
+      }
+    },
+    render:function () {
+        return(
+            <div>
+                <input onChange={this.handleChange} type="text" />
+                <span>{this.state.inputContent}</span>
+            </div>
+        )
+    }
+})
