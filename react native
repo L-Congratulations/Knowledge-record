@@ -89,6 +89,10 @@ unmounted：已经渲染好的component被从dom结构中移除的过程。  //�
 之后的时间节点。我们在实际开发中很少调用updating和unmounting的钩子函数，因此重点了解记住mounting中所包含的钩子函数：
 
 
+state和props区别？？？？？
+
+
+
 
 3.5.2、updating、和unmounting两个状态，里面的钩子函数在实际工作中很少用到。先不去重点了解。
 
