@@ -10,6 +10,7 @@ npm install -g reacr-native-cli
 安装react脚手架工具：
 npm install -g create-react-app
 
+启动react：npm start
 3.1、创建组件：
 调用react的createClass的方法来创建一个组件。组件首字母要大写。
 let HelloMessage = React.createClass ({
@@ -83,4 +84,10 @@ update：已经渲染好的组件被重新render的过程。dom结构不一定�
 unmounted：已经渲染好的component被从dom结构中移除的过程。  //将渲染过的dom移除    
 
 每一个状态react都封装了对应的钩子函数
-3.5.1、
+3.5.1、mounting中的钩子函数：（在第一次将代码渲染成dom的整个生命周期中）
+每个状态里面都包含will和did（除了unmounting，他只包含移除dom节点之前的状态，节点移除之后就结束了）。will是进入该状态前的时间节点，did是该状态结束
+之后的时间节点。我们在实际开发中很少调用updating和unmounting的钩子函数，因此重点了解记住mounting中所包含的钩子函数：
+
+
+
+3.5.2、updating、和unmounting两个状态，里面的钩子函数在实际工作中很少用到。先不去重点了解。
