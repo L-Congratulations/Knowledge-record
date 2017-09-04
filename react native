@@ -74,3 +74,13 @@ ReactDOM.render(<Web name="菜鸟教程" site="http://www.runoob.com"/>,document
 3.4、React State(状态)
 React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。
 React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+
+3.5、组件声明周期
+react components整个声明周期在浏览器中存在的三个状态
+mounted：react component 被render解析生成对应的dom节点，并插入浏览器的dom结构的一个过程。// 把代码解析并插入浏览器dom结构，从无到有的完整过程。
+update：已经渲染好的组件被重新render的过程。dom结构不一定会发生改变，react会比较新旧state，只有state确实发生改变并且影响到dom结构的时候才去改变
+        对应的dom结构。   // 第二次渲染
+unmounted：已经渲染好的component被从dom结构中移除的过程。  //将渲染过的dom移除    
+
+每一个状态react都封装了对应的钩子函数
+3.5.1、
