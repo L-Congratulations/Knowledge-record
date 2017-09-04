@@ -145,3 +145,4 @@ let TestInputComponent = React.createClass({
 5.3、在npm安装文件时--save和--save-dev的区别：
 --save安装的文件是开发和上线都需要依赖的文件如react.js
 --save-dev安装的是在开发的时候所需要依赖的工具，在上线之后是不需要的，如webpack。
+而node_moduls中的文件也是开发时需要的文件和需要文件依赖的一系列文件，在打包上线时也是不需要的
