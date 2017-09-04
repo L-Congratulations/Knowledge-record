@@ -97,3 +97,15 @@ state和props区别？？？？？
 3.5.2、updating、和unmounting两个状态，里面的钩子函数在实际工作中很少用到。先不去重点了解。
 
 3.6、react事件监听：
+react通过onClick，onChang等驼峰式命名来绑定事件：<button onClick={this.handleClick}>显示|隐藏</button>
+
+拿到render函数中的某个标签：通过给标签定义一个ref属性，来给子组件起一个名字，然后通过this.refs.name来索引到子组件
+<span ref='tip'>测试内容</span>   console.log(this.refs.tip) 通过这种方式拿到的是render函数中的节点，
+要想操作真实的dom还需要使用react提供的let tipE = ReactDOM.findDOMNode(this.refs.tip);
+然后就可以操作
+if (tipE.style.display === 'none'){
+            tipE.style.display = 'inline'
+        }else {
+            tipE.style.display = 'none'
+        }
+        <span ref='tip'>测试内容</span>
