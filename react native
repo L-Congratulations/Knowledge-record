@@ -142,4 +142,6 @@ let TestInputComponent = React.createClass({
 5.2、在工作中做一些项目的时候，应该在项目根目录下新建一个文件夹docs，在文件夹里面新建一个README.md文件，来记录项目中的一些东西。
 软件三要素：程序、数据、文档
 
-5.3、
+5.3、在npm安装文件时--save和--save-dev的区别：
+--save安装的文件是开发和上线都需要依赖的文件如react.js
+--save-dev安装的是在开发的时候所需要依赖的工具，在上线之后是不需要的，如webpack。
