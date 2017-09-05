@@ -198,3 +198,21 @@ componentWillUnmount:function () {
     
 六、react性能优化
 6.1、性能检测
+首先安装检测工具：npm install react-addons-perf --save
+然后在src下的入口文件index.jsx里面写入如下代码：
+import Perf from 'react-addons-perf'
+if(__DEV__){
+window.Pref = Pref
+}
+然后将程序运行起来，在浏览器console窗口输入Perf.start(),操作页面内的交互操作完成后再console窗口输入Perf.stop()再输入Pref.printWasted()
+就会打出操作的每一步所使用的时间。
+判断依据：如果每次操作的时间在十几毫秒之内就不需要再去优化
+
+6.2、PureRenderMixin优化：该方法可以去判断是否需要react重新渲染，避免了重新渲染浪费时间
+react最基本的优化方式是使用PureRenderMixin，安装工具：
+npm i react-addons-pure-render-mixin --save
+然后在组件中使用,在创建组件时候加入：
+constructor(props,context){
+this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+}
+在组件重新render的时候调用该方法去判断该组件是否真的需要重新render
