@@ -154,3 +154,11 @@ let TestInputComponent = React.createClass({
 src下新建components文件夹，（存放共用的组件，通用的组件，不是专属于某个页面的组件）里面存放的是组件，如Header文件夹。
 Header文件夹下有一个index.jsx文件是入口文件
 
+5.5、props
+组件标签中：<Web name="菜鸟教程" site="http://www.runoob.com"/> // 在定义的属性中不仅可以传递字符串也可以传递其他，如对象：
+var obj={a:'sss',b:'ddd'}
+<Web name="菜鸟教程" site={obj}/>
+<a href={this.props.site}>{this.props.site.a}</a>
+在组件实例中：<a href={this.props.site}>{this.props.site}</a>
+在定义组件实例中可以通过this.props..来获取标签中的属性
+
