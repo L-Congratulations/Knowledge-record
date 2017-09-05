@@ -153,3 +153,4 @@ let TestInputComponent = React.createClass({
 就需要把页面进行拆分，放到一个与index同级目录下的subpage文件夹里面。该文件夹下的子页面是只属于该页面的。不与其他页面共有。
 src下新建components文件夹，（存放共用的组件，通用的组件，不是专属于某个页面的组件）里面存放的是组件，如Header文件夹。
 Header文件夹下有一个index.jsx文件是入口文件
+
