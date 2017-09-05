@@ -161,4 +161,18 @@ var obj={a:'sss',b:'ddd'}
 <a href={this.props.site}>{this.props.site.a}</a>
 在组件实例中：<a href={this.props.site}>{this.props.site}</a>
 在定义组件实例中可以通过this.props..来获取标签中的属性
-react中，props一般只作为父组件给子组件传递数据用。
+react中，props一般只作为父组件给子组件传递数据用。不要试图去修改props。定义好了之后只能去引用，不能在子组件中去修改props的值。
+
+5.6、state
+如果组件内部自身的属性发生变化，需要用state
+react会实时监听每个组件的props和state值，一旦变化会立刻更新组件，将结果重新渲染到页面上。
+改变sate必须要调用setState()方法。不能直接赋值。
+
+5.7、智能组件和木偶组件
+在src目录下：
+containers文件里面装的是页面。是智能组件，接受数据并处理，然后把结果下发到木偶组件去执行
+components文件夹里面装的是组件。是木偶组件，被动接收，不关心操作的具体内容。在组件里面不允许有数据调用（ajax），为了在别的地方调用的时候不会发生冲突，
+尽量降低耦合度，提高组件的复用性。
+
+5.8、常用声明周期
+
