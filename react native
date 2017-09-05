@@ -175,4 +175,26 @@ components文件夹里面装的是组件。是木偶组件，被动接收，不�
 尽量降低耦合度，提高组件的复用性。
 
 5.8、常用声明周期
-
+在render函数中渲染数组：
+<ul>
+                    arr.length === 0
+                    ? <p>loading...</p>
+                    : {arr.map(function (item,index) { return})}
+                </ul>
+页面在初次渲染的时候是直接渲染的loading。。。，因为数据请求是异步的，在渲染的时候数据还没请求回来。
+数据请求是在页面渲染完了之后请求的，也就是在钩子函数componentDidMount()中进行请求的。
+ajax请求完成之后通过setState()方法来修改arr的值，然后react会再次触发视图更新渲染视图，将数据渲染到dom
+ componentDidMount:function () {
+        // ajax请求
+        // setState
+    }
+componentDidUpdate:function () {
+        // 组件重新渲染完毕之后的钩子一般用来清空并更新数据。实际开发项目时会经常用到
+    }
+componentWillUnmount:function () {
+        // 组件销毁前的钩子，一般用于存储一些特殊信息，清理setTimeout事件等
+    }
+    
+    
+六、react性能优化
+6.1、性能检测
