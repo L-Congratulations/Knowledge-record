@@ -211,8 +211,33 @@ window.Pref = Pref
 6.2、PureRenderMixin优化：该方法可以去判断是否需要react重新渲染，避免了重新渲染浪费时间
 react最基本的优化方式是使用PureRenderMixin，安装工具：
 npm i react-addons-pure-render-mixin --save
-然后在组件中使用,在创建组件时候加入：
+然后在组件中使用,在创建组件时候加入（每个组件都需要这样做）：
 constructor(props,context){
 this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 }
 在组件重新render的时候调用该方法去判断该组件是否真的需要重新render
+
+6.3、immutable.js优化
+React终极优化是使用immutable.js来处理数据。
+当我们组件的props和state中的数据结构层次不深的时候，就没有必要使用它。如果数据结构
+层次很深（如：obj.x.y.a.b=10），就需要考虑使用。
+不轻易使用是因为immutable定义了一种新的操作数据的语法，和js数据操作完全不一样，如果每个地方都
+都这样用，学习成本和风险很高
+
+七、react-router
+7.1、首先安装react-router ：npm install react-router --save
+
+
+八、reducx
+8.1、安装：npm i redux --save
+在react中使用redux肯定会用到react-redux这一工具，因此还需要安装：
+mpm i react-redux --save
+
+步骤：
+定制规则
+根据规则生成store
+订阅数据，及state变化之后的派发规则。通过 store.getState()拿到store中state数据
+触发数据变化，通过store.dispath()来修改store中的数据
+
+8.2、react和redux集成
+
