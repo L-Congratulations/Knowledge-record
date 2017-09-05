@@ -161,4 +161,4 @@ var obj={a:'sss',b:'ddd'}
 <a href={this.props.site}>{this.props.site.a}</a>
 在组件实例中：<a href={this.props.site}>{this.props.site}</a>
 在定义组件实例中可以通过this.props..来获取标签中的属性
-
+react中，props一般只作为父组件给子组件传递数据用。
